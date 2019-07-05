@@ -1,0 +1,19 @@
+LOGOWANIE:
+wpisywanie loginu i hasła → autoryzacja - eknan logowania gdzie podajemy login i hasło -> sprawdzamy czy podane wartości zgadzają
+się z tymi w bazie danych i jeśli tak to przechodzimy do ekranu startowego (ukrywając i blokują dostęp do niektórych funkcjonalności
+dla odczytanej roli=pracownik[dla adminnistratora nie ukrywamy żadnych])
+
+PANEL UŻYTKOWNIKA:
+wczytywanie bazy samochodów - wczytanie wszystkich danych z bazy 
+sortowanie elementów po atrybutach
+wyszukiwanie według zadanych kryteriów
+dodawanie nowego elementu (wraz z walidacją danych)
+uzupełnianie 
+
+
+PANEL ADMINISTRATORA (rozszerzony panel użytkownika):
+usuwanie elementów
+
+dodanie nowego użytkownika (imię, nazwisko, login, hasło, rola)
+edycja konta użytkownika (w tym zmiana hasła)
+dezaktywowanie konta użytkownika
