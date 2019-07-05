@@ -23,7 +23,7 @@ import com.javasampleapproach.springrest.postgresql.repo.CustomerRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("")
 public class CustomerController {
 
 	@Autowired

@@ -22,18 +22,17 @@ import com.javasampleapproach.springrest.postgresql.repo.CarRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
 
 public class CarController {
 	@Autowired
-	CarRepository repository;
+	CarRepository carrepository;
 
 	@GetMapping("/car")
 	public List<Car> getAllCars() {
 		System.out.println("Get all Cars...");
 
 		List<Car> cars = new ArrayList<>();
-		repository.findAll().forEach(cars::add);
+		carrepository.findAll().forEach(cars::add);
 
 		return cars;
 	}
@@ -66,7 +65,7 @@ public class CarController {
 	@GetMapping(value = "car/capacity/{capacity}")
 	public List<Car> findByCapacity(@PathVariable double capacity) {
 
-		List<Car> cars = repository.findByCapacity(capacity);
+		List<Car> cars = carrepository.findByCapacity(capacity);
 		return cars;
 	}
 //
