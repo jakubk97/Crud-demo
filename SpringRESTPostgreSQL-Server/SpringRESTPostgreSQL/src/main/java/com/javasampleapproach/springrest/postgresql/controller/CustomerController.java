@@ -66,7 +66,6 @@ public class CustomerController {
 
 	@GetMapping(value = "customers/age/{age}")
 	public List<Customer> findByAge(@PathVariable int age) {
-
 		List<Customer> customers = repository.findByAge(age);
 		return customers;
 	}

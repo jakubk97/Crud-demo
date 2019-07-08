@@ -2,9 +2,11 @@ C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringR
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\model\User.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\repo\CarRepository.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\controller\CarController.java
+C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\repo\ManufacturerRepository.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\controller\CustomerController.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\SpringRestPostgreSqlApplication.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\repo\UserRepository.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\model\Customer.java
+C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\model\Manufacturer.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\repo\CustomerRepository.java
 C:\Users\jkarmans\Documents\GitHub\Crud-demo\SpringRESTPostgreSQL-Server\SpringRESTPostgreSQL\src\main\java\com\javasampleapproach\springrest\postgresql\controller\UserController.java

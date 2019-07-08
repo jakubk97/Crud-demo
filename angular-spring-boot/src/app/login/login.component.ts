@@ -12,6 +12,9 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
   logging = false;
+  login:string;
+  password:string;
+  
 
   constructor(private userservice: UserService) { }
 
@@ -23,13 +26,16 @@ export class LoginComponent implements OnInit {
     this.user = new User();
   }
 
-  login() {
-    //this.userservice.loggin(this.user).subscribe(data => console.log(data), error => console.log(error));
-    this.user = new User();
-  }
-
   onLogin() {
     this.logging = true;
-    this.login();
+    this.userservice.getUsersBylastName("kar").subscribe(user => this.user = user);
+    this.userservice.loggin(this.user.login,this.user.password).subscribe(user => this.user = user);
+    this.userservice.loggin2();
+
+    
   }
+
+
+
+
 }

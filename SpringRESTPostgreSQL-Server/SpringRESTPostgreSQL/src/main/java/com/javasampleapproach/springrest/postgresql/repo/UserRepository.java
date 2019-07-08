@@ -8,4 +8,6 @@ import com.javasampleapproach.springrest.postgresql.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findBylastname(String lastname);
+	
+	List<User> findBylogin(String login);
 }

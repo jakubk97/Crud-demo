@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.javasampleapproach.springrest.postgresql.model.Customer;
 import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
 
@@ -41,7 +42,42 @@ public class UserController {
 	public List<User> findBylastname(@PathVariable String lastname) {
 
 		List<User> users = userrepository.findBylastname(lastname);
+		System.out.println("Searching aaaaaaaa");
 		return users;
 	}
+	
+	
+	@PutMapping("/login")
+	public ResponseEntity<User> loggin(@RequestBody User user) {
+		System.out.println("Searching for data to loggin");
+
+		List<User> userDatalogin = userrepository.findBylogin(user.getLogin());
+		User _user = userDatalogin.get(0);
+		if(_user.getPassword()==user.getPassword()) {
+			System.out.println("Succes");
+			return new ResponseEntity<>(userrepository.save(_user),HttpStatus.OK);
+		}
+		else {
+			System.out.println("Failture");
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+//	@PutMapping("/customers/{id}")
+//	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
+//		System.out.println("Update Customer with ID = " + id + "...");
+//
+//		Optional<Customer> customerData = repository.findById(id);
+//
+//		if (customerData.isPresent()) {
+//			Customer _customer = customerData.get();
+//			_customer.setName(customer.getName());
+//			_customer.setAge(customer.getAge());
+//			_customer.setActive(customer.isActive());
+//			return new ResponseEntity<>(repository.save(_customer), HttpStatus.OK);
+//		} else {
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		}
+//	}
 
 }

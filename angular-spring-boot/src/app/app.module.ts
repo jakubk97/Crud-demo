@@ -16,6 +16,7 @@ import { CarsSearchComponent } from './cars-search/cars-search.component';
 import { CarsEditComponent } from './cars-edit/cars-edit.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
+import { CarsDetailsComponent } from './cars-details/cars-details.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
     SearchCustomersComponent,
     StartComponent,
     LoginComponent,
+    CarsDetailsComponent,
     CarsListComponent,
     CarsSearchComponent,
     CarsEditComponent,

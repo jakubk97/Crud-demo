@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.javasampleapproach.springrest.postgresql.model.Car;
 import com.javasampleapproach.springrest.postgresql.repo.CarRepository;
+import com.javasampleapproach.springrest.postgresql.model.Manufacturer;
+import com.javasampleapproach.springrest.postgresql.repo.ManufacturerRepository;
+
+
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -26,6 +30,8 @@ import com.javasampleapproach.springrest.postgresql.repo.CarRepository;
 public class CarController {
 	@Autowired
 	CarRepository carrepository;
+	@Autowired
+	ManufacturerRepository manufacturerrepository;
 
 	@GetMapping("/car")
 	public List<Car> getAllCars() {
@@ -35,6 +41,16 @@ public class CarController {
 		carrepository.findAll().forEach(cars::add);
 
 		return cars;
+	}
+	
+	@GetMapping("/car/manufacturers")
+	public List<Manufacturer> getAllManufacturers() {
+		System.out.println("Get getAllManufacturers...");
+
+		List<Manufacturer> carmanufacturer = new ArrayList<>();
+		manufacturerrepository.findAll().forEach(carmanufacturer::add);
+
+		return carmanufacturer;
 	}
 
 //	@PostMapping(value = "/cars/create")
@@ -62,13 +78,24 @@ public class CarController {
 //		return new ResponseEntity<>("All customers have been deleted!", HttpStatus.OK);
 //	}
 //
+	
 	@GetMapping(value = "car/capacity/{capacity}")
 	public List<Car> findByCapacity(@PathVariable double capacity) {
 
 		List<Car> cars = carrepository.findByCapacity(capacity);
 		return cars;
 	}
-//
+	
+	@GetMapping(value = "car/idm/{id_manufacturer}")
+	public List<Manufacturer> findById(@PathVariable int id_manufacturer) {
+		//System.out.println("Get by id...");
+		List<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
+		//System.out.println(carmanufacturer.size());
+		return carmanufacturer;
+	}
+	
+	
+// 
 //	@PutMapping("/customers/{id}")
 //	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
 //		System.out.println("Update Customer with ID = " + id + "...");

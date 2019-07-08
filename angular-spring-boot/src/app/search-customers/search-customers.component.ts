@@ -19,8 +19,7 @@ export class SearchCustomersComponent implements OnInit {
   }
 
   private searchCustomers() {
-    this.dataService.getCustomersByAge(this.age)
-      .subscribe(customers => this.customers = customers);
+    this.dataService.getCustomersByAge(this.age).subscribe(customers => this.customers = customers);
   }
 
   onSubmit() {
