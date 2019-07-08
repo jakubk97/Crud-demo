@@ -22,9 +22,9 @@ export class CarsDetailsComponent implements OnInit {
   constructor(private carService: CarService, private listComponent: CarsListComponent) {}
 
   ngOnInit() {
-    for (let i in this.manufacturer) {
-      this.car.manufacturer = this.manufacturer.manufacturer;
-      this.car.country = this.manufacturer.country;
-  }
+    // for (let i of this.manufacturer) {
+    //   this.car.manufacturer = this.i.manufacturer;
+    //   this.car.country = this.manufacturer.country;
+  // }
   }
 }
