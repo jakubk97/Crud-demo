@@ -6,7 +6,7 @@ dla odczytanej roli=pracownik[dla adminnistratora nie ukrywamy żadnych])
 PANEL UŻYTKOWNIKA:
 wczytywanie bazy samochodów - wczytanie wszystkich danych z bazy 
 sortowanie elementów po atrybutach
-wyszukiwanie według zadanych kryteriów
+wyszukiwanie według zadanych kryteriów (stworzenie słownika dla marek i modeli)
 rejestracja użytkownika (imię, nazwisko, login, hasło, rola)
 
 
