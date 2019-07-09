@@ -17,6 +17,7 @@ import { CarsEditComponent } from './cars-edit/cars-edit.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CarsDetailsComponent } from './cars-details/cars-details.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
