@@ -1,12 +1,23 @@
-<div style="padding: 20px;">
+<mat-toolbar color="primary">
+<mat-toolbar-row>
+  <span>Cars shop</span>
+  <span class="example-spacer"></span>
+  <mat-icon class="example-icon" aria-hidden="false" aaria-label="">home</mat-icon>
+</mat-toolbar-row>
+</mat-toolbar>
+
+<div style="padding: 10px;">
   <h1 style="color: black">{{title}}</h1>
   <h3>{{description}}</h3>
-  <nav style="padding: 20px;">
-    <a routerLink="customer" class="btn btn-primary active" role="button" routerLinkActive="active">  Customer  </a>
-    <a routerLink="car" class="btn btn-primary active" role="button" routerLinkActive="active">  Cars  </a>
-    <a routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active">  Add  </a>
-    <a routerLink="findbyage" class="btn btn-primary active" role="button" routerLinkActive="active">  Search  </a>
-    <a routerLink="login" class="btn btn-primary active" role="button" routerLinkActive="active">  Login  </a>
+  <nav style="padding: 10px;">
+    <a routerLink="login" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 20px">  Login  </a>
+    <a routerLink="customer" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Customers  </a>
+    <a routerLink="car" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Cars  </a>
+    <a routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Add  </a>
+    <a routerLink="searchusers" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Search users </a>
+    <a routerLink="searchcars" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Search cars </a>
+    <a routerLink="edit" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Edit  </a>
   </nav>
   <router-outlet></router-outlet>
 </div>
+

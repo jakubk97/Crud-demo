@@ -39,7 +39,13 @@ public class CarController {
 
 		List<Car> cars = new ArrayList<>();
 		carrepository.findAll().forEach(cars::add);
-
+		for (Car car : cars) {
+			List<Manufacturer> carmanufacturer = manufacturerrepository.findById(car.getId_manufacturer());
+			for (Manufacturer man : carmanufacturer) {
+				car.setManufacturer(man.getName());
+				car.setCountry(man.getCountry());
+			}
+		}
 		return cars;
 	}
 	
@@ -52,32 +58,6 @@ public class CarController {
 
 		return carmanufacturer;
 	}
-
-//	@PostMapping(value = "/cars/create")
-//	public Car postCar(@RequestBody Car car) {
-//
-//		Customer _car = repository.save(new Car(car.getModel(), car.getId_manufacturer(), car., car.getModel()   ));
-//		return _car;
-//	}
-//
-//	@DeleteMapping("/customers/{id}")
-//	public ResponseEntity<String> deleteCustomer(@PathVariable("id") long id) {
-//		System.out.println("Delete Customer with ID = " + id + "...");
-//
-//		repository.deleteById(id);
-//
-//		return new ResponseEntity<>("Customer has been deleted!", HttpStatus.OK);
-//	}
-//
-//	@DeleteMapping("/customers/delete")
-//	public ResponseEntity<String> deleteAllCustomers() {
-//		System.out.println("Delete All Customers...");
-//
-//		repository.deleteAll();
-//
-//		return new ResponseEntity<>("All customers have been deleted!", HttpStatus.OK);
-//	}
-//
 	
 	@GetMapping(value = "car/capacity/{capacity}")
 	public List<Car> findByCapacity(@PathVariable double capacity) {
@@ -87,29 +67,10 @@ public class CarController {
 	}
 	
 	@GetMapping(value = "car/idm/{id_manufacturer}")
-	public List<Manufacturer> findById(@PathVariable int id_manufacturer) {
-		//System.out.println("Get by id...");
+	public List<Manufacturer> findById(@PathVariable long id_manufacturer) {
 		List<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
-		//System.out.println(carmanufacturer.size());
 		return carmanufacturer;
 	}
 	
-	
-// 
-//	@PutMapping("/customers/{id}")
-//	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
-//		System.out.println("Update Customer with ID = " + id + "...");
-//
-//		Optional<Customer> customerData = repository.findById(id);
-//
-//		if (customerData.isPresent()) {
-//			Customer _customer = customerData.get();
-//			_customer.setName(customer.getName());
-//			_customer.setAge(customer.getAge());
-//			_customer.setActive(customer.isActive());
-//			return new ResponseEntity<>(repository.save(_customer), HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//	}
+
 }

@@ -12,7 +12,6 @@ import { Car } from '../car';
 export class CarsListComponent implements OnInit {
 
   cars: Observable<Car[]>;
-  manufacturers: Observable<Car[]>;
 
   constructor(private carService: CarService) { }
 
@@ -22,6 +21,5 @@ export class CarsListComponent implements OnInit {
 
   reloadData() {
     this.cars = this.carService.getCarsList();
-    this.manufacturers = this.carService.getManufacturersList();
   }
 }

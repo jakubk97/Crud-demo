@@ -13,7 +13,7 @@ public class Manufacturer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int Id;
+	private long Id;
 
 	@Column(name = "name")
 	private String name;
@@ -45,7 +45,7 @@ public class Manufacturer {
 		this.country = country;
 	}
 
-	public int getId() {
+	public long getId() {
 		return Id;
 	}
 }

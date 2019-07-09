@@ -5,15 +5,18 @@ import { CarsListComponent } from './cars-list/cars-list.component';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
 import { SearchCustomersComponent } from './search-customers/search-customers.component';
 import { LoginComponent } from './login/login.component';
-
+import { CarsEditComponent } from './cars-edit/cars-edit.component';
+import { CarsSearchComponent } from './cars-search/cars-search.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'customer', component: CustomersListComponent },
     { path: 'add', component: CreateCustomerComponent },
-    { path: 'findbyage', component: SearchCustomersComponent },
+    { path: 'searchusers', component: SearchCustomersComponent },
+    { path: 'searchcars', component: CarsSearchComponent },
     { path: 'login', component: LoginComponent },
     { path: 'car', component: CarsListComponent },
+    { path: 'edit', component: CarsEditComponent },
 ];
 
 @NgModule({

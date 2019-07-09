@@ -28,9 +28,9 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.logging = true;
-    this.userservice.getUsersBylastName("kar").subscribe(user => this.user = user);
+   // this.userservice.getUsersBylastName("kar").subscribe(user => this.user = user);
     this.userservice.loggin(this.user.login,this.user.password).subscribe(user => this.user = user);
-    this.userservice.loggin2();
+   // this.userservice.loggin2();
 
     
   }

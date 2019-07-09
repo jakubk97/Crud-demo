@@ -17,14 +17,8 @@ export class CarsDetailsComponent implements OnInit {
 
   @Input() car:Car;
 
-  @Input() manufacturer:Car;
-
   constructor(private carService: CarService, private listComponent: CarsListComponent) {}
 
   ngOnInit() {
-    // for (let i of this.manufacturer) {
-    //   this.car.manufacturer = this.i.manufacturer;
-    //   this.car.country = this.manufacturer.country;
-  // }
   }
 }

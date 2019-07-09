@@ -1,4 +1,4 @@
-<h3>Find By Age</h3>
+<h3>Find user</h3>
 <div style="width: 300px;">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -7,12 +7,20 @@
     </div>
 
     <div class="btn-group">
-      <button type="submit" class="btn btn-success">Submit</button>
+        <button mat-raised-button type="submit" class="btn btn-success" color="warn" style="padding: 1px">Submit</button>
+     
     </div>
   </form>
 </div>
-<ul>
-  <li *ngFor="let customer of customers">
-    <h4>{{customer.id}} - {{customer.name}} {{customer.age}}</h4>
-  </li>
-</ul>
+
+<mat-list>
+  <h3 mat-subheader>Customers</h3>
+  <mat-list-item *ngFor="let customer of customers">
+    <mat-icon mat-list-icon>{{customer.name}}</mat-icon>
+    <h4 mat-line> Name: {{customer.name}} </h4>
+    <h4 mat-line> ID: {{customer.id}} </h4>
+    <p mat-line> Age: {{customer.age}} </p>
+    <hr/>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>

@@ -1,14 +1,13 @@
 <div *ngIf="car">
-    <div>
+    <!-- <div>
       <label>Id: </label> {{car.id}}
-    </div>
+    </div> -->
+    <div>
+        <label>Country: </label> {{car.country}}
+      </div>
     <div>
       <label>Manufacturer: </label> {{car.manufacturer}}
     </div>
-    <div>
-      <label>Country: </label> {{car.Country}}
-    </div>
-
     <div>
       <label>Model: </label> {{car.model}}
     </div>
@@ -24,5 +23,6 @@
     <div>
      <label>Price: </label> {{car.price}}
     </div>
+    <button mat-raised-button color="primary" style="padding: 1px">Buy</button>
     <hr/>
   </div>

@@ -1,6 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule,MatIconModule,MatListModule} from '@angular/material';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
@@ -17,7 +22,6 @@ import { CarsEditComponent } from './cars-edit/cars-edit.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,10 +41,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
+    MatButtonModule,
     AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

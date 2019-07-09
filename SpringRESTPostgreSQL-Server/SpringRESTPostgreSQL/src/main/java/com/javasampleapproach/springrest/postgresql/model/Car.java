@@ -18,6 +18,12 @@ public class Car {
 	@Column(name = "id_manufacturer")
 	private long id_manufacturer;
 
+	@Column(name = "manufacturer")
+	private String manufacturer;
+
+	@Column(name = "country")
+	private String country;
+
 	@Column(name = "model")
 	private String model;
 
@@ -36,6 +42,17 @@ public class Car {
 	public Car() {
 	}
 
+	public Car(String model,String manufacturer,String country,long id_manufacturer, double capacity,String color,String body, double price) {
+		this.model = model;
+		this.id_manufacturer = id_manufacturer;
+		this.manufacturer = manufacturer;
+		this.country = country;
+		this.capacity = capacity;
+		this.color = color;
+		this.body = body;
+		this.price = price;
+	}
+	
 	public Car(String model,long id_manufacturer, double capacity,String color,String body, double price) {
 		this.model = model;
 		this.id_manufacturer = id_manufacturer;
@@ -91,6 +108,22 @@ public class Car {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 	
 	@Override
