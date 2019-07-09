@@ -62,22 +62,5 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-//	@PutMapping("/customers/{id}")
-//	public ResponseEntity<Customer> updateCustomer(@PathVariable("id") long id, @RequestBody Customer customer) {
-//		System.out.println("Update Customer with ID = " + id + "...");
-//
-//		Optional<Customer> customerData = repository.findById(id);
-//
-//		if (customerData.isPresent()) {
-//			Customer _customer = customerData.get();
-//			_customer.setName(customer.getName());
-//			_customer.setAge(customer.getAge());
-//			_customer.setActive(customer.isActive());
-//			return new ResponseEntity<>(repository.save(_customer), HttpStatus.OK);
-//		} else {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//	}
 
 }

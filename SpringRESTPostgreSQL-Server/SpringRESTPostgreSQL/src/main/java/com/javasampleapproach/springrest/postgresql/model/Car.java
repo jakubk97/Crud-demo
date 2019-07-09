@@ -2,9 +2,13 @@ package com.javasampleapproach.springrest.postgresql.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,9 +19,13 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@ManyToOne 
+	@JoinColumn("id") 
+	Manufacturer cars;
+	
 	@Column(name = "id_manufacturer")
 	private long id_manufacturer;
-
+	
 	@Column(name = "manufacturer")
 	private String manufacturer;
 

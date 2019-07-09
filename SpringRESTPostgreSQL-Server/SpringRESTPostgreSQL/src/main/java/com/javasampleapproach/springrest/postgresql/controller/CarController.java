@@ -39,13 +39,13 @@ public class CarController {
 
 		List<Car> cars = new ArrayList<>();
 		carrepository.findAll().forEach(cars::add);
-		for (Car car : cars) {
-			List<Manufacturer> carmanufacturer = manufacturerrepository.findById(car.getId_manufacturer());
-			for (Manufacturer man : carmanufacturer) {
-				car.setManufacturer(man.getName());
-				car.setCountry(man.getCountry());
-			}
-		}
+//		for (Car car : cars) {
+//			List<Manufacturer> carmanufacturer = manufacturerrepository.findById(car.getId_manufacturer());
+//			for (Manufacturer man : carmanufacturer) {
+//				car.setManufacturer(man.getName());
+//				car.setCountry(man.getCountry());
+//			}
+//		}
 		return cars;
 	}
 	
