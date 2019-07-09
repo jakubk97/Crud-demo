@@ -6,14 +6,13 @@ dla odczytanej roli=pracownik[dla adminnistratora nie ukrywamy żadnych])
 PANEL UŻYTKOWNIKA:
 wczytywanie bazy samochodów - wczytanie wszystkich danych z bazy 
 sortowanie elementów po atrybutach
-wyszukiwanie według zadanych kryteriów
-dodawanie nowego elementu (wraz z walidacją danych)
-uzupełnianie 
+wyszukiwanie według zadanych kryteriów (stworzenie słownika dla marek i modeli)
+rejestracja użytkownika (imię, nazwisko, login, hasło, rola)
 
 
 PANEL ADMINISTRATORA (rozszerzony panel użytkownika):
 usuwanie elementów
-
-dodanie nowego użytkownika (imię, nazwisko, login, hasło, rola)
+dodawanie nowego elementu (wraz z walidacją danych)
+uzupełnianie 
 edycja konta użytkownika (w tym zmiana hasła)
 dezaktywowanie konta użytkownika
