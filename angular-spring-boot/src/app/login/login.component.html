@@ -1,28 +1,6 @@
-<!-- <h3>Sign in</h3>
-<div [hidden]="logging" style="width: 300px;">
-  <form (ngSubmit)="onLogin()">
-    <div class="form-group">
-      <label for="login">Login</label>
-      <input type="text" class="form-control" id="login" required [(ngModel)]="user.login" name="login">
-    </div>
-
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="text" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
-    </div>
-
-    <button type="login" class="btn btn-success">Login</button>
-  </form>
-</div>
-
-<div [hidden]="!logging">
-  <h4>Logging in,please wait!</h4>
-  <button class="btn btn-success" (click)="LogginTonewCustomerApp()">Back</button>
-</div> -->
-
-
+<div class="div-login">
 <section fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card fxFlex="700px" fxFlex.xs="200%" fxLayoutAlign="center center">
+  <mat-card fxLayoutAlign="center center" style="width: 25vw;">
     <mat-card-title align="center">Sign in</mat-card-title>
     <form [formGroup]="Form" autocomplete="off" novalidate (ngSubmit)="loggin(Form.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="20px">
@@ -47,3 +25,4 @@
     </form>
   </mat-card>
 </section>
+</div>

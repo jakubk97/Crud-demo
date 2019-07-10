@@ -1,7 +1,4 @@
-<div *ngIf="car">
-    <!-- <div>
-      <label>Id: </label> {{car.id}}
-    </div> -->
+<!-- <div *ngIf="car">
     <div>
         <label>Country: </label> {{car.cars.country}}
       </div>
@@ -34,4 +31,72 @@
      </div>
     <button mat-raised-button color="primary" style="padding: 1px">Buy</button>
     <hr/>
+  </div> -->
+
+
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+
+      <ng-container matColumnDef="cars.country">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+        <td mat-cell *matCellDef="let row"> {{row.cars.country}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="cars.name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer </th>
+        <td mat-cell *matCellDef="let row"> {{row.cars.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+        <td mat-cell *matCellDef="let row"> {{row.model}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="color">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+        <td mat-cell *matCellDef="let row"> {{row.color}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Body Type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Body Type </th>
+        <td mat-cell *matCellDef="let row"> {{row.body}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Capacity">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </th>
+        <td mat-cell *matCellDef="let row"> {{row.capacity}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+        <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Mileage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mileage </th>
+        <td mat-cell *matCellDef="let row"> {{row.mileage}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Year">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Year </th>
+        <td mat-cell *matCellDef="let row"> {{row.year}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
+  

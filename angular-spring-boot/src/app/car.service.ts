@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Car } from './car';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class CarService {
     return this.http.get(`${this.baseUrl}` + `/login`);
   }
 
-  getCarsList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  getCarsList(): Observable<Car[]> {
+    return this.http.get<Car[]>(`${this.baseUrl}`);
   }
 
   getManufacturersList(): Observable<any> {

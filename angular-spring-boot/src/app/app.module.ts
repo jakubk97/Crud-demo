@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule,MatIconModule,MatListModule,MatCardModule} from '@angular/material';
+import {MatButtonModule,MatIconModule,MatListModule,MatCardModule,MatTableModule,MatPaginatorModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -53,6 +53,8 @@ import { from } from 'rxjs';
     ReactiveFormsModule,
     HttpClientModule,
     MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
     MatInputModule,
     MatFormFieldModule
   ],

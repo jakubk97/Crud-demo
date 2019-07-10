@@ -11,15 +11,15 @@ import { Car } from '../car';
 })
 export class CarsListComponent implements OnInit {
 
-  cars: Observable<Car[]>;
+  //cars: Observable<Car[]>;
 
   constructor(private carService: CarService) { }
 
   ngOnInit() {
-    this.reloadData();
+    //this.reloadData();
   }
 
   reloadData() {
-    this.cars = this.carService.getCarsList();
+    //this.cars = this.carService.getCarsList();
   }
 }
