@@ -8,8 +8,6 @@ import com.javasampleapproach.springrest.postgresql.model.Car;
 
 public interface CarRepository extends CrudRepository<Car, Long> {
 	List<Car> findByCapacity(double capacity);
-	List<Car> findByManufacturer(String manufacturer);
-	List<Car> findByCountry(String country);
 	List<Car> findByBody(String body);
 	List<Car> findByModel(String model);
 	List<Car> findByColor(String color);

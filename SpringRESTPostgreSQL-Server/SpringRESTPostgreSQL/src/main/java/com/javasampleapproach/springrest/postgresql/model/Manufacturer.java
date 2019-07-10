@@ -1,13 +1,12 @@
 package com.javasampleapproach.springrest.postgresql.model;
 
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,8 +24,8 @@ public class Manufacturer {
 	@Column(name = "country")
 	private String country;
 	
-	@OneToMany(mappedBy="cars") 
-	private List<Car> car;
+	@OneToMany(mappedBy = "cars", fetch = FetchType.EAGER)
+	private List<Car> cars;	
 	
 	public Manufacturer() {
 	}

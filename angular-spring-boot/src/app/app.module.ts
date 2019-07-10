@@ -2,10 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule,MatIconModule,MatListModule} from '@angular/material';
+import {MatButtonModule,MatIconModule,MatListModule,MatCardModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { CreateCustomerComponent } from './create-customer/create-customer.component';
@@ -22,6 +23,7 @@ import { CarsEditComponent } from './cars-edit/cars-edit.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -49,9 +51,13 @@ import { CarsDetailsComponent } from './cars-details/cars-details.component';
     MatIconModule,
     MatListModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  
 })
 export class AppModule { }

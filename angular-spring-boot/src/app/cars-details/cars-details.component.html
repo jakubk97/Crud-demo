@@ -3,10 +3,10 @@
       <label>Id: </label> {{car.id}}
     </div> -->
     <div>
-        <label>Country: </label> {{car.country}}
+        <label>Country: </label> {{car.cars.country}}
       </div>
     <div>
-      <label>Manufacturer: </label> {{car.manufacturer}}
+      <label>Manufacturer: </label> {{car.cars.name}}
     </div>
     <div>
       <label>Model: </label> {{car.model}}
@@ -23,6 +23,15 @@
     <div>
      <label>Price: </label> {{car.price}}
     </div>
+    <div>
+      <label>Mileage: </label> {{car.mileage}}
+     </div>
+     <div>
+      <label>Year: </label> {{car.year}}
+     </div>
+     <div>
+      <label>Status: </label> {{car.status}}
+     </div>
     <button mat-raised-button color="primary" style="padding: 1px">Buy</button>
     <hr/>
   </div>

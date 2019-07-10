@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,18 +18,26 @@ public class Car {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne 
-	@JoinColumn("id") 
-	Manufacturer cars;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_manufacturer")
+	private Manufacturer cars;
 	
-	@Column(name = "id_manufacturer")
-	private long id_manufacturer;
-	
-	@Column(name = "manufacturer")
-	private String manufacturer;
+	public Manufacturer getCars() {
+		return cars;
+	}
 
-	@Column(name = "country")
-	private String country;
+	public void setCars(Manufacturer cars) {
+		this.cars = cars;
+	}
+	
+	@Column(name = "status")
+	private String status;
+	
+	@Column(name = "year")
+	private int year;
+
+	@Column(name = "mileage")
+	private double mileage;
 
 	@Column(name = "model")
 	private String model;
@@ -49,33 +56,26 @@ public class Car {
 	
 	public Car() {
 	}
-
-	public Car(String model,String manufacturer,String country,long id_manufacturer, double capacity,String color,String body, double price) {
-		this.model = model;
-		this.id_manufacturer = id_manufacturer;
-		this.manufacturer = manufacturer;
-		this.country = country;
-		this.capacity = capacity;
-		this.color = color;
-		this.body = body;
-		this.price = price;
-	}
 	
-	public Car(String model,long id_manufacturer, double capacity,String color,String body, double price) {
-		this.model = model;
-		this.id_manufacturer = id_manufacturer;
-		this.capacity = capacity;
-		this.color = color;
-		this.body = body;
-		this.price = price;
-	}
+	 public Car(String model, Manufacturer cars,
+			 String manufacturer,String country,long id_manufacturer, 
+			 double capacity,String color,String body, double price,
+			 String status,int year,double mileage)
+	 {
+	      this.model = model;
+	      this.cars = cars;
+	      this.capacity = capacity;
+	      this.color = color;
+	      this.body = body;
+	      this.price = price;
+	      this.status = status;
+	      this.year = year;
+	      this.mileage = mileage;
+	      
+	 }
 
 	public long getId() {
 		return id;
-	}
-	
-	public long getId_manufacturer() {
-		return id_manufacturer;
 	}
 
 	public void setModel(String model) {
@@ -118,24 +118,32 @@ public class Car {
 		this.price = price;
 	}
 	
-	public String getManufacturer() {
-		return manufacturer;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getCountry() {
-		return country;
+	public int getYear() {
+		return year;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public double getMileage() {
+		return mileage;
+	}
+
+	public void setMileage(double mileage) {
+		this.mileage = mileage;
 	}
 	
 	@Override
 	public String toString() {
-		return "Car [id=" + id + ", model=" + model + ", capacity=" + capacity + ", color=" + color + ", body=" + body+ ", price=" + price + "]";
+		return "Car [id=" + id + ", model=" + model + ", manufacturer=" + this.cars.getName()+ ", country=" + this.cars.getCountry() + ", capacity=" + capacity + ", color=" + color + ", body=" + body+ ", price=" + price + ", year=" + year + ", mileage=" + mileage + ", status=" + status  + "]";
 	}
 }
