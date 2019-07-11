@@ -1,4 +1,5 @@
-<div class="div-login">
+<div [hidden]="submitted">
+<div class="div-man" >
     <section fxLayout="row wrap" fxLayoutAlign="center center">
       <mat-card fxLayoutAlign="center center" style="width: 25vw;">
         <mat-card-title align="center">Create new manufacturer</mat-card-title>
@@ -20,9 +21,23 @@
     
           </mat-card-content>
           <mat-card-actions align="center">
-            <button mat-raised-button color="primary" [disabled]="!Form.valid" (click)="onCreate()">Create</button>
+            <button mat-raised-button color="primary" [disabled]="!Form.valid">Create</button>
           </mat-card-actions>
         </form>
       </mat-card>
     </section>
     </div>
+  </div>
+  <div [hidden]="!submitted">
+    <div class="div-mansucces" >
+        <mat-card fxLayoutAlign="center center" style="width: 25vw;">
+            <mat-card-title align="center">You submitted successfully</mat-card-title>
+            <form [formGroup]="Form" autocomplete="off" novalidate  fxLayout="column wrap"
+              fxLayoutAlign="center center" fxLayoutGap="20px">
+              <mat-card-actions align="center">
+                <button mat-raised-button color="primary" (click)="newManufacturer()">Add next</button>
+              </mat-card-actions>
+            </form>
+          </mat-card>
+    </div>
+  </div>

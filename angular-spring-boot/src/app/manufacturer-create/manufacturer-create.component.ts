@@ -12,6 +12,7 @@ export class ManufacturerCreateComponent implements OnInit {
 
   public Form: FormGroup;
   manufacturer: Manufacturer = new Manufacturer();
+  submitted = false;
 
   constructor(private carService: CarService) { }
 
@@ -27,7 +28,13 @@ export class ManufacturerCreateComponent implements OnInit {
   }
 
   public onCreate(){
+    this.submitted = true;
     this.carService.createManufacturer(this.manufacturer).subscribe(data => console.log(data), error => console.log(error));
+    this.manufacturer = new Manufacturer();
+  }
+
+  newManufacturer(): void {
+    this.submitted = false;
     this.manufacturer = new Manufacturer();
   }
 }
