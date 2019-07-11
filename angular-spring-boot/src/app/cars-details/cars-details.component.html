@@ -34,11 +34,11 @@
   </div> -->
 
 
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  <mat-form-field style="padding: 30px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
   </mat-form-field>
   
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation">
     <table mat-table [dataSource]="dataSource" matSort>
   
 
@@ -91,12 +91,21 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
         <td mat-cell *matCellDef="let row"> {{row.status}} </td>
       </ng-container>
+
+      <ng-container matColumnDef="Buy">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+        <td mat-cell *matCellDef="let row"> 
+          <button mat-icon-button>
+            <mat-icon>shopping_cart </mat-icon>
+          </button>
+        </td>
+      </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;">
       </tr>
     </table>
   
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSize]="10"  [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
   </div>
   

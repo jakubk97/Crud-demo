@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule,MatIconModule,MatListModule,MatCardModule,MatTableModule,MatPaginatorModule} from '@angular/material';
+import {MatButtonModule,MatIconModule,MatListModule,MatCardModule,MatTableModule,
+  MatPaginatorModule,MatSelectModule,MatDatepickerModule,MatOptionModule,MatNativeDateModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -24,6 +25,7 @@ import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
 import { from } from 'rxjs';
+import { ManufacturerCreateComponent } from './manufacturer-create/manufacturer-create.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { from } from 'rxjs';
     CarsSearchComponent,
     CarsEditComponent,
     CarsCreateComponent,
-    CarsDeleteComponent
+    CarsDeleteComponent,
+    ManufacturerCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,10 @@ import { from } from 'rxjs';
     MatListModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatNativeDateModule,
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,

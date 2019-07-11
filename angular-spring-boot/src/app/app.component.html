@@ -6,18 +6,22 @@
 </mat-toolbar-row>
 </mat-toolbar>
 
+<mat-toolbar color="warn">
+  <mat-toolbar-row>
 <div style="padding: 10px;">
-  <h1 style="color: black"></h1>
-  <h3>{{description}}</h3>
-  <nav style="padding: 10px;">
-    <a routerLink="login" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 20px">  Login  </a>
-    <a routerLink="customer" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Customers  </a>
-    <a routerLink="car" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Cars  </a>
-    <a routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Add  </a>
-    <a routerLink="searchusers" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Search users </a>
-    <a routerLink="searchcars" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Search cars </a>
-    <a routerLink="edit" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Edit  </a>
+  <nav style="padding: 10px;" >
+    <a mat-button routerLink="login" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 20px">  Login  </a>
+    <a mat-button routerLink="customer" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Customers  </a>
+    <a mat-button routerLink="car" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Cars  </a>
+    <a mat-button routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Add </a>
+    <a mat-button routerLink="addcars" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Add cars </a>
+    <a mat-button routerLink="addman" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Add manufacturers </a>
+    <a mat-button routerLink="searchusers" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Search users </a>
+    <a mat-button routerLink="searchcars" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Search cars </a>
+    <a mat-button routerLink="edit" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">  Edit  </a>
   </nav>
-  <router-outlet></router-outlet>
 </div>
+</mat-toolbar-row>
+</mat-toolbar>
 
+<router-outlet></router-outlet>

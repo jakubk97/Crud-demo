@@ -1,12 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CarService } from '../car.service';
-import { UserService } from '../user.service';
-import { User } from '../user';
-
 import { Car } from '../car';
 import { CarsListComponent } from '../cars-list/cars-list.component';
-import { Observable } from 'rxjs';
-
 import {ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -19,15 +14,12 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./cars-details.component.css']
 })
 export class CarsDetailsComponent implements OnInit {
-   displayedColumns: string[] = ['cars.country', 'cars.name', 'model', 'color', 'Body Type', 'Capacity', 'Price', 'Mileage', 'Year', 'Status']; 
+  displayedColumns: string[] = ['cars.country', 'cars.name', 'model', 'color', 'Body Type', 'Capacity', 'Price', 'Mileage', 'Year', 'Status','Buy']; 
   dataSource: MatTableDataSource<Car>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  cars: Observable<Car[]>;
-  
 
-   @Input() car:Car[];
 
   constructor(private carService: CarService, private listComponent: CarsListComponent) {}
 

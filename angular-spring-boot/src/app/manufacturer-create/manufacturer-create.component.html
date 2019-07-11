@@ -1,0 +1,28 @@
+<div class="div-login">
+    <section fxLayout="row wrap" fxLayoutAlign="center center">
+      <mat-card fxLayoutAlign="center center" style="width: 25vw;">
+        <mat-card-title align="center">Create new manufacturer</mat-card-title>
+        <form [formGroup]="Form" autocomplete="off" novalidate (ngSubmit)="onCreate(Form.value)" fxLayout="column wrap"
+          fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-card-content align="center">
+    
+            <mat-form-field>
+              <input matInput type="text" placeholder="name" formControlName="name" id="name" [(ngModel)]="manufacturer.name" name="name">
+              <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+              <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 30 characters</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <input matInput type="text" placeholder="country" formControlName="country" id="country" [(ngModel)]="manufacturer.country" name="country">
+              <mat-error *ngIf="hasError('country', 'required')">Country is required</mat-error>
+              <mat-error *ngIf="hasError('country', 'maxlength')">You have more than 30 characters</mat-error>
+            </mat-form-field>
+    
+          </mat-card-content>
+          <mat-card-actions align="center">
+            <button mat-raised-button color="primary" [disabled]="!Form.valid" (click)="onCreate()">Create</button>
+          </mat-card-actions>
+        </form>
+      </mat-card>
+    </section>
+    </div>
