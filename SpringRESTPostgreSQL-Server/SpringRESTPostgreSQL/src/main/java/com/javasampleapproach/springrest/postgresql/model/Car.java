@@ -17,22 +17,15 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
+
+	//join tables by fk 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_manufacturer")
 	private Manufacturer cars;
-	
-	public Manufacturer getCars() {
-		return cars;
-	}
 
-	public void setCars(Manufacturer cars) {
-		this.cars = cars;
-	}
-	
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "year")
 	private int year;
 
@@ -47,32 +40,37 @@ public class Car {
 
 	@Column(name = "color")
 	private String color;
-	
+
 	@Column(name = "body")
 	private String body;
-	
+
 	@Column(name = "price")
 	private double price;
-	
+
 	public Car() {
 	}
-	
-	 public Car(String model, Manufacturer cars,
-			 String manufacturer,String country,long id_manufacturer, 
-			 double capacity,String color,String body, double price,
-			 String status,int year,double mileage)
-	 {
-	      this.model = model;
-	      this.cars = cars;
-	      this.capacity = capacity;
-	      this.color = color;
-	      this.body = body;
-	      this.price = price;
-	      this.status = status;
-	      this.year = year;
-	      this.mileage = mileage;
-	      
-	 }
+
+	public Car(String model, Manufacturer cars, String manufacturer, String country, long id_manufacturer,
+			double capacity, String color, String body, double price, String status, int year, double mileage) {
+		this.model = model;
+		this.cars = cars;
+		this.capacity = capacity;
+		this.color = color;
+		this.body = body;
+		this.price = price;
+		this.status = status;
+		this.year = year;
+		this.mileage = mileage;
+
+	}
+
+	public Manufacturer getCars() {
+		return cars;
+	}
+
+	public void setCars(Manufacturer cars) {
+		this.cars = cars;
+	}
 
 	public long getId() {
 		return id;
@@ -117,7 +115,7 @@ public class Car {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public String getStatus() {
 		return status;
 	}
@@ -140,10 +138,5 @@ public class Car {
 
 	public void setMileage(double mileage) {
 		this.mileage = mileage;
-	}
-	
-	@Override
-	public String toString() {
-		return "Car [id=" + id + ", model=" + model + ", manufacturer=" + this.cars.getName()+ ", country=" + this.cars.getCountry() + ", capacity=" + capacity + ", color=" + color + ", body=" + body+ ", price=" + price + ", year=" + year + ", mileage=" + mileage + ", status=" + status  + "]";
 	}
 }

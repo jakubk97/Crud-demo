@@ -13,30 +13,6 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  // getCustomer(id: number): Observable<Object> {
-  //   return this.http.get(`${this.baseUrl}/${id}`);
-  // }
-
-  // createCustomer(customer: Object): Observable<Object> {
-  //   return this.http.post(`${this.baseUrl}` + `/create`, customer);
-  // }
-
-  // updateCustomer(id: number, value: any): Observable<Object> {
-  //   return this.http.put(`${this.baseUrl}/${id}`, value);
-  // }
-
-  // deleteCustomer(id: number): Observable<any> {
-  //   return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
-  // }
-
-  // getCustomersList(): Observable<any> {
-  //   return this.http.get(`${this.baseUrl}`);
-  // }
-
-  // getCustomersList(): Observable<any> {
-  //   return this.http.get(`http://localhost:8080/users`);
-  // }
-
   getCustomersByAge(age: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/age/${age}`);
   }
@@ -47,10 +23,6 @@ export class UserService {
 
   loggin(login: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}` + `/login`, {login,password});
-  }
-
-  loggin2(): Observable<any> {
-    return this.http.get(`${this.baseUrl}` + `/login`);
   }
 
   getUsersList(): Observable<any> {

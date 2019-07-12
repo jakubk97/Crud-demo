@@ -24,6 +24,7 @@ public class Manufacturer {
 	@Column(name = "country")
 	private String country;
 	
+	//mapping to cars from Cars class to get values of name and country from table
 	@OneToMany(mappedBy = "cars", fetch = FetchType.EAGER)
 	private List<Car> cars;	
 	

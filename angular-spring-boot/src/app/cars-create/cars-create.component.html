@@ -1,3 +1,4 @@
+<div class="div-over">
 <div class="div-car">
     <section fxLayout="row wrap" fxLayoutAlign="center center">
       <mat-card fxLayoutAlign="center center" style="width: 25vw;">
@@ -32,9 +33,10 @@
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="number" placeholder="capacity" formControlName="capacity" id="capacity">
+              <input matInput type="text" placeholder="capacity" formControlName="capacity" id="capacity">
               <mat-error *ngIf="hasError('capacity', 'required')">Capacity is required</mat-error>
-              <mat-error *ngIf="hasError('capacity', 'maxlength')">You have more than 30 characters</mat-error>
+              <mat-error *ngIf="hasError('capacity', 'maxlength')"></mat-error>
+              <mat-error *ngIf="hasError('capacity', 'pattern')">Wrong capacity value (number.number)</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
@@ -110,5 +112,6 @@
                 </div>
               </div>
         </div>
+      </div>
         
     

@@ -31,9 +31,9 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	
+	//definition of enum type (projection of enum type from database)
 	@Enumerated(EnumType.STRING)
-    @Column(length = 5,columnDefinition = "rola")
+    @Column(length = 5,columnDefinition = "rola") //max value length and column name
 	@Type( type = "pgsql_enum" )
     private Role role;
 
@@ -46,20 +46,13 @@ public class User {
 	public User() {
 	}
 
-	public User(long id, String firstname, String lastname, String password, String login, boolean active) {
+	public User(long id, String firstname, String lastname, String password, String login,Role role) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
 		this.login = login;
-		this.active = false;
-	}
-
-	public User(String firstname, String lastname, String password, String login, boolean active) {
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.password = password;
-		this.login = login;
+		this.role = role;
 		this.active = false;
 	}
 
@@ -118,4 +111,5 @@ public class User {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+
 }

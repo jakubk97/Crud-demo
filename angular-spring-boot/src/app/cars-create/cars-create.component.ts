@@ -10,15 +10,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./cars-create.component.css']
 })
 export class CarsCreateComponent implements OnInit {
-
-  model:string;
-  body:string;
-  color:string;
-  mileage:number;
-  price:number;
-  capacity:number;
-  year:number;
-  manufacturer:string;
  
   manu: Manufacturer = new Manufacturer();
   submitted = false;
@@ -29,13 +20,16 @@ export class CarsCreateComponent implements OnInit {
   constructor(private carService: CarService) { }
 
   ngOnInit() { 
+        //download manufacturers from databases to prevent errors
+        this.carService.getManufacturersList().subscribe(ref=>{ this.manufacturers = ref;});
+
     this.Form = new FormGroup({
       model: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       body: new FormControl('', [Validators.required, Validators.maxLength(20)]),
       color: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-      mileage: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      price: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      capacity: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      mileage: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      price: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      capacity: new FormControl('', [Validators.required, Validators.maxLength(3),Validators.pattern('^[0-9]\d{0}\.[0-9]\d{0}$')]),
       year: new FormControl('', [Validators.required, Validators.pattern('^(19|20)\\d{2}$')])
     });
 
@@ -43,24 +37,21 @@ export class CarsCreateComponent implements OnInit {
       country: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       namem: new FormControl('', [Validators.required, Validators.maxLength(30)])
     });
-
-    this.carService.getManufacturersList().subscribe(ref=>{ this.manufacturers = ref;});
-
   }
-  
+//create car errors  
   public hasError = (controlName: string, errorName: string) => {
     return this.Form.controls[controlName].hasError(errorName);
   }
-
+//create manufacturer errors
   public hasErrors = (controlName: string, errorName: string) => {
     return this.FormManufacturer.controls[controlName].hasError(errorName);
   }
 
+  //create new manufacturer in database after click create
   public onCreate(){
     this.submitted = true;
     this.carService.createManufacturer(this.manu).subscribe(data => console.log(data), error => console.log(error));
     this.ngOnInit();
-    this.manu = new Manufacturer();
   }
 
   public loggin = (ownerFormValue) => {
@@ -68,9 +59,11 @@ export class CarsCreateComponent implements OnInit {
       
     }
   }
+  //after click add next
     newManufacturer(): void {
       this.submitted = false;
       this.manu = new Manufacturer();
+      this.ngOnInit();
     }
 
   

@@ -33,10 +33,6 @@ export class CarService {
     return this.http.get(`${this.baseUrl}/manufacturers`);
   }
 
-  getUsersByManufacturerID(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/idm/${id}`);
-  }
-
   getUsersBylastName(lastname: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/lastname/${lastname}`);
   }

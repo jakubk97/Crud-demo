@@ -23,14 +23,14 @@ export class CarsDetailsComponent implements OnInit {
   constructor(private carService: CarService) {}
 
   ngOnInit() {
-    this.carService.getCarsList().subscribe(ref=>{
-      this.dataSource = new MatTableDataSource(ref);
+    this.carService.getCarsList().subscribe(ref=>{this.dataSource = new MatTableDataSource(ref); // get all cars from database
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
     
   }
 
+  //filer on control table
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {

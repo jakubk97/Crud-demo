@@ -7,6 +7,7 @@ import java.sql.Types;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
+//class necessary to create enum type 
 public class PostgreSQLEnumType extends org.hibernate.type.EnumType {
  
     public void nullSafeSet(

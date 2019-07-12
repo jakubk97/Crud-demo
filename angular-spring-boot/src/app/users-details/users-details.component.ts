@@ -65,7 +65,6 @@ openDialogEdit(id:number) {
 }
 
 openDialogDelete(id:number) {
- //this.userService.deleteUser(0).subscribe(data => console.log("Dialog output:", null));
  const dialogConfig = new MatDialogConfig();
 
  dialogConfig.disableClose = true;

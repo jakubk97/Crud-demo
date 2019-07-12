@@ -3,7 +3,6 @@ package com.javasampleapproach.springrest.postgresql.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.javasampleapproach.springrest.postgresql.model.Customer;
 import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
 
@@ -26,6 +23,7 @@ public class UserController {
 	@Autowired
 	UserRepository userrepository;
 
+	//downloading all users
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		System.out.println("Get all Users...");
@@ -35,6 +33,7 @@ public class UserController {
 		return users;
 	}
 
+	//downloading all users with given lastname
 	@GetMapping(value = "users/lastname/{lastname}")
 	public List<User> findBylastname(@PathVariable String lastname) {
 
@@ -43,6 +42,7 @@ public class UserController {
 		return users;
 	}
 	
+	//delete user with given id
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable("id") long id) {
 		System.out.println("Delete User with ID = " + id + "...");
@@ -51,6 +51,7 @@ public class UserController {
 		return new ResponseEntity<>("Customer has been deleted!", HttpStatus.OK);
 	}
 	
+	//update user with given id
 	@PutMapping("/users/update/{id}")
 	public ResponseEntity<User> updateCustomer(@PathVariable("id") long id, @RequestBody User user) {
 		System.out.println("Update Customer with ID = " + id + "...");
