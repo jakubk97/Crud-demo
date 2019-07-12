@@ -2,18 +2,25 @@ package com.javasampleapproach.springrest.postgresql.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 @Entity
 @Table(name = "users")
+@TypeDef(
+	    name = "pgsql_enum",
+	    typeClass = PostgreSQLEnumType.class
+	)
 public class User {
 
 	@Id
 	@Column(name = "id")
-	private int id;
+	private long id;
 
 	@Column(name = "firstname")
 	private String firstname;
@@ -24,8 +31,11 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "role")
-	private String role;
+	
+	@Enumerated(EnumType.STRING)
+    @Column(length = 5,columnDefinition = "rola")
+	@Type( type = "pgsql_enum" )
+    private Role role;
 
 	@Column(name = "login")
 	private String login;
@@ -36,26 +46,24 @@ public class User {
 	public User() {
 	}
 
-	public User(int id, String firstname, String lastname, String password, String role, String login, boolean active) {
+	public User(long id, String firstname, String lastname, String password, String login, boolean active) {
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
-		this.role = role;
 		this.login = login;
 		this.active = false;
 	}
 
-	public User(String firstname, String lastname, String password, String role, String login, boolean active) {
+	public User(String firstname, String lastname, String password, String login, boolean active) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
-		this.role = role;
 		this.login = login;
 		this.active = false;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -87,11 +95,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 

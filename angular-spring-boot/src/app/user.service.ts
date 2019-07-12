@@ -64,4 +64,12 @@ export class UserService {
     createUser(user: Object): Observable<Object> {
     return this.http.post(`${this.baseUrl}` + `/create`, user);
   }
+
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+  }
+
+  updateUser(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/update/${id}`, value);
+  }
 }

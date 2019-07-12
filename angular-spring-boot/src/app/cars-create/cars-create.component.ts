@@ -19,14 +19,16 @@ export class CarsCreateComponent implements OnInit {
   capacity:number;
   year:number;
   manufacturer:string;
-
+ 
+  manu: Manufacturer = new Manufacturer();
+  submitted = false;
   manufacturers: Manufacturer[];
-  datePattern = "(19|20)\d{2}";
   public Form: FormGroup;
+  public FormManufacturer: FormGroup;
 
   constructor(private carService: CarService) { }
 
-  ngOnInit() {
+  ngOnInit() { 
     this.Form = new FormGroup({
       model: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       body: new FormControl('', [Validators.required, Validators.maxLength(20)]),
@@ -34,23 +36,31 @@ export class CarsCreateComponent implements OnInit {
       mileage: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       price: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       capacity: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      year: new FormControl('', [Validators.required, Validators.pattern('(19|20)\d{2}')])
+      year: new FormControl('', [Validators.required, Validators.pattern('^(19|20)\\d{2}$')])
     });
 
-    this.carService.getManufacturersList().subscribe(ref=>{
-      this.manufacturers = ref;
+    this.FormManufacturer = new FormGroup({
+      country: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      namem: new FormControl('', [Validators.required, Validators.maxLength(30)])
     });
 
+    this.carService.getManufacturersList().subscribe(ref=>{ this.manufacturers = ref;});
 
   }
-
-
-
+  
   public hasError = (controlName: string, errorName: string) => {
     return this.Form.controls[controlName].hasError(errorName);
   }
 
-  public onCreate = () => {
+  public hasErrors = (controlName: string, errorName: string) => {
+    return this.FormManufacturer.controls[controlName].hasError(errorName);
+  }
+
+  public onCreate(){
+    this.submitted = true;
+    this.carService.createManufacturer(this.manu).subscribe(data => console.log(data), error => console.log(error));
+    this.ngOnInit();
+    this.manu = new Manufacturer();
   }
 
   public loggin = (ownerFormValue) => {
@@ -58,6 +68,12 @@ export class CarsCreateComponent implements OnInit {
       
     }
   }
+    newManufacturer(): void {
+      this.submitted = false;
+      this.manu = new Manufacturer();
+    }
+
+  
 
 
 }

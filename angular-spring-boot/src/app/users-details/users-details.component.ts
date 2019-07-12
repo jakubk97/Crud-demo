@@ -5,6 +5,13 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { MatDialog, MatDialogConfig} from "@angular/material";
+import { UsersDetailsDialogEditComponent } from '../users-details-dialog-edit/users-details-dialog-edit.component';
+import { UsersDetailsDialogDeleteComponent } from '../users-details-dialog-delete/users-details-dialog-delete.component';
+
+export interface DialogData {
+  data: MatTableDataSource<User>;
+}
 
 @Component({
   selector: 'app-users-details',
@@ -15,15 +22,16 @@ export class UsersDetailsComponent implements OnInit {
 
   displayedColumns: string[] = ['firstname', 'lastname', 'login', 'password', 'role', 'active','Edit','Delete']; 
   dataSource: MatTableDataSource<User>;
+  ans: string;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
-  constructor(private customerService: UserService) {}
+  constructor(private userService: UserService,private dialog: MatDialog) {}
 
   ngOnInit() {
-    this.customerService.getUsersList().subscribe(ref=>{
+    this.userService.getUsersList().subscribe(ref=>{
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -38,13 +46,42 @@ export class UsersDetailsComponent implements OnInit {
     }
   }
 
-  public redirectToEdit = (id: string) => {
-    
-  }
 
-  public redirectToDelete = (id: string) => {
-    
-  }
+openDialogEdit(id:number) {
+  const dialogConfig = new MatDialogConfig();
+
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+
+  dialogConfig.data = {
+      data: this.dataSource.data[id]
+  };
+
+  const dialogRef = this.dialog.open(UsersDetailsDialogEditComponent, dialogConfig);
+
+  dialogRef.afterClosed().subscribe(
+    () => this.ngOnInit(),data => console.log("Dialog output:", null)
+  );   
+}
+
+openDialogDelete(id:number) {
+ //this.userService.deleteUser(0).subscribe(data => console.log("Dialog output:", null));
+ const dialogConfig = new MatDialogConfig();
+
+ dialogConfig.disableClose = true;
+ dialogConfig.autoFocus = true;
+
+ dialogConfig.data = {
+     data: this.dataSource.data[id]
+ };
+
+ const dialogRef = this.dialog.open(UsersDetailsDialogDeleteComponent, dialogConfig);
+
+ dialogRef.afterClosed().subscribe(
+   () => this.ngOnInit(),data => console.log("Dialog output:", null)
+ );  
+}
+
 }
 
 

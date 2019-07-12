@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule,MatIconModule,MatListModule,MatCardModule,MatTableModule,
-  MatPaginatorModule,MatSelectModule,MatDatepickerModule,MatOptionModule,MatNativeDateModule} from '@angular/material';
+  MatPaginatorModule,MatSelectModule,MatDatepickerModule,MatOptionModule,MatNativeDateModule,
+  MatDialogModule,MatGridListModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -24,6 +25,12 @@ import { ManufacturerCreateComponent } from './manufacturer-create/manufacturer-
 import { UsersSearchComponent } from './users-search/users-search.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UsersCreateComponent } from './users-create/users-create.component';
+import { UsersDetailsDialogDeleteComponent } from './users-details-dialog-delete/users-details-dialog-delete.component';
+import { UsersDetailsDialogEditComponent } from './users-details-dialog-edit/users-details-dialog-edit.component';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -38,7 +45,9 @@ import { UsersCreateComponent } from './users-create/users-create.component';
     ManufacturerCreateComponent,
     UsersSearchComponent,
     UsersDetailsComponent,
-    UsersCreateComponent
+    UsersCreateComponent,
+    UsersDetailsDialogDeleteComponent,
+    UsersDetailsDialogEditComponent
   ],
   imports: [
     BrowserModule,
@@ -55,12 +64,15 @@ import { UsersCreateComponent } from './users-create/users-create.component';
     MatSelectModule,
     MatOptionModule,
     MatNativeDateModule,
+    MatDialogModule,
     MatCardModule,
     MatTableModule,
     MatPaginatorModule,
+    MatGridListModule,
     MatInputModule,
     MatFormFieldModule
   ],
+  entryComponents: [UsersDetailsDialogDeleteComponent,UsersDetailsDialogEditComponent],
   providers: [],
   bootstrap: [AppComponent],
   

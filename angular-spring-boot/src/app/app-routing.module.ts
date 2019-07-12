@@ -13,7 +13,7 @@ import { UsersCreateComponent } from './users-create/users-create.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'customer', component: UsersDetailsComponent },
+    { path: 'users', component: UsersDetailsComponent },
     { path: 'add', component: UsersCreateComponent },
     { path: 'addcars', component: CarsCreateComponent },
     { path: 'addman', component: ManufacturerCreateComponent },
