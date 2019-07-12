@@ -1,0 +1,83 @@
+<!-- <div *ngIf="customer" style="padding: 10px">
+  <div>
+    <label>Name: </label> {{customer.name}}
+  </div>
+  <div>
+    <label>Age: </label> {{customer.age}}
+  </div>
+  <div>
+    <label>Active: </label> {{customer.active}}
+  </div>
+
+  <button mat-raised-button color="primary" style="padding: 1px">Edit</button>
+  <button mat-raised-button color="warn" style="padding: 1px">Delete</button>
+  <span class="button is-small btn-primary" *ngIf='customer.active' (click)='updateActive(false)'> Inactive </span>
+
+  <span class="button is-small btn-primary" *ngIf='!customer.active' (click)='updateActive(true)'> Active </span>
+
+  <span class="button is-small btn-danger" (click)='deleteCustomer()'> Delete </span>
+  <hr/>
+</div> -->
+
+<h1>Users</h1>
+  <mat-form-field style="padding: 30px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
+  </mat-form-field>
+  
+  <div class="mat-elevation">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+
+      <ng-container matColumnDef="firstname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
+        <td mat-cell *matCellDef="let row"> {{row.firstname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
+        <td mat-cell *matCellDef="let row"> {{row.lastname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="login">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Login </th>
+        <td mat-cell *matCellDef="let row"> {{row.login}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Password </th>
+        <td mat-cell *matCellDef="let row"> {{row.password}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+        <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="active">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+        <td mat-cell *matCellDef="let row"> {{row.active}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="redirectToEdit(row.id)">
+              <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="redirectToDelete(row.id)">
+              <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSize]="10"  [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
+  </div>
