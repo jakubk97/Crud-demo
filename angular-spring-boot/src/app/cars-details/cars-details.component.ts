@@ -14,7 +14,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./cars-details.component.css']
 })
 export class CarsDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['cars.country', 'cars.name', 'model', 'color', 'Body Type', 'Capacity', 'Price', 'Mileage', 'Year', 'Status','Buy']; 
+  displayedColumns: string[] = ['cars.country', 'cars.name', 'model', 'color', 'Body Type', 'Capacity', 'Price', 'Mileage', 'Year', 'Status','Buy','Edit','Delete']; 
   dataSource: MatTableDataSource<Car>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -34,10 +34,21 @@ export class CarsDetailsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  public redirectToEdit = (id: string) => {
+    
+  }
+
+  public redirectToBuy = (id: string) => {
+    
+  }
+
+  public redirectToDelete = (id: string) => {
+    
   }
   
 }

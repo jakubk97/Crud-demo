@@ -3,11 +3,11 @@ import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
 
 @Component({
-  selector: 'search-customers',
-  templateUrl: './search-customers.component.html',
-  styleUrls: ['./search-customers.component.css']
+  selector: 'app-customers-search',
+  templateUrl: './customers-search.component.html',
+  styleUrls: ['./customers-search.component.css']
 })
-export class SearchCustomersComponent implements OnInit {
+export class CustomersSearchComponent implements OnInit {
 
   age: number;
   customers: Customer[];

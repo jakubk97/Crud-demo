@@ -26,6 +26,7 @@ import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
 import { from } from 'rxjs';
 import { ManufacturerCreateComponent } from './manufacturer-create/manufacturer-create.component';
+import { CustomersSearchComponent } from './customers-search/customers-search.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ManufacturerCreateComponent } from './manufacturer-create/manufacturer-
     CarsEditComponent,
     CarsCreateComponent,
     CarsDeleteComponent,
-    ManufacturerCreateComponent
+    ManufacturerCreateComponent,
+    CustomersSearchComponent
   ],
   imports: [
     BrowserModule,
