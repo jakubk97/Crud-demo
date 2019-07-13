@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,7 +21,7 @@ import org.hibernate.annotations.TypeDef;
 public class User {
 
 	@Id
-	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	@Column(name = "firstname")
@@ -46,22 +48,17 @@ public class User {
 	public User() {
 	}
 
-	public User(long id, String firstname, String lastname, String password, String login,Role role) {
-		this.id = id;
+	public User(String firstname, String lastname, String password, String login) {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
 		this.login = login;
-		this.role = role;
-		this.active = false;
+		this.role = role.user;
+		this.active = true;
 	}
 
 	public long getId() {
 		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getFirstname() {

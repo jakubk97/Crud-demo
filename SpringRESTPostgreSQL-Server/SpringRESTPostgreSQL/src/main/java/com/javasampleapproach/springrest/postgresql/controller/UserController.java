@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.javasampleapproach.springrest.postgresql.model.Manufacturer;
 import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
 
@@ -70,6 +73,14 @@ public class UserController {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	//create new user
+	@PostMapping(value = "users/create")
+	public User postUser(@RequestBody User user) {
+		System.out.println("Posting User...");
+		User _user = userrepository.save(new User(user.getFirstname(),user.getLastname(),user.getPassword(),user.getLogin()));
+		return _user;
 	}
 	
 	

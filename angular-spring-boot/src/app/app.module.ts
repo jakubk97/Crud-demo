@@ -21,12 +21,12 @@ import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
 import { from } from 'rxjs';
-import { ManufacturerCreateComponent } from './manufacturer-create/manufacturer-create.component';
 import { UsersSearchComponent } from './users-search/users-search.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UsersCreateComponent } from './users-create/users-create.component';
 import { UsersDetailsDialogDeleteComponent } from './users-details-dialog-delete/users-details-dialog-delete.component';
 import { UsersDetailsDialogEditComponent } from './users-details-dialog-edit/users-details-dialog-edit.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -42,12 +42,12 @@ import { UsersDetailsDialogEditComponent } from './users-details-dialog-edit/use
     CarsEditComponent,
     CarsCreateComponent,
     CarsDeleteComponent,
-    ManufacturerCreateComponent,
     UsersSearchComponent,
     UsersDetailsComponent,
     UsersCreateComponent,
     UsersDetailsDialogDeleteComponent,
-    UsersDetailsDialogEditComponent
+    UsersDetailsDialogEditComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

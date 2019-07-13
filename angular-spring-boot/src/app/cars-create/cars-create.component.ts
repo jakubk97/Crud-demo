@@ -53,12 +53,14 @@ export class CarsCreateComponent implements OnInit {
     this.carService.createManufacturer(this.manu).subscribe(data => console.log(data), error => console.log(error));
     this.ngOnInit();
   }
-
-  public loggin = (ownerFormValue) => {
-    if (this.Form.valid) {
-      
-    }
+  
+  //create new car in database after click create
+  public onCarCreate(){
+    // this.submitted = true;
+    // this.carService.createManufacturer(this.manu).subscribe(data => console.log(data), error => console.log(error));
+    // this.ngOnInit();
   }
+  
   //after click add next
     newManufacturer(): void {
       this.submitted = false;
