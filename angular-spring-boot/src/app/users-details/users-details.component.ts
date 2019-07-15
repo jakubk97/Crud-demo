@@ -23,6 +23,7 @@ export class UsersDetailsComponent implements OnInit {
   displayedColumns: string[] = ['firstname', 'lastname', 'login', 'password', 'role', 'active','Edit','Delete']; 
   dataSource: MatTableDataSource<User>;
   ans: string;
+  filter:string;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -36,7 +37,7 @@ export class UsersDetailsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    
+    this.clearFilters();
   }
 
   applyFilter(filterValue: string) {
@@ -76,9 +77,12 @@ openDialogDelete(id:number) {
 
  const dialogRef = this.dialog.open(UsersDetailsDialogDeleteComponent, dialogConfig);
 
- dialogRef.afterClosed().subscribe(
-   () => this.ngOnInit(),data => console.log("Dialog output:", null)
- );  
+ dialogRef.afterClosed().subscribe(() => this.ngOnInit(),data => console.log("Dialog output:", null));  
+}
+
+clearFilters(){
+  this.dataSource.filter = '';
+  this.filter = '';
 }
 
 }

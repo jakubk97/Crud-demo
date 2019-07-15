@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -11,7 +11,7 @@ import { UserService } from '../user.service';
 })
 export class UsersDetailsDialogEditComponent implements OnInit {
 
-  form: FormGroup;
+    form: FormGroup;
     dataSource: User;
 
     constructor(private userService: UserService,
@@ -27,10 +27,23 @@ export class UsersDetailsDialogEditComponent implements OnInit {
           lastname: [this.dataSource.lastname, []],
           login: [this.dataSource.login, []],
           password: [this.dataSource.password, []],
-          selected: [this.dataSource.role, []],
+          selectedrole: [this.dataSource.role, []],
           selectedactive: [this.dataSource.active, []]
         });
+        this.form = new FormGroup({
+          firstname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+          lastname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+          login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+          password: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+          selectedrole: new FormControl('', [Validators.required]),
+          selectedactive: new FormControl('', [Validators.required])
+        });
     }
+
+    //create car errors  
+  public hasError = (controlName: string, errorName: string) => {
+    return this.form.controls[controlName].hasError(errorName);
+  }
 
     save() {
       this.userService.updateUser(this.dataSource.id,this.dataSource).subscribe(data => console.log("Dialog output:", null));

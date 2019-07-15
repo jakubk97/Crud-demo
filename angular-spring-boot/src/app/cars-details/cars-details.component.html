@@ -1,41 +1,7 @@
-<!-- <div *ngIf="car">
-    <div>
-        <label>Country: </label> {{car.cars.country}}
-      </div>
-    <div>
-      <label>Manufacturer: </label> {{car.cars.name}}
-    </div>
-    <div>
-      <label>Model: </label> {{car.model}}
-    </div>
-    <div>
-     <label>Color: </label> {{car.color}}
-    </div>
-    <div>
-     <label>Body Type: </label> {{car.body}}
-    </div>
-    <div>
-     <label>Capacity: </label> {{car.capacity}}
-    </div>
-    <div>
-     <label>Price: </label> {{car.price}}
-    </div>
-    <div>
-      <label>Mileage: </label> {{car.mileage}}
-     </div>
-     <div>
-      <label>Year: </label> {{car.year}}
-     </div>
-     <div>
-      <label>Status: </label> {{car.status}}
-     </div>
-    <button mat-raised-button color="primary" style="padding: 1px">Buy</button>
-    <hr/>
-  </div> -->
-
   <h1>Cars</h1>
   <mat-form-field style="padding: 30px">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" >
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   
   <div class="mat-elevation">

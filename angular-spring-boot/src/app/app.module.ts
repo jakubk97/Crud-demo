@@ -9,7 +9,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,7 +22,6 @@ import { CarsDetailsComponent } from './cars-details/cars-details.component';
 import { from } from 'rxjs';
 import { UsersSearchComponent } from './users-search/users-search.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
-import { UsersCreateComponent } from './users-create/users-create.component';
 import { UsersDetailsDialogDeleteComponent } from './users-details-dialog-delete/users-details-dialog-delete.component';
 import { UsersDetailsDialogEditComponent } from './users-details-dialog-edit/users-details-dialog-edit.component';
 import { RegisterComponent } from './register/register.component';
@@ -44,7 +42,6 @@ import { RegisterComponent } from './register/register.component';
     CarsDeleteComponent,
     UsersSearchComponent,
     UsersDetailsComponent,
-    UsersCreateComponent,
     UsersDetailsDialogDeleteComponent,
     UsersDetailsDialogEditComponent,
     RegisterComponent
