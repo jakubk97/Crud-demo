@@ -9,50 +9,50 @@
     
             <mat-form-field>
               <mat-label>Manufacturer</mat-label>
-              <mat-select>
-                <mat-option *ngFor="let man of manufacturers" [value]="man"> {{man.name}} </mat-option>
+              <mat-select formControlName="manufacturer" >
+                <mat-option *ngFor="let man of manufacturers" [value]="man"  > {{man.name}} </mat-option>
               </mat-select>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="text" placeholder="model" formControlName="model" id="model">
+              <input matInput type="text" placeholder="model" formControlName="model" id="model" [(ngModel)]="car.model">
               <mat-error *ngIf="hasError('model', 'required')">Model is required</mat-error>
               <mat-error *ngIf="hasError('model', 'maxlength')">You have more than 30 characters</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="text" placeholder="color" formControlName="color" id="color">
+              <input matInput type="text" placeholder="color" formControlName="color" id="color" [(ngModel)]="car.color">
               <mat-error *ngIf="hasError('color', 'required')">Color is required</mat-error>
               <mat-error *ngIf="hasError('color', 'maxlength')">You have more than 30 characters</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="text" placeholder="body" formControlName="body" id="body">
+              <input matInput type="text" placeholder="body" formControlName="body" id="body" [(ngModel)]="car.body">
               <mat-error *ngIf="hasError('body', 'required')">Body Type is required</mat-error>
               <mat-error *ngIf="hasError('body', 'maxlength')">You have more than 30 characters</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="text" placeholder="capacity" formControlName="capacity" id="capacity">
+              <input matInput type="text" placeholder="capacity" formControlName="capacity" id="capacity" [(ngModel)]="car.capacity">
               <mat-error *ngIf="hasError('capacity', 'required')">Capacity is required</mat-error>
               <mat-error *ngIf="hasError('capacity', 'maxlength')"></mat-error>
               <mat-error *ngIf="hasError('capacity', 'pattern')">Wrong capacity value (number.number)</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="number" placeholder="price" formControlName="price" id="price">
+              <input matInput type="number" placeholder="price" formControlName="price" id="price" [(ngModel)]="car.price">
               <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
               <mat-error *ngIf="hasError('price', 'maxlength')">You have more than 30 characters</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="number" placeholder="mileage" formControlName="mileage" id="mileage">
+              <input matInput type="number" placeholder="mileage" formControlName="mileage" id="mileage" [(ngModel)]="car.mileage">
               <mat-error *ngIf="hasError('mileage', 'required')">Mileage is required</mat-error>
               <mat-error *ngIf="hasError('mileage', 'maxlength')">You have more than 30 characters</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="number" placeholder="year" formControlName="year" id="year">
+              <input matInput type="number" placeholder="year" formControlName="year" id="year" [(ngModel)]="car.year">
               <mat-error *ngIf="hasError('year', 'required')">Year is required</mat-error>
               <mat-error *ngIf="hasError('year', 'pattern')">Unpropper year value</mat-error>
             </mat-form-field>
@@ -76,7 +76,6 @@
                     <form [formGroup]="FormManufacturer" autocomplete="off" novalidate (ngSubmit)="onCreate(FormManufacturer.value)" fxLayout="column wrap"
                       fxLayoutAlign="center center" fxLayoutGap="20px">
                       <mat-card-content align="center">
-                
                         <mat-form-field>
                           <input matInput type="text" placeholder="name" formControlName="namem" id="namem" [(ngModel)]="manu.name" name="namem">
                           <mat-error *ngIf="hasErrors('namem', 'required')">Name is required</mat-error>

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Manufacturer } from '../manufacturer';
 import { CarService } from '../car.service';
 import { Observable } from 'rxjs';
+import { Car } from '../car';
 
 @Component({
   selector: 'app-cars-create',
@@ -12,10 +13,12 @@ import { Observable } from 'rxjs';
 export class CarsCreateComponent implements OnInit {
  
   manu: Manufacturer = new Manufacturer();
+  car: Car = new Car();
   submitted = false;
   manufacturers: Manufacturer[];
   public Form: FormGroup;
   public FormManufacturer: FormGroup;
+  ans: string;
 
   constructor(private carService: CarService) { }
 
@@ -30,7 +33,8 @@ export class CarsCreateComponent implements OnInit {
       mileage: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       price: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       capacity: new FormControl('', [Validators.required, Validators.maxLength(3),Validators.pattern('^[0-9]\d{0}\.[0-9]\d{0}$')]),
-      year: new FormControl('', [Validators.required, Validators.pattern('^(19|20)\\d{2}$')])
+      year: new FormControl('', [Validators.required, Validators.pattern('^(19|20)\\d{2}$')]),
+      manufacturer: new FormControl(null)
     });
 
     this.FormManufacturer = new FormGroup({
@@ -56,9 +60,12 @@ export class CarsCreateComponent implements OnInit {
   
   //create new car in database after click create
   public onCarCreate(){
-    // this.submitted = true;
-    // this.carService.createManufacturer(this.manu).subscribe(data => console.log(data), error => console.log(error));
-    // this.ngOnInit();
+    this.car.manufacturer = new Manufacturer();
+    this.car.manufacturer.id = this.Form.get('manufacturer').value.id;
+    this.car.manufacturer.name = this.Form.get('manufacturer').value.name;
+    this.car.manufacturer.country = this.Form.get('manufacturer').value.country;
+    this.carService.createCar(this.car).subscribe(ans => console.log(ans), error => console.log(error));
+    this.ngOnInit();
   }
   
   //after click add next

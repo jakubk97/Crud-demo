@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.javasampleapproach.springrest.postgresql.model.Manufacturer;
+import com.javasampleapproach.springrest.postgresql.model.Role;
 import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
 
@@ -79,7 +80,8 @@ public class UserController {
 	@PostMapping(value = "users/create")
 	public User postUser(@RequestBody User user) {
 		System.out.println("Posting User...");
-		User _user = userrepository.save(new User(user.getFirstname(),user.getLastname(),user.getPassword(),user.getLogin()));
+		user.setRole(Role.user);
+		User _user = userrepository.save(user);
 		return _user;
 	}
 	

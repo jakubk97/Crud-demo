@@ -1,0 +1,48 @@
+<h2 mat-dialog-title align="center">Edit user</h2>
+<mat-dialog-content [formGroup]="form" class="mdc-edit" align="center">
+    <mat-form-field>
+      <mat-label>Manufacturer</mat-label>
+      <mat-select formControlName="manufacturer" >
+        <mat-option *ngFor="let man of manufacturers" [value]="man"  > {{man.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput [(ngModel)]="dataSource.model" placeholder="model" formControlName="model">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="dataSource.body" placeholder="body" formControlName="body">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="dataSource.color" placeholder="color" formControlName="color">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="dataSource.capacity" placeholder="capacity" formControlName="capacity">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="dataSource.mileage" placeholder="mileage" formControlName="mileage">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="dataSource.year" placeholder="year" formControlName="year">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <mat-label>status</mat-label>
+  <mat-select [(value)]="status" formControlName="status" [(ngModel)]="dataSource.status" >
+    <mat-option value="sold">Sold</mat-option>
+    <mat-option value="for_sale">For sale</mat-option>
+    <mat-option value="offer_to_buy">Offer to buy</mat-option>
+  </mat-select>
+</mat-form-field>
+</mat-dialog-content>
+<div class="div-edit">
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Cancel</button>
+    <button class="mat-raised-button mat-primary"(click)="save()" [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>
+</div>

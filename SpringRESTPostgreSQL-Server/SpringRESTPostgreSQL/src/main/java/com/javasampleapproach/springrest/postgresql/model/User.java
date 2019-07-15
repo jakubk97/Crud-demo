@@ -35,7 +35,7 @@ public class User {
 
 	//definition of enum type (projection of enum type from database)
 	@Enumerated(EnumType.STRING)
-    @Column(length = 5,columnDefinition = "rola") //max value length and column name
+    @Column(length = 5) //max value length
 	@Type( type = "pgsql_enum" )
     private Role role;
 

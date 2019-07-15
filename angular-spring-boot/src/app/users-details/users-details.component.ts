@@ -23,7 +23,7 @@ export class UsersDetailsComponent implements OnInit {
   displayedColumns: string[] = ['firstname', 'lastname', 'login', 'password', 'role', 'active','Edit','Delete']; 
   dataSource: MatTableDataSource<User>;
   ans: string;
-  filter:string;
+  filter: string ='';
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -45,6 +45,10 @@ export class UsersDetailsComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  
+  clearFilters(){
+    this.filter = '';
   }
 
 
@@ -80,10 +84,6 @@ openDialogDelete(id:number) {
  dialogRef.afterClosed().subscribe(() => this.ngOnInit(),data => console.log("Dialog output:", null));  
 }
 
-clearFilters(){
-  this.dataSource.filter = '';
-  this.filter = '';
-}
 
 }
 

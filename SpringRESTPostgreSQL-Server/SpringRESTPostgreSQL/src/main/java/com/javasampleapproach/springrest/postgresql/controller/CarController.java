@@ -2,16 +2,25 @@ package com.javasampleapproach.springrest.postgresql.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.javasampleapproach.springrest.postgresql.model.Car;
 import com.javasampleapproach.springrest.postgresql.repo.CarRepository;
 import com.javasampleapproach.springrest.postgresql.model.Manufacturer;
+import com.javasampleapproach.springrest.postgresql.model.Role;
+import com.javasampleapproach.springrest.postgresql.model.Status;
+import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.ManufacturerRepository;
 
 
@@ -66,6 +75,43 @@ public class CarController {
 		System.out.println("Posting Manufacturers...");
 		Manufacturer _manufacturer = manufacturerrepository.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
 		return _manufacturer;
+	}
+	
+	//delete user with given id
+	@DeleteMapping("/car/{id}")
+	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
+		System.out.println("Delete Car with ID = " + id + "...");
+		carrepository.deleteById(id);
+		System.out.println("Deleted");
+		return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
+	}
+	
+	//update car with given id
+	@PutMapping("/car/update/{id}")
+	public ResponseEntity<Car> updateCar(@PathVariable("id") long id, @RequestBody Car car) {
+		System.out.println("Update Car with ID = " + id + "...");
+
+		Optional<Car> carData = carrepository.findById(id);
+		if (carData.isPresent()) {
+			System.out.println("Updating");
+			return new ResponseEntity<>(carrepository.save(car), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	//create new car
+	@PostMapping(value = "/car/create")
+	public ResponseEntity<String> postCar(@RequestBody Car car) {
+		System.out.println("Posting Car...");
+		car.setStatus(Status.for_sale);
+		Car carcreated = carrepository.save(car);
+		Optional<Car> carData = carrepository.findById(carcreated.getId());
+		if (carData.isPresent()) {
+			return new ResponseEntity<>("Created", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	

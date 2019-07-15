@@ -1,0 +1,9 @@
+<div class="div-delete">
+    <h2 mat-dialog-title>Delete {{dataSource.manufacturer.name}} {{dataSource.model}} {{dataSource.year}}?</h2>
+    </div>
+    <div class="div-delete">
+    <mat-dialog-actions>
+        <button class="mat-raised-button"(click)="close()">Cancel</button>
+        <button class="mat-raised-button mat-primary"(click)="delete()">Delete</button>
+    </mat-dialog-actions>
+    </div>

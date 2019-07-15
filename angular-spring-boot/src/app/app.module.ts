@@ -17,7 +17,6 @@ import { LoginComponent } from './login/login.component';
 import { CarsSearchComponent } from './cars-search/cars-search.component';
 import { CarsEditComponent } from './cars-edit/cars-edit.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
-import { CarsDeleteComponent } from './cars-delete/cars-delete.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
 import { from } from 'rxjs';
 import { UsersSearchComponent } from './users-search/users-search.component';
@@ -25,6 +24,8 @@ import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UsersDetailsDialogDeleteComponent } from './users-details-dialog-delete/users-details-dialog-delete.component';
 import { UsersDetailsDialogEditComponent } from './users-details-dialog-edit/users-details-dialog-edit.component';
 import { RegisterComponent } from './register/register.component';
+import { CarsDetailsDialogEditComponent } from './cars-details-dialog-edit/cars-details-dialog-edit.component';
+import { CarsDetailsDialogDeleteComponent } from './cars-details-dialog-delete/cars-details-dialog-delete.component';
 
 
 
@@ -39,12 +40,13 @@ import { RegisterComponent } from './register/register.component';
     CarsSearchComponent,
     CarsEditComponent,
     CarsCreateComponent,
-    CarsDeleteComponent,
     UsersSearchComponent,
     UsersDetailsComponent,
     UsersDetailsDialogDeleteComponent,
     UsersDetailsDialogEditComponent,
-    RegisterComponent
+    RegisterComponent,
+    CarsDetailsDialogEditComponent,
+    CarsDetailsDialogDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,7 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule,
     MatFormFieldModule
   ],
-  entryComponents: [UsersDetailsDialogDeleteComponent,UsersDetailsDialogEditComponent],
+  entryComponents: [UsersDetailsDialogDeleteComponent,UsersDetailsDialogEditComponent,CarsDetailsDialogDeleteComponent,CarsDetailsDialogEditComponent],
   providers: [],
   bootstrap: [AppComponent],
   

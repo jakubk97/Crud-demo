@@ -1,6 +1,9 @@
 package com.javasampleapproach.springrest.postgresql.model;
 
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,8 +28,8 @@ public class Manufacturer {
 	private String country;
 	
 	//mapping to cars from Cars class to get values of name and country from table
-	@OneToMany(mappedBy = "cars", fetch = FetchType.EAGER)
-	private List<Car> cars;	
+	@OneToMany(mappedBy = "manufacturer", cascade = CascadeType.ALL)
+	private Set<Car> manufacturer;	
 	
 	public Manufacturer() {
 	}
@@ -50,6 +53,14 @@ public class Manufacturer {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+
+	public void setManufacturer(Set<Car> manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public void setId(long id) {
+		Id = id;
 	}
 
 	public long getId() {

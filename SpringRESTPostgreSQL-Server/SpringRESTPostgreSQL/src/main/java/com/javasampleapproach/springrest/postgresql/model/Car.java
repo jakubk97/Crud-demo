@@ -1,7 +1,10 @@
 package com.javasampleapproach.springrest.postgresql.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,8 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 @Entity
 @Table(name = "cars")
+@TypeDef(
+	    name = "pgsql_enum",
+	    typeClass = PostgreSQLEnumType.class
+	)
 public class Car {
 
 	@Id
@@ -19,12 +29,9 @@ public class Car {
 	private long id;
 
 	//join tables by fk 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name = "id_manufacturer")
-	private Manufacturer cars;
-
-	@Column(name = "status")
-	private String status;
+	private Manufacturer manufacturer;
 
 	@Column(name = "year")
 	private int year;
@@ -46,34 +53,42 @@ public class Car {
 
 	@Column(name = "price")
 	private double price;
+	
+	//definition of enum type (projection of enum type from database)
+	@Enumerated(EnumType.STRING)
+    @Column(length = 5) //max value length
+	@Type( type = "pgsql_enum" )
+    private Status status;
 
 	public Car() {
 	}
 
-	public Car(String model, Manufacturer cars, String manufacturer, String country, long id_manufacturer,
-			double capacity, String color, String body, double price, String status, int year, double mileage) {
+	public Car(String model,double capacity, String color, String body, double price, int year, double mileage,Manufacturer manufacturer) {
 		this.model = model;
-		this.cars = cars;
 		this.capacity = capacity;
 		this.color = color;
 		this.body = body;
 		this.price = price;
-		this.status = status;
 		this.year = year;
 		this.mileage = mileage;
-
+		this.manufacturer = manufacturer;
+		this.status = Status.for_sale;
 	}
 
-	public Manufacturer getCars() {
-		return cars;
+	public Manufacturer getManufacturer() {
+		return manufacturer;
 	}
 
-	public void setCars(Manufacturer cars) {
-		this.cars = cars;
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public long getId() {
 		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void setModel(String model) {
@@ -116,12 +131,12 @@ public class Car {
 		this.price = price;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
+	}
+	
+	public Status getStatus() {
+		return status;
 	}
 
 	public int getYear() {
