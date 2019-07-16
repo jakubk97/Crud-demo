@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../user';
 import { UserService } from '../user.service';
-import { MatDialog, MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { UsersDetailsDialogEditComponent } from '../users-details-dialog-edit/users-details-dialog-edit.component';
 import { UsersDetailsDialogDeleteComponent } from '../users-details-dialog-delete/users-details-dialog-delete.component';
 
@@ -20,19 +20,19 @@ export interface DialogData {
 })
 export class UsersDetailsComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstname', 'lastname', 'login', 'password', 'role', 'active','Edit','Delete']; 
+  displayedColumns: string[] = ['firstname', 'lastname', 'login', 'password', 'role', 'active', 'Edit', 'Delete'];
   dataSource: MatTableDataSource<User>;
   ans: string;
-  filter: string ='';
+  filter: string = '';
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
-  constructor(private userService: UserService,private dialog: MatDialog) {}
+  constructor(private userService: UserService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.userService.getUsersList().subscribe(ref=>{
+    this.userService.getUsersList().subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -46,44 +46,41 @@ export class UsersDetailsComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  
-  clearFilters(){
+
+  clearFilters() {
     this.filter = '';
   }
 
 
-openDialogEdit(id:number) {
-  const dialogConfig = new MatDialogConfig();
+  openDialogEdit(id: number) {
+    const dialogConfig = new MatDialogConfig();
 
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
-  dialogConfig.data = {
+    dialogConfig.data = {
       data: this.dataSource.data[id]
-  };
+    };
 
-  const dialogRef = this.dialog.open(UsersDetailsDialogEditComponent, dialogConfig);
+    const dialogRef = this.dialog.open(UsersDetailsDialogEditComponent, dialogConfig);
 
-  dialogRef.afterClosed().subscribe(
-    () => this.ngOnInit(),data => console.log("Dialog output:", null)
-  );   
-}
+    dialogRef.afterClosed().subscribe(() => this.ngOnInit(), data => console.log("Dialog output:", null));
+  }
 
-openDialogDelete(id:number) {
- const dialogConfig = new MatDialogConfig();
+  openDialogDelete(id: number) {
+    const dialogConfig = new MatDialogConfig();
 
- dialogConfig.disableClose = true;
- dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
 
- dialogConfig.data = {
-     data: this.dataSource.data[id]
- };
+    dialogConfig.data = {
+      data: this.dataSource.data[id]
+    };
 
- const dialogRef = this.dialog.open(UsersDetailsDialogDeleteComponent, dialogConfig);
+    const dialogRef = this.dialog.open(UsersDetailsDialogDeleteComponent, dialogConfig);
 
- dialogRef.afterClosed().subscribe(() => this.ngOnInit(),data => console.log("Dialog output:", null));  
-}
-
+    dialogRef.afterClosed().subscribe(() => this.ngOnInit(), data => console.log("Dialog output:", null));
+  }
 
 }
 

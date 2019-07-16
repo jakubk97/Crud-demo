@@ -17,3 +17,13 @@ a {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-toolbar-row {
+    justify-content: space-between;
+  }
+
+  .mat-snack-bar-container .flex {
+    display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+  }

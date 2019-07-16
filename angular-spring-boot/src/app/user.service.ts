@@ -18,23 +18,23 @@ export class UserService {
   }
 
   deleteAll(): Observable<any> {
-    return this.http.delete(`${this.baseUrl}` + `/delete`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/delete`, { responseType: 'text' });
   }
 
   loggin(login: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}` + `/login`, {login,password});
+    return this.http.post(`${this.baseUrl}/login`, { login, password });
   }
 
   getUsersList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 
-  getUsersBylastName(lastname: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/lastname/${lastname}`);
+  getUsersByLogin(login: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${login}`, { responseType: 'text' });
   }
 
-    createUser(user: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}` + `/create`, user);
+  createUser(user: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/create`, user, { responseType: 'text' });
   }
 
   deleteUser(id: number): Observable<any> {

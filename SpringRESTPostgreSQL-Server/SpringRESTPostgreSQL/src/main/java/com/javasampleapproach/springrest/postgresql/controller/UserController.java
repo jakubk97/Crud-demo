@@ -51,8 +51,15 @@ public class UserController {
 	public ResponseEntity<String> deleteUser(@PathVariable("id") long id) {
 		System.out.println("Delete User with ID = " + id + "...");
 		userrepository.deleteById(id);
-		System.out.println("Deleted");
-		return new ResponseEntity<>("Customer has been deleted!", HttpStatus.OK);
+		Optional<User> userData = userrepository.findById(id);
+		if (userData.isPresent()) {
+			System.out.println("Error");
+			return new ResponseEntity<>("Error",HttpStatus.CONFLICT);
+		}
+		else {
+			System.out.println("Deleted");
+			return new ResponseEntity<>("Ok",HttpStatus.OK);
+		}
 	}
 	
 	//update user with given id
@@ -76,13 +83,31 @@ public class UserController {
 		}
 	}
 	
+	//search user by login
+	@GetMapping(value = "users/{login}")
+	public ResponseEntity<String> searchUser(@PathVariable("login") String login) {
+		System.out.println("Searching for user with login =" + login + "...");
+		Optional<User> userData = userrepository.findBylogin(login);
+		if (userData.isPresent()) {
+			return new ResponseEntity<>("Login exist",HttpStatus.CONFLICT);
+		}
+		else {
+			return new ResponseEntity<>("Ok",HttpStatus.OK);
+		} 
+	}
+	
 	//create new user
 	@PostMapping(value = "users/create")
-	public User postUser(@RequestBody User user) {
-		System.out.println("Posting User...");
-		user.setRole(Role.user);
-		User _user = userrepository.save(user);
-		return _user;
+	public ResponseEntity<String> postUser(@RequestBody User user) {
+		System.out.println("Creating user with login =" + user.getLogin() + "...");
+		userrepository.save(user);
+		Optional<User> userData = userrepository.findBylogin(user.getLogin());
+		if (userData.isPresent()) {
+			return new ResponseEntity<>("Created",HttpStatus.CREATED);
+		}
+		else {
+			return new ResponseEntity<>("Failed",HttpStatus.METHOD_FAILURE);
+		} 
 	}
 	
 	

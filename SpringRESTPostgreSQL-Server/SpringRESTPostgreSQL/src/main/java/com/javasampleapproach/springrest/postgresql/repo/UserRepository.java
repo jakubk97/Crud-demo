@@ -10,5 +10,5 @@ import com.javasampleapproach.springrest.postgresql.model.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 	List<User> findBylastname(String lastname);
 	Optional<User> findById(long Id);
-	List<User> findBylogin(String login);
+	Optional<User> findBylogin(String login);
 }

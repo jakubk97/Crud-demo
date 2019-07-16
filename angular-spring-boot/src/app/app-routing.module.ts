@@ -3,11 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
-import { UsersSearchComponent } from './users-search/users-search.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CarsEditComponent } from './cars-edit/cars-edit.component';
-import { CarsSearchComponent } from './cars-search/cars-search.component';
+import { ShopCardComponent } from './shop-card/shop-card.component';
 
 
 const routes: Routes = [
@@ -17,6 +15,7 @@ const routes: Routes = [
     { path: 'addcars', component: CarsCreateComponent },
     { path: 'login', component: LoginComponent },
     { path: 'car', component: CarsDetailsComponent },
+    { path: 'card', component: ShopCardComponent },
 ];
 
 @NgModule({

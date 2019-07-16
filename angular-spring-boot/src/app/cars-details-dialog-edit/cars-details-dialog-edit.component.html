@@ -9,26 +9,45 @@
   <br>
   <mat-form-field>
     <input matInput [(ngModel)]="dataSource.model" placeholder="model" formControlName="model">
+    <mat-error *ngIf="hasError('model', 'required')">Model is required</mat-error>
+    <mat-error *ngIf="hasError('model', 'maxlength')">You have more than 30 characters</mat-error>
 </mat-form-field>
 <br>
 <mat-form-field>
   <input matInput [(ngModel)]="dataSource.body" placeholder="body" formControlName="body">
+  <mat-error *ngIf="hasError('body', 'required')">Body Type is required</mat-error>
+  <mat-error *ngIf="hasError('body', 'maxlength')">You have more than 30 characters</mat-error>
 </mat-form-field>
 <br>
 <mat-form-field>
   <input matInput [(ngModel)]="dataSource.color" placeholder="color" formControlName="color">
+  <mat-error *ngIf="hasError('color', 'required')">Color is required</mat-error>
+  <mat-error *ngIf="hasError('color', 'maxlength')">You have more than 30 characters</mat-error>
 </mat-form-field>
 <br>
 <mat-form-field>
   <input matInput [(ngModel)]="dataSource.capacity" placeholder="capacity" formControlName="capacity">
+  <mat-error *ngIf="hasError('capacity', 'required')">Capacity is required</mat-error>
+  <mat-error *ngIf="hasError('capacity', 'maxlength')"></mat-error>
+  <mat-error *ngIf="hasError('capacity', 'pattern')">Wrong capacity value (number.number)</mat-error>
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput [(ngModel)]="dataSource.price" placeholder="price" formControlName="price">
+  <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+  <mat-error *ngIf="hasError('price', 'maxlength')">You have more than 30 characters</mat-error>
 </mat-form-field>
 <br>
 <mat-form-field>
   <input matInput [(ngModel)]="dataSource.mileage" placeholder="mileage" formControlName="mileage">
+  <mat-error *ngIf="hasError('mileage', 'required')">Mileage is required</mat-error>
+  <mat-error *ngIf="hasError('mileage', 'maxlength')">You have more than 30 characters</mat-error>
 </mat-form-field>
 <br>
 <mat-form-field>
   <input matInput [(ngModel)]="dataSource.year" placeholder="year" formControlName="year">
+  <mat-error *ngIf="hasError('year', 'required')">Year is required</mat-error>
+  <mat-error *ngIf="hasError('year', 'pattern')">Unpropper year value</mat-error>
 </mat-form-field>
 <br>
 <mat-form-field>
