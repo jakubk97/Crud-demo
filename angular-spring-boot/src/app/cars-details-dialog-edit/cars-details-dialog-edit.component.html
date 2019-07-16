@@ -2,8 +2,8 @@
 <mat-dialog-content [formGroup]="form" class="mdc-edit" align="center">
     <mat-form-field>
       <mat-label>Manufacturer</mat-label>
-      <mat-select formControlName="manufacturer" >
-        <mat-option *ngFor="let man of manufacturers" [value]="man"  > {{man.name}} </mat-option>
+      <mat-select [(ngModel)]="dataSource.manufacturer.name" formControlName="manufacturer" >
+        <mat-option *ngFor="let man of manufacturers" [value]="man.name" > {{man.name}} </mat-option>
       </mat-select>
     </mat-form-field>
   <br>

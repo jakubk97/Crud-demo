@@ -100,6 +100,21 @@ public class CarController {
 		}
 	}
 	
+	//update to buy car with given id
+	@PutMapping("/car/buy/{id}")
+	public ResponseEntity<Car> buyCar(@PathVariable("id") long id, @RequestBody Car car) {
+		System.out.println("Buy Car with ID = " + id + "...");
+
+		Optional<Car> carData = carrepository.findById(id);
+		if (carData.isPresent()) {
+			System.out.println("Buying");
+			car.setStatus(Status.offer_to_buy);
+			return new ResponseEntity<>(carrepository.save(car), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 	//create new car
 	@PostMapping(value = "/car/create")
 	public ResponseEntity<String> postCar(@RequestBody Car car) {

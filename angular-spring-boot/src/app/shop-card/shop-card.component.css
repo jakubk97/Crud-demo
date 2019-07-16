@@ -1,0 +1,16 @@
+table{
+    width: 100%;
+}
+
+.mat-button{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 10px;
+    zoom: 2;
+}
+
+.mat-button[disabled] {
+    color : rgb(187, 187, 187);
+    background-color: rgba(230, 230, 229, 0.96);
+  }

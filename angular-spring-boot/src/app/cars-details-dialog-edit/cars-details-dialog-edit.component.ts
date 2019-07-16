@@ -29,28 +29,31 @@ export class CarsDetailsDialogEditComponent implements OnInit {
     //download manufacturers from databases to prevent errors
     this.carService.getManufacturersList().subscribe(ref => { this.manufacturers = ref; });
 
-    this.form = this.fb.group({
-      country: [this.dataSource.manufacturer.country, []],
-      name: [this.dataSource.manufacturer.name, []],
-      model: [this.dataSource.model, []],
-      color: [this.dataSource.color, []],
-      body: [this.dataSource.body, []],
-      capacity: [this.dataSource.capacity, []],
-      price: [this.dataSource.price, []],
-      mileage: [this.dataSource.mileage, []],
-      year: [this.dataSource.year, []],
-      status: [this.dataSource.status, []]
-    });
+    // this.form = this.fb.group({
+    //   country: [this.dataSource.manufacturer.country, []],
+    //   name: [this.dataSource.manufacturer.name, []],
+    //   model: [this.dataSource.model, []],
+    //   color: [this.dataSource.color, []],
+    //   body: [this.dataSource.body, []],
+    //   capacity: [this.dataSource.capacity, []],
+    //   price: [this.dataSource.price, []],
+    //   mileage: [this.dataSource.mileage, []],
+    //   year: [this.dataSource.year, []],
+    //   status: [this.dataSource.status, []]
+      
+    // });
 
     this.form = new FormGroup({
-      model: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      body: new FormControl('', [Validators.required, Validators.maxLength(20)]),
-      color: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-      mileage: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      price: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      capacity: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]\d{0}\.[0-9]\d{0}$')]),
-      year: new FormControl('', [Validators.required, Validators.pattern('^(19|20)\\d{2}$')]),
-      manufacturer: new FormControl(null)
+      model: new FormControl(this.dataSource.model, [Validators.required, Validators.maxLength(30)]),
+      country: new FormControl(this.dataSource.manufacturer.country, [Validators.required, Validators.maxLength(30)]),
+      body: new FormControl(this.dataSource.body, [Validators.required, Validators.maxLength(20)]),
+      color: new FormControl(this.dataSource.color, [Validators.required, Validators.maxLength(15)]),
+      mileage: new FormControl(this.dataSource.mileage, [Validators.required, Validators.maxLength(10)]),
+      price: new FormControl(this.dataSource.price, [Validators.required, Validators.maxLength(10)]),
+      capacity: new FormControl(this.dataSource.capacity, [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]\d{0}\.[0-9]\d{0}$')]),
+      year: new FormControl(this.dataSource.year, [Validators.required, Validators.pattern('^(19|20)\\d{2}$')]),
+      manufacturer: new FormControl(this.dataSource.manufacturer.name),
+      status: new FormControl(this.dataSource.status)
     });
   }
 

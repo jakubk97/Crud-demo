@@ -40,6 +40,10 @@ export class CarService {
     return this.http.put(`${this.baseUrl}/update/${id}`, value);
   }
 
+  buyCar(id: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/buy/${id}`, value);
+  }
+
   getManufacturersList(): Observable<any> {
     return this.http.get(`${this.baseUrl}/manufacturers`);
   }
