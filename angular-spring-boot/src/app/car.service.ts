@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Car } from './car';
+import { Manufacturer } from './manufacturer';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,11 @@ export class CarService {
     return this.http.get<Car[]>(`${this.baseUrl}`);
   }
 
-  createManufacturer(manufacturer: Object): Observable<Object> {
+  createManufacturer(manufacturer: Manufacturer): Observable<Object> {
     return this.http.post(`${this.baseUrl}/manufacturer/create`, manufacturer);
   }
 
-  createCar(car: Object): Observable<Object> {
+  createCar(car: Car): Observable<Object> {
     return this.http.post(`${this.baseUrl}/create`, car , { responseType: 'text' });
   }
 
@@ -44,8 +45,8 @@ export class CarService {
     return this.http.put(`${this.baseUrl}/buy/${id}`, value);
   }
 
-  search(body: string,model: string): Observable<Car[]> {
-    return this.http.get<Car[]>(`${this.baseUrl}/search/${body}/${model}`);
+  search(value: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/search` , value);
   }
 
   getModelsList(): Observable<any> {

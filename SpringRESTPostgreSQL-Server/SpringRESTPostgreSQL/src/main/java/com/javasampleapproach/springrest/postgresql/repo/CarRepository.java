@@ -31,7 +31,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
 	@Query("SELECT DISTINCT capacity FROM Car")
 	List<Double> findCarsCapacity();
 	
-	@Query("SELECT c FROM Car c WHERE c.body LIKE CONCAT('%',:body,'%') and c.model LIKE CONCAT('%',:model,'%')")
+	@Query("SELECT c FROM Car c WHERE c.body=:body or c.model=:model")
 	List<Car> findWithParam(@Param("body") String body,@Param("model") String model); //,String model,String color,String name,double price
 	
 }

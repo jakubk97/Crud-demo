@@ -89,14 +89,14 @@ public class CarController {
 	}
 
 	// downloading all cars capacity
-	@GetMapping("/car/search/{body}/{model}")
-	public List<Car> findWithParam(@PathVariable String body,@PathVariable String model) {
+	@GetMapping("/car/search")
+	public List<Car> findWithParam(@RequestBody Car car) {
 		System.out.println("Search cars...");
-		System.out.println(body);
-		System.out.println(model);
-		List<Car> car = new ArrayList<>();
-		carrepository.findWithParam(body,model).forEach(car::add);
-		return car;
+		System.out.println(car.getBody());
+		System.out.println(car.getModel());
+		List<Car> cars = new ArrayList<>();
+		carrepository.findWithParam(car.getBody(),car.getModel()).forEach(cars::add);
+		return cars;
 	}
 
 	// downloading all cars with given capacity

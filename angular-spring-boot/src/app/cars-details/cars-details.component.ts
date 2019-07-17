@@ -11,7 +11,7 @@ import { CarsDetailsDialogEditComponent } from '../cars-details-dialog-edit/cars
 import { Router } from '@angular/router';
 import { ShopcardService } from '../shopcard.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -22,23 +22,22 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class CarsDetailsComponent implements OnInit {
   displayedColumns: string[] = ['manufacturer.country', 'manufacturer.name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'status', 'buy', 'edit', 'delete'];
   dataSource: MatTableDataSource<Car>;
-  manufacturers: String[];
-  model: String[];
+  manufacturers: string;
+  model: string;
   filter: string;
   status: string;
   body: string;
   color: string;
   capacity: string;
-  selected='';
-  selectedmodel='';
-
+  car = new Car;
   public form: FormGroup;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
-  constructor(private carService: CarService, private card: ShopcardService, private dialog: MatDialog, private router: Router, public snackBar: MatSnackBar) { }
+  constructor(private carService: CarService, private card: ShopcardService, private dialog: MatDialog,
+    private router: Router, public snackBar: MatSnackBar, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.carService.getCarsList().subscribe(ref => {
@@ -55,13 +54,19 @@ export class CarsDetailsComponent implements OnInit {
     this.carService.getColorList().subscribe(ref => this.color = ref);
 
     this.form = new FormGroup({
-      status: new FormControl(null),
-      manufacturers: new FormControl(this.manufacturers),
-      body: new FormControl(this.body),
-      capacity: new FormControl(this.capacity),
-      color: new FormControl(this.color),
-      model: new FormControl(this.model)
+      status: new FormControl(this.car.status, Validators.required),
+      manufacturers: new FormControl(this.car.manufacturer.name, Validators.required),
+      body: new FormControl(this.car, Validators.required),
+      capacity: new FormControl(this.capacity, Validators.required),
+      color: new FormControl(this.color, Validators.required),
+      model: new FormControl(this.model, Validators.required)
     });
+    this.form.get('status').setValue('%%');
+    this.form.get('manufacturers').setValue('%%');
+    this.form.get('body').setValue('%%');
+    this.form.get('capacity').setValue('%%');
+    this.form.get('color').setValue('%%');
+    this.form.get('model').setValue('%%');
   }
 
   //filer on control table
@@ -78,17 +83,16 @@ export class CarsDetailsComponent implements OnInit {
 
   //search for a car
   public onSearch() {
-    console.log('');
-    console.log("");
+    console.log(this.car);
     console.log(this.form.get('body').value);
     console.log(this.form.get('model').value);
-    this.carService.search(this.form.get('body').value,this.form.get('model').value).subscribe(ref => {
-    this.dataSource = new MatTableDataSource(ref);
+    this.carService.search(this.car).subscribe(ref => {
+      this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, error => console.log(error));
 
-    
+
     this.form = new FormGroup({
       status: new FormControl(null),
       manufacturers: new FormControl(this.manufacturers),
@@ -97,7 +101,13 @@ export class CarsDetailsComponent implements OnInit {
       color: new FormControl(this.color),
       model: new FormControl(this.model)
     });
-    //this.ngOnInit();
+    this.form.get('status').setValue(this.form.get('status').value);
+    this.form.get('manufacturers').setValue(this.form.get('manufacturers').value);
+    this.form.get('body').setValue(this.form.get('body').value);
+    this.form.get('capacity').setValue(this.form.get('capacity').value);
+    this.form.get('color').setValue(this.form.get('color').value);
+    this.form.get('model').setValue(this.form.get('model').value);
+
   }
 
   public redirectToEdit(id: number) {
