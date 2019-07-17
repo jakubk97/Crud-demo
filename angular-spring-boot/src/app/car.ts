@@ -6,7 +6,7 @@ export class Car {
     model: string;
     color: string;
     body: string;
-    capacity: number;
+    capacity: string;
     price: number;
     mileage: number;
     year: number;

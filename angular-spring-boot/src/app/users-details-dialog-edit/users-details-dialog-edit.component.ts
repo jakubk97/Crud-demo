@@ -23,21 +23,13 @@ export class UsersDetailsDialogEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      firstname: [this.dataSource.firstname, []],
-      lastname: [this.dataSource.lastname, []],
-      login: [this.dataSource.login, []],
-      password: [this.dataSource.password, []],
-      selectedrole: [this.dataSource.role, []],
-      selectedactive: [this.dataSource.active, []]
-    });
     this.form = new FormGroup({
-      firstname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      lastname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      password: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      selectedrole: new FormControl('', [Validators.required]),
-      selectedactive: new FormControl('', [Validators.required])
+      firstname: new FormControl(this.dataSource.firstname, [Validators.required, Validators.maxLength(30)]),
+      lastname: new FormControl(this.dataSource.lastname, [Validators.required, Validators.maxLength(30)]),
+      login: new FormControl(this.dataSource.login, [Validators.required, Validators.maxLength(30)]),
+      password: new FormControl(this.dataSource.password, [Validators.required, Validators.maxLength(30)]),
+      selectedrole: new FormControl(this.dataSource.role, [Validators.required]),
+      selectedactive: new FormControl(this.dataSource.active, [Validators.required])
     });
   }
 

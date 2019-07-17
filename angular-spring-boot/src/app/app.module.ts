@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatIconModule, MatListModule, MatCardModule, MatTableModule,
+  MatButtonModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatSortModule,
   MatPaginatorModule, MatSelectModule, MatDatepickerModule, MatOptionModule, MatNativeDateModule,
   MatDialogModule, MatGridListModule, MatMenuModule, MatSnackBarModule
 } from '@angular/material';
@@ -61,6 +61,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material';
     HttpClientModule,
     MatDatepickerModule,
     MatSelectModule,
+    MatSortModule,
     MatOptionModule,
     MatSnackBarModule,
     MatNativeDateModule,

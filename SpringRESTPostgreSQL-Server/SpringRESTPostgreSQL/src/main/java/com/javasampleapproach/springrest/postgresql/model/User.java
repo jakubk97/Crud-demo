@@ -14,10 +14,7 @@ import org.hibernate.annotations.TypeDef;
 
 @Entity
 @Table(name = "users")
-@TypeDef(
-	    name = "pgsql_enum",
-	    typeClass = PostgreSQLEnumType.class
-	)
+@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class User {
 
 	@Id
@@ -33,11 +30,11 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	//definition of enum type (projection of enum type from database)
+	// definition of enum type (projection of enum type from database)
 	@Enumerated(EnumType.STRING)
-    @Column(length = 5) //max value length
-	@Type( type = "pgsql_enum" )
-    private Role role;
+	@Column(length = 5) // max value length
+	@Type(type = "pgsql_enum")
+	private Role role;
 
 	@Column(name = "login")
 	private String login;

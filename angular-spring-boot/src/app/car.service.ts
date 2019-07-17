@@ -28,8 +28,8 @@ export class CarService {
     return this.http.post(`${this.baseUrl}/manufacturer/create`, manufacturer);
   }
 
-  createCar(manufacturer: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/create`, manufacturer , { responseType: 'text' });
+  createCar(car: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/create`, car , { responseType: 'text' });
   }
 
   deleteCar(id: number): Observable<any> {
@@ -42,6 +42,26 @@ export class CarService {
 
   buyCar(id: number, value: any): Observable<Object> {
     return this.http.put(`${this.baseUrl}/buy/${id}`, value);
+  }
+
+  search(body: string,model: string): Observable<Car[]> {
+    return this.http.get<Car[]>(`${this.baseUrl}/search/${body}/${model}`);
+  }
+
+  getModelsList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/models`);
+  }
+
+  getBodyList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/body`);
+  }
+
+  getColorList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/color`);
+  }
+
+  getCapacityList(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/capacity`);
   }
 
   getManufacturersList(): Observable<any> {

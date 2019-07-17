@@ -21,27 +21,13 @@ export class CarsDetailsDialogEditComponent implements OnInit {
     private fb: FormBuilder, public snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<CarsDetailsDialogEditComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
-    this.dataSource = data.data;
+    this.dataSource = data.data
   }
 
   ngOnInit() {
 
     //download manufacturers from databases to prevent errors
     this.carService.getManufacturersList().subscribe(ref => { this.manufacturers = ref; });
-
-    // this.form = this.fb.group({
-    //   country: [this.dataSource.manufacturer.country, []],
-    //   name: [this.dataSource.manufacturer.name, []],
-    //   model: [this.dataSource.model, []],
-    //   color: [this.dataSource.color, []],
-    //   body: [this.dataSource.body, []],
-    //   capacity: [this.dataSource.capacity, []],
-    //   price: [this.dataSource.price, []],
-    //   mileage: [this.dataSource.mileage, []],
-    //   year: [this.dataSource.year, []],
-    //   status: [this.dataSource.status, []]
-      
-    // });
 
     this.form = new FormGroup({
       model: new FormControl(this.dataSource.model, [Validators.required, Validators.maxLength(30)]),
@@ -55,6 +41,10 @@ export class CarsDetailsDialogEditComponent implements OnInit {
       manufacturer: new FormControl(this.dataSource.manufacturer.name),
       status: new FormControl(this.dataSource.status)
     });
+  }
+
+  checkDouble(number: number){
+
   }
 
   //create car errors  

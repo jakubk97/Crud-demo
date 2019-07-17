@@ -1,17 +1,86 @@
 <h1>Cars</h1>
-<mat-form-field style="padding: 30px">
-  <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
+<!-- <div class="customfilter">
+    <mat-form-field style="padding: 30px">
+        <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+</div> -->
+<div class="createdfilter">
+  Choose element to filter cars
+  <br>
+  <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
+  <div class="createdfilter">
+    <form [formGroup]="form" autocomplete="off" novalidate>
+      <mat-form-field style="padding: 30px">
+        <mat-label>status</mat-label>
+        <mat-select [(value)]="status" formControlName="status">
+          <mat-option></mat-option>
+          <mat-option value="sold">Sold</mat-option>
+          <mat-option value="for_sale">For sale</mat-option>
+          <mat-option value="offer_to_buy">Offer to buy</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field style="padding: 30px">
+        <mat-label>manufacturer</mat-label>
+        <mat-select formControlName="manufacturers">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let man of manufacturers" [value]="man"> {{man.name}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
 
-<div class="mat-elevation">
+    </form>
+  </div>
+  <div class="createdfilter">
+    <form [formGroup]="form" autocomplete="off" novalidate>
+      <mat-form-field style="padding: 30px">
+        <mat-label>model</mat-label>
+        <mat-select formControlName="model">
+            <mat-option value=''>None</mat-option>
+          <mat-option *ngFor="let mod of model" [value]="mod"> {{mod}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field style="padding: 30px">
+        <mat-label>body</mat-label>
+        <mat-select formControlName="body">
+          <mat-option value=''>None</mat-option>
+          <mat-option *ngFor="let b of body" [value]="b"> {{b}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+    </form>
+  </div>
+  <div class="createdfilter">
+    <form [formGroup]="form" autocomplete="off" novalidate>
+      <mat-form-field style="padding: 30px">
+        <mat-label>color</mat-label>
+        <mat-select formControlName="color">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let c of color" [value]="c"> {{c}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <mat-form-field style="padding: 30px">
+        <mat-label>capacity</mat-label>
+        <mat-select formControlName="capacity">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let cap of capacity" [value]="cap"> {{cap | number:'1.1'}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
+</div>
+
+<div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="country">
+    <ng-container matColumnDef="manufacturer.country">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
       <td mat-cell *matCellDef="let row"> {{row.manufacturer.country}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="manufacturer.name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer </th>
       <td mat-cell *matCellDef="let row"> {{row.manufacturer.name}} </td>
     </ng-container>
@@ -26,54 +95,54 @@
       <td mat-cell *matCellDef="let row"> {{row.color}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Body Type">
+    <ng-container matColumnDef="body">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Body Type </th>
       <td mat-cell *matCellDef="let row"> {{row.body}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Capacity">
+    <ng-container matColumnDef="capacity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </th>
-      <td mat-cell *matCellDef="let row"> {{row.capacity}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.capacity | number:'1.1'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Price">
+    <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
       <td mat-cell *matCellDef="let row"> {{row.price}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Mileage">
+    <ng-container matColumnDef="mileage">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Mileage </th>
       <td mat-cell *matCellDef="let row"> {{row.mileage}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Year">
+    <ng-container matColumnDef="year">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Year </th>
       <td mat-cell *matCellDef="let row"> {{row.year}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="Status">
+    <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
       <td mat-cell *matCellDef="let row">
-        <a *ngIf="row.status === 'sold'" class="verified-button">
+        <a *ngIf="row.status === 'sold'" class="verified-button-sold">
           Sold
         </a>
-        <a *ngIf="row.status === 'for_sale'" class="verified-button">
+        <a *ngIf="row.status === 'for_sale'" class="verified-button-for_sale">
           For sale
         </a>
-        <a *ngIf="row.status === 'offer_to_buy'" class="verified-button">
+        <a *ngIf="row.status === 'offer_to_buy'" class="verified-button-offer_to_buy">
           Offer to buy
         </a>
       </td>
     </ng-container>
-    <ng-container matColumnDef="Buy">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+    <ng-container matColumnDef="buy">
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button (click)="redirectToBuy(dataSource.data.indexOf(row))">
           <mat-icon>shopping_cart </mat-icon>
         </button>
       </td>
     </ng-container>
-    <ng-container matColumnDef="Edit">
+    <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button (click)="redirectToEdit(dataSource.data.indexOf(row))">
@@ -81,7 +150,7 @@
         </button>
       </td>
     </ng-container>
-    <ng-container matColumnDef="Delete">
+    <ng-container matColumnDef="delete">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
         <button mat-icon-button (click)="redirectToDelete(dataSource.data.indexOf(row))">

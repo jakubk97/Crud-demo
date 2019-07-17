@@ -27,7 +27,7 @@ public class UserController {
 	@Autowired
 	UserRepository userrepository;
 
-	//downloading all users
+	// downloading all users
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		System.out.println("Get all Users...");
@@ -37,7 +37,7 @@ public class UserController {
 		return users;
 	}
 
-	//downloading all users with given lastname
+	// downloading all users with given lastname
 	@GetMapping(value = "users/lastname/{lastname}")
 	public List<User> findBylastname(@PathVariable String lastname) {
 
@@ -45,8 +45,8 @@ public class UserController {
 		System.out.println("Searching aaaaaaaa");
 		return users;
 	}
-	
-	//delete user with given id
+
+	// delete user with given id
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<String> deleteUser(@PathVariable("id") long id) {
 		System.out.println("Delete User with ID = " + id + "...");
@@ -54,15 +54,14 @@ public class UserController {
 		Optional<User> userData = userrepository.findById(id);
 		if (userData.isPresent()) {
 			System.out.println("Error");
-			return new ResponseEntity<>("Error",HttpStatus.CONFLICT);
-		}
-		else {
+			return new ResponseEntity<>("Error", HttpStatus.CONFLICT);
+		} else {
 			System.out.println("Deleted");
-			return new ResponseEntity<>("Ok",HttpStatus.OK);
+			return new ResponseEntity<>("Ok", HttpStatus.OK);
 		}
 	}
-	
-	//update user with given id
+
+	// update user with given id
 	@PutMapping("/users/update/{id}")
 	public ResponseEntity<User> updateCustomer(@PathVariable("id") long id, @RequestBody User user) {
 		System.out.println("Update Customer with ID = " + id + "...");
@@ -82,35 +81,33 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	//search user by login
+
+	// search user by login
 	@GetMapping(value = "users/{login}")
 	public ResponseEntity<String> searchUser(@PathVariable("login") String login) {
 		System.out.println("Searching for user with login =" + login + "...");
 		Optional<User> userData = userrepository.findBylogin(login);
 		if (userData.isPresent()) {
-			return new ResponseEntity<>("Login exist",HttpStatus.CONFLICT);
+			return new ResponseEntity<>("Login exist", HttpStatus.CONFLICT);
+		} else {
+			return new ResponseEntity<>("Ok", HttpStatus.OK);
 		}
-		else {
-			return new ResponseEntity<>("Ok",HttpStatus.OK);
-		} 
 	}
-	
-	//create new user
+
+	// create new user
 	@PostMapping(value = "users/create")
 	public ResponseEntity<String> postUser(@RequestBody User user) {
 		System.out.println("Creating user with login =" + user.getLogin() + "...");
+		user.setRole(Role.user);
 		userrepository.save(user);
 		Optional<User> userData = userrepository.findBylogin(user.getLogin());
 		if (userData.isPresent()) {
-			return new ResponseEntity<>("Created",HttpStatus.CREATED);
+			return new ResponseEntity<>("Created", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<>("Failed", HttpStatus.METHOD_FAILURE);
 		}
-		else {
-			return new ResponseEntity<>("Failed",HttpStatus.METHOD_FAILURE);
-		} 
 	}
-	
-	
+
 //	@PostMapping("/login")
 //	public String loggin(@RequestParam(name = "id") String fooId, @RequestParam String name) {
 //		System.out.println("Searching for data to loggin");

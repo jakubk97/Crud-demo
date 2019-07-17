@@ -1,4 +1,5 @@
 package com.javasampleapproach.springrest.postgresql.model;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,17 +15,14 @@ import org.hibernate.annotations.TypeDef;
 
 @Entity
 @Table(name = "cars")
-@TypeDef(
-	    name = "pgsql_enum",
-	    typeClass = PostgreSQLEnumType.class
-	)
+@TypeDef(name = "pgsql_enum", typeClass = PostgreSQLEnumType.class)
 public class Car {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	//join tables by fk 
+	// join tables by fk
 	@ManyToOne
 	@JoinColumn(name = "id_manufacturer")
 	private Manufacturer manufacturer;
@@ -49,17 +47,18 @@ public class Car {
 
 	@Column(name = "price")
 	private double price;
-	
-	//definition of enum type (projection of enum type from database)
+
+	// definition of enum type (projection of enum type from database)
 	@Enumerated(EnumType.STRING)
-    @Column(length = 5) //max value length
-	@Type( type = "pgsql_enum" )
-    private Status status;
+	@Column(length = 5) // max value length
+	@Type(type = "pgsql_enum")
+	private Status status;
 
 	public Car() {
 	}
 
-	public Car(String model,double capacity, String color, String body, double price, int year, double mileage,Manufacturer manufacturer) {
+	public Car(String model, double capacity, String color, String body, double price, int year, double mileage,
+			Manufacturer manufacturer) {
 		this.model = model;
 		this.capacity = capacity;
 		this.color = color;
@@ -130,7 +129,7 @@ public class Car {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
 	public Status getStatus() {
 		return status;
 	}

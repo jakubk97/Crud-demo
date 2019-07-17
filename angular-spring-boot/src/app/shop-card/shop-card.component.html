@@ -28,7 +28,7 @@
 
     <ng-container matColumnDef="Capacity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </th>
-      <td mat-cell *matCellDef="let row"> {{row.capacity}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.capacity | number:'1.1'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="Price">

@@ -23,19 +23,17 @@ import com.javasampleapproach.springrest.postgresql.model.Status;
 import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.ManufacturerRepository;
 
-
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 
 public class CarController {
 	@Autowired
 	CarRepository carrepository;
-	
+
 	@Autowired
 	ManufacturerRepository manufacturerrepository;
 
-	//downloading all cars 
+	// downloading all cars
 	@GetMapping("/car")
 	public List<Car> getAllCars() {
 		System.out.println("Get all Cars...");
@@ -44,8 +42,8 @@ public class CarController {
 		carrepository.findAll().forEach(cars::add);
 		return cars;
 	}
-	
-	//downloading all manufacturers 
+
+	// downloading all manufacturers
 	@GetMapping("/car/manufacturers")
 	public List<Manufacturer> getAllManufacturers() {
 		System.out.println("Get getAllManufacturers...");
@@ -53,31 +51,79 @@ public class CarController {
 		manufacturerrepository.findAll().forEach(carmanufacturer::add);
 		return carmanufacturer;
 	}
-	
-	//downloading all cars with given capacity
+
+	// downloading all cars models
+	@GetMapping("/car/models")
+	public List<String> findCarsModel() {
+		System.out.println("Get all cars models...");
+		List<String> model = new ArrayList<>();
+		carrepository.findCarsModels().forEach(model::add);
+		return model;
+	}
+
+	// downloading all cars body
+	@GetMapping("/car/body")
+	public List<String> findCarsBody() {
+		System.out.println("Get all cars body...");
+		List<String> body = new ArrayList<>();
+		carrepository.findCarsBody().forEach(body::add);
+		return body;
+	}
+
+	// downloading all cars color
+	@GetMapping("/car/color")
+	public List<String> findCarsColor() {
+		System.out.println("Get all cars color...");
+		List<String> color = new ArrayList<>();
+		carrepository.findCarsColors().forEach(color::add);
+		return color;
+	}
+
+	// downloading all cars capacity
+	@GetMapping("/car/capacity")
+	public List<Double> findCarsCapacity() {
+		System.out.println("Get all cars capacity...");
+		List<Double> capacity = new ArrayList<>();
+		carrepository.findCarsCapacity().forEach(capacity::add);
+		return capacity;
+	}
+
+	// downloading all cars capacity
+	@GetMapping("/car/search/{body}/{model}")
+	public List<Car> findWithParam(@PathVariable String body,@PathVariable String model) {
+		System.out.println("Search cars...");
+		System.out.println(body);
+		System.out.println(model);
+		List<Car> car = new ArrayList<>();
+		carrepository.findWithParam(body,model).forEach(car::add);
+		return car;
+	}
+
+	// downloading all cars with given capacity
 	@GetMapping(value = "car/capacity/{capacity}")
 	public List<Car> findByCapacity(@PathVariable double capacity) {
 
 		List<Car> cars = carrepository.findByCapacity(capacity);
 		return cars;
 	}
-	
-	//downloading all manufacturers with given id
+
+	// downloading all manufacturers with given id
 	@GetMapping(value = "car/manufacturer/{id_manufacturer}")
 	public List<Manufacturer> findById(@PathVariable long id_manufacturer) {
 		List<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
 		return carmanufacturer;
 	}
-	
-	//create new manufacturer
+
+	// create new manufacturer
 	@PostMapping(value = "car/manufacturer/create")
 	public Manufacturer postManufacturer(@RequestBody Manufacturer manufacturer) {
 		System.out.println("Posting Manufacturers...");
-		Manufacturer _manufacturer = manufacturerrepository.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
+		Manufacturer _manufacturer = manufacturerrepository
+				.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
 		return _manufacturer;
 	}
-	
-	//delete user with given id
+
+	// delete user with given id
 	@DeleteMapping("/car/{id}")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
 		System.out.println("Delete Car with ID = " + id + "...");
@@ -85,8 +131,8 @@ public class CarController {
 		System.out.println("Deleted");
 		return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
 	}
-	
-	//update car with given id
+
+	// update car with given id
 	@PutMapping("/car/update/{id}")
 	public ResponseEntity<Car> updateCar(@PathVariable("id") long id, @RequestBody Car car) {
 		System.out.println("Update Car with ID = " + id + "...");
@@ -99,8 +145,8 @@ public class CarController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	//update to buy car with given id
+
+	// update to buy car with given id
 	@PutMapping("/car/buy/{id}")
 	public ResponseEntity<Car> buyCar(@PathVariable("id") long id, @RequestBody Car car) {
 		System.out.println("Buy Car with ID = " + id + "...");
@@ -114,8 +160,8 @@ public class CarController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	//create new car
+
+	// create new car
 	@PostMapping(value = "/car/create")
 	public ResponseEntity<String> postCar(@RequestBody Car car) {
 		System.out.println("Posting Car...");
@@ -125,10 +171,8 @@ public class CarController {
 		if (carData.isPresent()) {
 			return new ResponseEntity<>("Created", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("",HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
 
 }

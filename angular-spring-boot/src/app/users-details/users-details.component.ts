@@ -9,6 +9,7 @@ import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { UsersDetailsDialogEditComponent } from '../users-details-dialog-edit/users-details-dialog-edit.component';
 import { UsersDetailsDialogDeleteComponent } from '../users-details-dialog-delete/users-details-dialog-delete.component';
 
+
 export interface DialogData {
   data: MatTableDataSource<User>;
 }

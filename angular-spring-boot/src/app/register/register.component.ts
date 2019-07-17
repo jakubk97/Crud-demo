@@ -22,11 +22,11 @@ export class RegisterComponent implements OnInit {
   constructor(private userService: UserService, public snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
-    this.Form = new FormGroup({
+    this.Form = new FormGroup({ 
       firstname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       lastname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-      password: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      password: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern('^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')]),
     });
 
     this.submitted = false;

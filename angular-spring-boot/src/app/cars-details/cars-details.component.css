@@ -1,3 +1,37 @@
 table{
     width: 100%;
 }
+
+.mat-form-field {
+    font-size: 14px;
+  }
+  
+  .verified-button-sold{
+      color: rgb(209, 41, 41);
+      font-style: oblique;
+  }
+
+  .verified-button-for_sale{
+    color: rgb(34, 204, 43);
+}
+
+.verified-button-offer_to_buy{
+    color: rgb(34, 88, 204);;
+}
+
+
+.customfilter{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    float: left;
+    margin: 20px;
+}
+
+.createdfilter{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    float: left;
+    margin: 20px;
+}
