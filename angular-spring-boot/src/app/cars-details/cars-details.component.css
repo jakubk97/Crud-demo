@@ -7,19 +7,19 @@ table{
   }
   
   .verified-button-sold{
-      color: rgb(255, 255, 255);
-      background-color:  rgb(209, 41, 41);
+      color: rgb(0, 0, 0);
+      background-color:tomato;
   }
 
   .verified-button-for_sale{
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     background-color: rgb(34, 204, 43);
     
 }
 
 .verified-button-offer_to_buy{
-    color: rgb(255, 255, 255);
-    background-color: rgb(34, 88, 204);;
+    color: rgb(0, 0, 0);
+    background-color: rgb(34, 88, 204);
 }
 
 
@@ -37,4 +37,23 @@ table{
     align-items:center;
     float: left;
     margin: 20px;
+}
+
+.mat-table {
+    border: 1px solid #cfcfcf;
+    font-weight: bold;
+}
+
+th{
+    background-color: rgb(228, 228, 228);
+    font-weight: bold;
+    color: black;
+    font-size: 17px;
+}
+
+.cell-status{
+    /* text-align: center;
+    border: 1px solid #cfcfcf;
+    font-size: 18px; */
+    color: white;
 }
