@@ -7,16 +7,19 @@ table{
   }
   
   .verified-button-sold{
-      color: rgb(209, 41, 41);
-      font-style: oblique;
+      color: rgb(255, 255, 255);
+      background-color:  rgb(209, 41, 41);
   }
 
   .verified-button-for_sale{
-    color: rgb(34, 204, 43);
+    color: rgb(255, 255, 255);
+    background-color: rgb(34, 204, 43);
+    
 }
 
 .verified-button-offer_to_buy{
-    color: rgb(34, 88, 204);;
+    color: rgb(255, 255, 255);
+    background-color: rgb(34, 88, 204);;
 }
 
 

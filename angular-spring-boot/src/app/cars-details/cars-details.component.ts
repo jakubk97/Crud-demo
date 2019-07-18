@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ShopcardService } from '../shopcard.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Manufacturer } from '../manufacturer';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./cars-details.component.css']
 })
 export class CarsDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['manufacturer.country', 'manufacturer.name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'status', 'buy', 'edit', 'delete'];
+  displayedColumns: string[] = ['country', 'name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'status', 'buy', 'edit', 'delete'];
   dataSource: MatTableDataSource<Car>;
   manufacturers: string;
   model: string;
@@ -31,21 +32,15 @@ export class CarsDetailsComponent implements OnInit {
   capacity: string;
   car = new Car;
   public form: FormGroup;
+  modelblock = true;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
   constructor(private carService: CarService, private card: ShopcardService, private dialog: MatDialog,
-    private router: Router, public snackBar: MatSnackBar, private fb: FormBuilder) { }
-
-  ngOnInit() {
-    this.carService.getCarsList().subscribe(ref => {
-      this.dataSource = new MatTableDataSource(ref); // get all cars from database
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
-    this.clearFilters();
+    private router: Router, public snackBar: MatSnackBar, private fb: FormBuilder) {
+    this.car.manufacturer = new Manufacturer();
 
     this.carService.getManufacturersList().subscribe(ref => this.manufacturers = ref);
     this.carService.getModelsList().subscribe(ref => this.model = ref);
@@ -54,19 +49,31 @@ export class CarsDetailsComponent implements OnInit {
     this.carService.getColorList().subscribe(ref => this.color = ref);
 
     this.form = new FormGroup({
-      status: new FormControl(this.car.status, Validators.required),
-      manufacturers: new FormControl(this.car.manufacturer.name, Validators.required),
-      body: new FormControl(this.car, Validators.required),
-      capacity: new FormControl(this.capacity, Validators.required),
-      color: new FormControl(this.color, Validators.required),
-      model: new FormControl(this.model, Validators.required)
+      status: new FormControl(this.car.status),
+      manufacturers: new FormControl(this.car.manufacturer.name),
+      body: new FormControl(this.car.body),
+      capacity: new FormControl(this.car.capacity),
+      color: new FormControl(this.car.color),
+      model: new FormControl(this.car.model)
     });
-    this.form.get('status').setValue('%%');
-    this.form.get('manufacturers').setValue('%%');
-    this.form.get('body').setValue('%%');
-    this.form.get('capacity').setValue('%%');
-    this.form.get('color').setValue('%%');
-    this.form.get('model').setValue('%%');
+
+    this.form.controls['status'].setValue('empty', { onlySelf: true });
+    this.form.controls['manufacturers'].setValue('%%', { onlySelf: true });
+    this.form.controls['body'].setValue('%%', { onlySelf: true });
+    this.form.controls['capacity'].setValue('', { onlySelf: true });
+    this.form.controls['color'].setValue('%%', { onlySelf: true });
+    this.form.controls['model'].setValue('%%', { onlySelf: true });
+
+  }
+
+  ngOnInit() {
+
+    this.carService.getCarsList().subscribe(ref => {
+      this.dataSource = new MatTableDataSource(ref); // get all cars from database
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+    this.clearFilters();
   }
 
   //filer on control table
@@ -81,32 +88,73 @@ export class CarsDetailsComponent implements OnInit {
     this.filter = '';
   }
 
+  onChange() {
+    if (this.form.get('manufacturers').value !== '%%') {
+      this.modelblock = false;
+      this.carService.getSearchManufacturer(this.form.get('manufacturers').value).subscribe(ref => this.model = ref);
+    }
+    else {
+      this.modelblock = true;
+      this.carService.getModelsList().subscribe(ref => this.model = ref);
+    }
+  }
+
+  onClear() {
+    this.form.controls['status'].setValue('empty', { onlySelf: true });
+    this.form.controls['manufacturers'].setValue('%%', { onlySelf: true });
+    this.form.controls['body'].setValue('%%', { onlySelf: true });
+    this.form.controls['capacity'].setValue('', { onlySelf: true });
+    this.form.controls['color'].setValue('%%', { onlySelf: true });
+    this.form.controls['model'].setValue('%%', { onlySelf: true });
+    this.ngOnInit();
+  }
+
   //search for a car
   public onSearch() {
     console.log(this.car);
     console.log(this.form.get('body').value);
     console.log(this.form.get('model').value);
+    console.log(this.form.get('capacity').value);
+    console.log(this.form.get('manufacturers').value);
+    console.log(this.form.get('color').value);
+    console.log(this.form.get('status').value);
+
+    this.car.body = this.form.get('body').value;
+    this.car.model = this.form.get('model').value;
+    this.car.capacity = this.form.get('capacity').value;
+    if (this.form.get('manufacturers').value === '%%') {
+      this.car.manufacturer.name = '';
+    }
+    else {
+      this.car.manufacturer = this.form.get('manufacturers').value;
+    }
+
+    this.car.color = this.form.get('color').value;
+    this.car.status = this.form.get('status').value;
+
     this.carService.search(this.car).subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(ref)
     }, error => console.log(error));
 
 
-    this.form = new FormGroup({
-      status: new FormControl(null),
-      manufacturers: new FormControl(this.manufacturers),
-      body: new FormControl(this.body),
-      capacity: new FormControl(this.capacity),
-      color: new FormControl(this.color),
-      model: new FormControl(this.model)
-    });
-    this.form.get('status').setValue(this.form.get('status').value);
-    this.form.get('manufacturers').setValue(this.form.get('manufacturers').value);
-    this.form.get('body').setValue(this.form.get('body').value);
-    this.form.get('capacity').setValue(this.form.get('capacity').value);
-    this.form.get('color').setValue(this.form.get('color').value);
-    this.form.get('model').setValue(this.form.get('model').value);
+    // this.form = new FormGroup({
+    //   status: new FormControl(null),
+    //   manufacturers: new FormControl(this.manufacturers),
+    //   body: new FormControl(this.body),
+    //   capacity: new FormControl(this.capacity),
+    //   color: new FormControl(this.color),
+    //   model: new FormControl(this.model)
+    // });
+
+    // this.form.get('status').setValue(this.form.get('status').value);
+    // this.form.get('manufacturers').setValue(this.form.get('manufacturers').value);
+    // this.form.get('body').setValue(this.form.get('body').value);
+    // this.form.get('capacity').setValue(this.form.get('capacity').value);
+    // this.form.get('color').setValue(this.form.get('color').value);
+    // this.form.get('model').setValue(this.form.get('model').value);
 
   }
 

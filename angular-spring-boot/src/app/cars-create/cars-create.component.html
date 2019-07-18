@@ -1,6 +1,6 @@
 <div class="div-over">
 <div class="div-car">
-    <section fxLayout="row wrap" fxLayoutAlign="center center">
+    <section [hidden]="submittedcar" fxLayout="row wrap" fxLayoutAlign="center center">
       <mat-card fxLayoutAlign="center center" style="width: 25vw;">
         <mat-card-title align="center">Create new car advertisment</mat-card-title>
         <form [formGroup]="Form" autocomplete="off" novalidate (ngSubmit)="onCarCreate(Form.value)" fxLayout="column wrap"
@@ -64,6 +64,19 @@
         </form>
       </mat-card>
     </section>
+    <div [hidden]="!submittedcar">
+      <div class="div-mansucces" >
+          <mat-card fxLayoutAlign="center center" style="width: 25vw;">
+              <mat-card-title align="center">You submitted successfully</mat-card-title>
+              <form [formGroup]="FormManufacturer" autocomplete="off" novalidate  fxLayout="column wrap"
+                fxLayoutAlign="center center" fxLayoutGap="20px">
+                <mat-card-actions align="center">
+                  <button mat-raised-button color="primary" (click)="newCar()">Add next</button>
+                </mat-card-actions>
+              </form>
+            </mat-card>
+      </div>
+    </div>
     </div>
 
 

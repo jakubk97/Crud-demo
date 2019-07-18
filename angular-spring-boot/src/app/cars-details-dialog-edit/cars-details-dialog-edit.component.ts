@@ -36,7 +36,7 @@ export class CarsDetailsDialogEditComponent implements OnInit {
       color: new FormControl(this.dataSource.color, [Validators.required, Validators.maxLength(15)]),
       mileage: new FormControl(this.dataSource.mileage, [Validators.required, Validators.maxLength(10)]),
       price: new FormControl(this.dataSource.price, [Validators.required, Validators.maxLength(10)]),
-      capacity: new FormControl(this.dataSource.capacity, [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]\d{0}\.[0-9]\d{0}$')]),
+      capacity: new FormControl(this.dataSource.capacity, [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]\d{0}\\.[0-9]\d{0}$')]),
       year: new FormControl(this.dataSource.year, [Validators.required, Validators.pattern('^(19|20)\\d{2}$')]),
       manufacturer: new FormControl(this.dataSource.manufacturer.name),
       status: new FormControl(this.dataSource.status)

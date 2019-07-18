@@ -1,48 +1,45 @@
-<h1>Cars</h1>
-<!-- <div class="customfilter">
-    <mat-form-field style="padding: 30px">
-        <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="filter" #ctrl="ngModel" placeholder="Filter">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-</div> -->
+<h1 style="text-align: center">Cars</h1>
 <div class="createdfilter">
-  Choose element to filter cars
-  <br>
-  <button mat-raised-button color="primary" (click)="onSearch()">Search</button>
-  <div class="createdfilter">
-    <form [formGroup]="form" autocomplete="off" novalidate>
-      <mat-form-field style="padding: 30px">
-        <mat-label>status</mat-label>
-        <mat-select formControlName="status">
-          <mat-option value='%%'>None</mat-option>
-          <mat-option value="sold">Sold</mat-option>
-          <mat-option value="for_sale">For sale</mat-option>
-          <mat-option value="offer_to_buy">Offer to buy</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <br>
-      <mat-form-field style="padding: 30px">
-        <mat-label>manufacturer</mat-label>
-        <mat-select formControlName="manufacturers">
-          <mat-option value='%%'>None</mat-option>
-          <mat-option *ngFor="let man of manufacturers" [value]="man"> {{man.name}} </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <br>
-
-    </form>
+  <div align="centre">
+    <div>
+      Choose element to filter cars
+    </div>
+    <br>
+    <button style="margin:0 20px;padding: 10px; color: rgb(255, 255, 255);" color="primary" mat-raised-button
+      (click)="onSearch()">Search</button>
+    <button style="margin:0 20px;padding: 10px; color: rgb(255, 255, 255); background-color: rgb(212, 196, 48);" mat-raised-button
+      (click)="onClear()">Clear</button>
   </div>
   <div class="createdfilter">
+  </div>
+  <form [formGroup]="form" autocomplete="off" novalidate>
+    <mat-form-field style="padding: 20px">
+      <mat-label>manufacturer</mat-label>
+      <mat-select formControlName="manufacturers" (ngModelChange)="onChange()">
+        <mat-option value='%%'>None</mat-option>
+        <mat-option *ngFor="let man of manufacturers" [value]="man"> {{man.name}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field style="padding: 20px">
+        <mat-label>capacity</mat-label>
+        <mat-select formControlName="capacity">
+          <mat-option value=''>None</mat-option>
+          <mat-option *ngFor="let cap of capacity" [value]="cap"> {{cap | number:'1.1'}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+  <div class="createdfilter">
     <form [formGroup]="form">
-      <mat-form-field style="padding: 30px">
+      <mat-form-field style="padding: 20px">
         <mat-label>model</mat-label>
-        <mat-select formControlName="model">
+        <mat-select formControlName="model" [disabled]="modelblock">
           <mat-option value='%%'>None</mat-option>
           <mat-option *ngFor="let mod of model" [value]="mod"> {{mod}} </mat-option>
         </mat-select>
       </mat-form-field>
       <br>
-      <mat-form-field style="padding: 30px">
+      <mat-form-field style="padding: 20px">
         <mat-label>body</mat-label>
         <mat-select formControlName="body">
           <mat-option value='%%'>None</mat-option>
@@ -54,7 +51,7 @@
   </div>
   <div class="createdfilter">
     <form [formGroup]="form" autocomplete="off" novalidate>
-      <mat-form-field style="padding: 30px">
+      <mat-form-field style="padding: 20px">
         <mat-label>color</mat-label>
         <mat-select formControlName="color">
           <mat-option value='%%'>None</mat-option>
@@ -62,25 +59,27 @@
         </mat-select>
       </mat-form-field>
       <br>
-      <mat-form-field style="padding: 30px">
-        <mat-label>capacity</mat-label>
-        <mat-select formControlName="capacity">
-          <mat-option value='%%'>None</mat-option>
-          <mat-option *ngFor="let cap of capacity" [value]="cap"> {{cap | number:'1.1'}} </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <mat-form-field style="padding: 20px">
+          <mat-label>status</mat-label>
+          <mat-select formControlName="status">
+            <mat-option value='empty'>None</mat-option>
+            <mat-option value="sold">Sold</mat-option>
+            <mat-option value="for_sale">For sale</mat-option>
+            <mat-option value="offer_to_buy">Offer to buy</mat-option>
+          </mat-select>
+        </mat-form-field>
     </form>
   </div>
 </div>
 
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort>
-    <ng-container matColumnDef="manufacturer.country">
+    <ng-container matColumnDef="country">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
       <td mat-cell *matCellDef="let row"> {{row.manufacturer.country}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="manufacturer.name">
+    <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer </th>
       <td mat-cell *matCellDef="let row"> {{row.manufacturer.name}} </td>
     </ng-container>
@@ -122,7 +121,7 @@
 
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-      <td mat-cell *matCellDef="let row">
+      <td mat-cell *matCellDef="let row" class="cell-status">
         <a *ngIf="row.status === 'sold'" class="verified-button-sold">
           Sold
         </a>

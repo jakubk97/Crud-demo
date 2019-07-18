@@ -12,3 +12,7 @@ export class Car {
     year: number;
     status: string;
 }
+
+export enum Status{
+
+}

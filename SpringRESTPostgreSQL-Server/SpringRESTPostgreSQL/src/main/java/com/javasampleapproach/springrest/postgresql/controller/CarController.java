@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.javasampleapproach.springrest.postgresql.model.Car;
 import com.javasampleapproach.springrest.postgresql.repo.CarRepository;
@@ -88,14 +92,40 @@ public class CarController {
 		return capacity;
 	}
 
-	// downloading all cars capacity
-	@GetMapping("/car/search")
-	public List<Car> findWithParam(@RequestBody Car car) {
+	// search cars
+	@RequestMapping(value = "/car/search", method = RequestMethod.GET)
+	public List<Car> findWithParam(@RequestParam("model") String model, @RequestParam("body") String body,
+			@RequestParam("color") String color, @RequestParam("status") Status status,
+			@RequestParam("capacity") String capacity, @RequestParam("name") String name) {
 		System.out.println("Search cars...");
-		System.out.println(car.getBody());
-		System.out.println(car.getModel());
+		System.out.println(model);
+		System.out.println(body);
+		System.out.println(name);
+		System.out.println(color);
+		System.out.println(status);
 		List<Car> cars = new ArrayList<>();
-		carrepository.findWithParam(car.getBody(),car.getModel()).forEach(cars::add);
+		if (capacity.equals("")) {
+			if (status.equals(Status.empty)) {
+				carrepository.findWithParam(body, model, color, name).forEach(cars::add);
+			} else {
+				carrepository.findWithParam(body, model, color, status, name).forEach(cars::add);
+			}
+		} else {
+			if (status.equals(Status.empty)) {
+				carrepository.findWithParam(body, model, color, Double.parseDouble(capacity), name).forEach(cars::add);
+			} else {
+				carrepository.findWithParam(body, model, color, status, Double.parseDouble(capacity), name)
+						.forEach(cars::add);
+			}
+		}
+		return cars;
+	}
+
+	// downloading all cars models with given manufacturer
+	@GetMapping(value = "car/{id}")
+	public List<String> findCarsModelsByManufacturer(@PathVariable("id") long id) {
+		System.out.println("Getting models with manufacturer id = " + id + "...");
+		List<String> cars = carrepository.findCarsModelsByManufacturer(id);
 		return cars;
 	}
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Car } from './car';
 import { Manufacturer } from './manufacturer';
@@ -14,7 +14,7 @@ export class CarService {
   constructor(private http: HttpClient) { }
 
   loggin(login: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, {login,password});
+    return this.http.post(`${this.baseUrl}/login`, { login, password });
   }
 
   loggin2(): Observable<any> {
@@ -30,7 +30,7 @@ export class CarService {
   }
 
   createCar(car: Car): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/create`, car , { responseType: 'text' });
+    return this.http.post(`${this.baseUrl}/create`, car, { responseType: 'text' });
   }
 
   deleteCar(id: number): Observable<any> {
@@ -45,8 +45,19 @@ export class CarService {
     return this.http.put(`${this.baseUrl}/buy/${id}`, value);
   }
 
-  search(value: any): Observable<any> {
-    return this.http.get(`${this.baseUrl}/search` , value);
+  search(car: Car): Observable<any> {
+    console.log(car);
+    console.log(car.manufacturer);
+    let headers = new HttpHeaders().set('Content', 'applicationparams');
+    let params = new HttpParams().set('model', car.model).set('body', car.body)
+      .set('color', car.color).set('status', car.status).set('capacity', car.capacity).set('name', car.manufacturer.name);
+    console.log(headers);
+    console.log(params);
+    return this.http.get(`${this.baseUrl}/search`, { headers: headers, params: params });
+  }
+
+  getSearchManufacturer(manufacturer: Manufacturer): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${manufacturer.id}`);
   }
 
   getModelsList(): Observable<any> {
