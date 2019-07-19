@@ -1,40 +1,50 @@
-table{
+table {
     width: 100%;
 }
 
 .mat-form-field {
     font-size: 14px;
-  }
-  
-  .verified-button-sold{
-      color: rgb(0, 0, 0);
-      background-color:tomato;
-  }
+}
 
-  .verified-button-for_sale{
+.verified-button-sold {
+    color: rgb(0, 0, 0);
+    background-color: tomato;
+}
+
+.verified-button-sold[disabled] {
+    color: rgb(0, 0, 0);
+}
+
+.verified-button-for_sale {
     color: rgb(0, 0, 0);
     background-color: rgb(34, 204, 43);
-    
 }
 
-.verified-button-offer_to_buy{
+.verified-button-for_sale[disabled] {
     color: rgb(0, 0, 0);
-    background-color: rgb(34, 88, 204);
 }
 
+.verified-button-offer_to_buy {
+    color: rgb(0, 0, 0);
+    background-color: rgba(42, 153, 243, 0.829);
+}
 
-.customfilter{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.verified-button-offer_to_buy[disabled] {
+    color: rgb(0, 0, 0);
+}
+
+.customfilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     float: left;
     margin: 20px;
 }
 
-.createdfilter{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.createdfilter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     float: left;
     margin: 20px;
 }
@@ -42,18 +52,23 @@ table{
 .mat-table {
     border: 1px solid #cfcfcf;
     font-weight: bold;
+    height: 30vh !important;
 }
 
-th{
+th {
     background-color: rgb(228, 228, 228);
     font-weight: bold;
     color: black;
     font-size: 17px;
 }
 
-.cell-status{
+.cell-status {
     /* text-align: center;
     border: 1px solid #cfcfcf;
     font-size: 18px; */
     color: white;
+}
+
+.paginator {
+    font-size: 15px;
 }

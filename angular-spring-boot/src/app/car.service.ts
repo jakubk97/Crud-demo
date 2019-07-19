@@ -45,12 +45,15 @@ export class CarService {
     return this.http.put(`${this.baseUrl}/buy/${id}`, value);
   }
 
-  search(car: Car): Observable<any> {
+  search(car: Car, pricefrom: string, priceto: string): Observable<any> {
     console.log(car);
     console.log(car.manufacturer);
+    console.log(pricefrom);
+    console.log(priceto);
     let headers = new HttpHeaders().set('Content', 'applicationparams');
     let params = new HttpParams().set('model', car.model).set('body', car.body)
-      .set('color', car.color).set('status', car.status).set('capacity', car.capacity).set('name', car.manufacturer.name);
+      .set('color', car.color).set('status', car.status).set('capacity', car.capacity).set('name', car.manufacturer.name)
+      .set('pricefrom', pricefrom).set('priceto', priceto);
     console.log(headers);
     console.log(params);
     return this.http.get(`${this.baseUrl}/search`, { headers: headers, params: params });

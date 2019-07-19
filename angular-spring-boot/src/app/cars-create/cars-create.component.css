@@ -1,21 +1,22 @@
 .div-car {
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 20px;
     float: left;
 }
+
 .div-man {
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     float: left;
     margin: 20px;
 }
 
 .div-over {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-	margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
 }

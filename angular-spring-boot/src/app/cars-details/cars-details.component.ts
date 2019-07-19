@@ -13,6 +13,7 @@ import { ShopcardService } from '../shopcard.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Manufacturer } from '../manufacturer';
+import { stringify } from '@angular/compiler/src/util';
 
 
 @Component({
@@ -54,7 +55,9 @@ export class CarsDetailsComponent implements OnInit {
       body: new FormControl(this.car.body),
       capacity: new FormControl(this.car.capacity),
       color: new FormControl(this.car.color),
-      model: new FormControl(this.car.model)
+      model: new FormControl(this.car.model),
+      pricefrom: new FormControl(null),
+      priceto: new FormControl(null)
     });
 
     this.form.controls['status'].setValue('empty', { onlySelf: true });
@@ -63,6 +66,8 @@ export class CarsDetailsComponent implements OnInit {
     this.form.controls['capacity'].setValue('', { onlySelf: true });
     this.form.controls['color'].setValue('%%', { onlySelf: true });
     this.form.controls['model'].setValue('%%', { onlySelf: true });
+    this.form.controls['pricefrom'].setValue('%%', { onlySelf: true });
+    this.form.controls['priceto'].setValue('%%', { onlySelf: true });
 
   }
 
@@ -106,22 +111,21 @@ export class CarsDetailsComponent implements OnInit {
     this.form.controls['capacity'].setValue('', { onlySelf: true });
     this.form.controls['color'].setValue('%%', { onlySelf: true });
     this.form.controls['model'].setValue('%%', { onlySelf: true });
+    this.form.controls['pricefrom'].setValue('%%', { onlySelf: true });
+    this.form.controls['priceto'].setValue('%%', { onlySelf: true });
     this.ngOnInit();
   }
 
   //search for a car
   public onSearch() {
-    console.log(this.car);
-    console.log(this.form.get('body').value);
-    console.log(this.form.get('model').value);
-    console.log(this.form.get('capacity').value);
-    console.log(this.form.get('manufacturers').value);
-    console.log(this.form.get('color').value);
-    console.log(this.form.get('status').value);
+    let pricefrom: string;
+    let priceto: string;
 
     this.car.body = this.form.get('body').value;
     this.car.model = this.form.get('model').value;
     this.car.capacity = this.form.get('capacity').value;
+    this.car.color = this.form.get('color').value;
+    this.car.status = this.form.get('status').value;
     if (this.form.get('manufacturers').value === '%%') {
       this.car.manufacturer.name = '';
     }
@@ -129,35 +133,28 @@ export class CarsDetailsComponent implements OnInit {
       this.car.manufacturer = this.form.get('manufacturers').value;
     }
 
-    this.car.color = this.form.get('color').value;
-    this.car.status = this.form.get('status').value;
-
-    this.carService.search(this.car).subscribe(ref => {
+    if (this.form.get('pricefrom').value === '%%') {
+      pricefrom = '0';
+    }
+    else{
+      pricefrom=this.form.get('pricefrom').value;
+    }
+    if (this.form.get('priceto').value === '%%') {
+      priceto = '200000000';
+    }
+    else{
+      priceto=this.form.get('priceto').value;
+    }
+    this.carService.search(this.car,pricefrom,priceto).subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log(ref)
     }, error => console.log(error));
-
-
-    // this.form = new FormGroup({
-    //   status: new FormControl(null),
-    //   manufacturers: new FormControl(this.manufacturers),
-    //   body: new FormControl(this.body),
-    //   capacity: new FormControl(this.capacity),
-    //   color: new FormControl(this.color),
-    //   model: new FormControl(this.model)
-    // });
-
-    // this.form.get('status').setValue(this.form.get('status').value);
-    // this.form.get('manufacturers').setValue(this.form.get('manufacturers').value);
-    // this.form.get('body').setValue(this.form.get('body').value);
-    // this.form.get('capacity').setValue(this.form.get('capacity').value);
-    // this.form.get('color').setValue(this.form.get('color').value);
-    // this.form.get('model').setValue(this.form.get('model').value);
-
   }
 
+
+  //redirect to dialog with edit clicked car
   public redirectToEdit(id: number) {
 
     this.dataSource.data[id].capacity = parseFloat(this.dataSource.data[id].capacity).toPrecision(2);
@@ -176,6 +173,7 @@ export class CarsDetailsComponent implements OnInit {
     );
   }
 
+  //redirect to window with card and add selected car to list of cars in card
   public redirectToBuy(id: number) {
     if (this.dataSource.data[id].status === "for_sale") {
       this.card.shopcard.push(this.dataSource.data[id]);

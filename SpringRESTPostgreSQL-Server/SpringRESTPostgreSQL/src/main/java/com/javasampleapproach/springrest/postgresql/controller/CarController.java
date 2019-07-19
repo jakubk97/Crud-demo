@@ -96,25 +96,28 @@ public class CarController {
 	@RequestMapping(value = "/car/search", method = RequestMethod.GET)
 	public List<Car> findWithParam(@RequestParam("model") String model, @RequestParam("body") String body,
 			@RequestParam("color") String color, @RequestParam("status") Status status,
-			@RequestParam("capacity") String capacity, @RequestParam("name") String name) {
+			@RequestParam("capacity") String capacity, @RequestParam("name") String name, @RequestParam("pricefrom") String pricefrom
+			, @RequestParam("priceto") String priceto) {
 		System.out.println("Search cars...");
 		System.out.println(model);
 		System.out.println(body);
 		System.out.println(name);
 		System.out.println(color);
 		System.out.println(status);
+		System.out.println(pricefrom);
+		System.out.println(priceto);
 		List<Car> cars = new ArrayList<>();
 		if (capacity.equals("")) {
 			if (status.equals(Status.empty)) {
-				carrepository.findWithParam(body, model, color, name).forEach(cars::add);
+				carrepository.findWithParam(body, model, color, name,Double.parseDouble(pricefrom),Double.parseDouble(priceto)).forEach(cars::add);
 			} else {
-				carrepository.findWithParam(body, model, color, status, name).forEach(cars::add);
+				carrepository.findWithParam(body, model, color, status, name,Double.parseDouble(pricefrom),Double.parseDouble(priceto)).forEach(cars::add);
 			}
 		} else {
 			if (status.equals(Status.empty)) {
-				carrepository.findWithParam(body, model, color, Double.parseDouble(capacity), name).forEach(cars::add);
+				carrepository.findWithParam(body, model, color, Double.parseDouble(capacity), name,Double.parseDouble(pricefrom),Double.parseDouble(priceto)).forEach(cars::add);
 			} else {
-				carrepository.findWithParam(body, model, color, status, Double.parseDouble(capacity), name)
+				carrepository.findWithParam(body, model, color, status, Double.parseDouble(capacity), name,Double.parseDouble(pricefrom),Double.parseDouble(priceto))
 						.forEach(cars::add);
 			}
 		}
@@ -148,18 +151,24 @@ public class CarController {
 	@PostMapping(value = "car/manufacturer/create")
 	public Manufacturer postManufacturer(@RequestBody Manufacturer manufacturer) {
 		System.out.println("Posting Manufacturers...");
-		Manufacturer _manufacturer = manufacturerrepository
-				.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
+		Manufacturer _manufacturer = manufacturerrepository.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
 		return _manufacturer;
 	}
 
-	// delete user with given id
+	// delete car with given id
 	@DeleteMapping("/car/{id}")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
 		System.out.println("Delete Car with ID = " + id + "...");
 		carrepository.deleteById(id);
-		System.out.println("Deleted");
-		return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
+		Optional<Car> carData = carrepository.findById(id);
+		if (carData.isPresent()) {
+			System.out.println("Error while deleting car");
+			return new ResponseEntity<>("Error", HttpStatus.CONFLICT);
+		} else {
+			System.out.println("Deleted");
+			return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
+		}
+		
 	}
 
 	// update car with given id
