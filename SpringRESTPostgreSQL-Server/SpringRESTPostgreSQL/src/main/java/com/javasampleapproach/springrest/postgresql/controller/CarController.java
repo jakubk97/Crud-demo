@@ -99,13 +99,6 @@ public class CarController {
 			@RequestParam("capacity") String capacity, @RequestParam("name") String name, @RequestParam("pricefrom") String pricefrom
 			, @RequestParam("priceto") String priceto) {
 		System.out.println("Search cars...");
-		System.out.println(model);
-		System.out.println(body);
-		System.out.println(name);
-		System.out.println(color);
-		System.out.println(status);
-		System.out.println(pricefrom);
-		System.out.println(priceto);
 		List<Car> cars = new ArrayList<>();
 		if (capacity.equals("")) {
 			if (status.equals(Status.empty)) {
@@ -142,19 +135,11 @@ public class CarController {
 
 	// downloading all manufacturers with given id
 	@GetMapping(value = "car/manufacturer/{id_manufacturer}")
-	public List<Manufacturer> findById(@PathVariable long id_manufacturer) {
-		List<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
+	public Optional<Manufacturer> findById(@PathVariable long id_manufacturer) {
+		Optional<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
 		return carmanufacturer;
 	}
-
-	// create new manufacturer
-	@PostMapping(value = "car/manufacturer/create")
-	public Manufacturer postManufacturer(@RequestBody Manufacturer manufacturer) {
-		System.out.println("Posting Manufacturers...");
-		Manufacturer _manufacturer = manufacturerrepository.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
-		return _manufacturer;
-	}
-
+	
 	// delete car with given id
 	@DeleteMapping("/car/{id}")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
@@ -168,7 +153,6 @@ public class CarController {
 			System.out.println("Deleted");
 			return new ResponseEntity<>("Car deleted!", HttpStatus.OK);
 		}
-		
 	}
 
 	// update car with given id
@@ -208,10 +192,30 @@ public class CarController {
 		Car carcreated = carrepository.save(car);
 		Optional<Car> carData = carrepository.findById(carcreated.getId());
 		if (carData.isPresent()) {
-			return new ResponseEntity<>("Created", HttpStatus.OK);
+			return new ResponseEntity<>("Car created", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Error while creating car", HttpStatus.NOT_FOUND);
 		}
 	}
+	
+	// create new manufacturer
+	@PostMapping(value = "car/manufacturer/create")
+	public ResponseEntity<String> postManufacturer(@RequestBody Manufacturer manufacturer) {
+		System.out.println("Searching for existing manufacturers...");
+		Optional<Manufacturer> manData = manufacturerrepository.findByName(manufacturer.getName());
+		if (manData.isPresent()) {
+			return new ResponseEntity<>("Manufacturer is already created!", HttpStatus.OK);
+		} else {
+			System.out.println("Posting Manufacturers...");
+			Manufacturer _manufacturer = manufacturerrepository.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
+			Optional<Manufacturer> manDat = manufacturerrepository.findById(_manufacturer.getId());
+			if (manDat.isPresent()) {
+				return new ResponseEntity<>("Manufacturer created", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>("Error while creating manufacturer", HttpStatus.NOT_FOUND);
+			}
+		}
+	}
+
 
 }

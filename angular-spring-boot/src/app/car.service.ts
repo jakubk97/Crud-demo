@@ -26,7 +26,7 @@ export class CarService {
   }
 
   createManufacturer(manufacturer: Manufacturer): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/manufacturer/create`, manufacturer);
+    return this.http.post(`${this.baseUrl}/manufacturer/create`, manufacturer, { responseType: 'text' });
   }
 
   createCar(car: Car): Observable<Object> {

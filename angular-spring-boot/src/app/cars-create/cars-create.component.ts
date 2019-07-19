@@ -4,6 +4,8 @@ import { Manufacturer } from '../manufacturer';
 import { CarService } from '../car.service';
 import { Observable } from 'rxjs';
 import { Car } from '../car';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-cars-create',
@@ -21,7 +23,7 @@ export class CarsCreateComponent implements OnInit {
   public FormManufacturer: FormGroup;
   ans: string;
 
-  constructor(private carService: CarService) { }
+  constructor(private carService: CarService,public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     //download manufacturers from databases to prevent errors
@@ -55,9 +57,16 @@ export class CarsCreateComponent implements OnInit {
   //create new manufacturer in database after click create
   public onCreate() {
     this.submitted = true;
-    this.carService.createManufacturer(this.manu).subscribe(data => console.log(data), error => console.log(error));
+    this.manu.name = this.manu.name.charAt(0).toUpperCase() + this.manu.name.slice(1);
+    this.manu.country = this.manu.country.charAt(0).toUpperCase() + this.manu.country.slice(1);
+    this.carService.createManufacturer(this.manu).subscribe(ans => this.succes(ans.toString()), ans => this.error(ans.toString()));
     this.manu = new Manufacturer();
     this.ngOnInit();
+  }
+
+   capitalize = (s) => {
+    if (typeof s !== 'string') return ''
+    return s.charAt(0).toUpperCase() + s.slice(1)
   }
 
   //create new car in database after click create
@@ -67,8 +76,19 @@ export class CarsCreateComponent implements OnInit {
     this.car.manufacturer.id = this.Form.get('manufacturer').value.id;
     this.car.manufacturer.name = this.Form.get('manufacturer').value.name;
     this.car.manufacturer.country = this.Form.get('manufacturer').value.country;
-    this.carService.createCar(this.car).subscribe(ans => console.log(ans), error => console.log(error));
+    this.car.body = this.car.body.charAt(0).toUpperCase() + this.car.body.slice(1);
+    this.car.model = this.car.model.charAt(0).toUpperCase() + this.car.model.slice(1);
+    this.car.color = this.car.color.charAt(0).toUpperCase() + this.car.color.slice(1);
+    this.carService.createCar(this.car).subscribe(ans => this.succes(ans.toString()), ans => this.error(ans.toString()));
     this.ngOnInit();
+  }
+
+  succes(ans: string) {
+    setTimeout(() => { this.openSnackBar(ans); }, 0);
+  }
+
+  error(ans: string) {
+    setTimeout(() => { this.openSnackBar("Could not create element"); }, 0);
   }
 
   //after click add next
@@ -82,7 +102,12 @@ export class CarsCreateComponent implements OnInit {
     this.submittedcar = false;
   }
 
-
+  openSnackBar(message: string) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: message,
+      duration: 3000
+    });
+  }
 
 }
 
