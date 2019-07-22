@@ -21,7 +21,7 @@ export interface DialogData {
 })
 export class UsersDetailsComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstname', 'lastname', 'login', 'password', 'role', 'active', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'login', 'role', 'active', 'Edit', 'Delete'];
   dataSource: MatTableDataSource<User>;
   ans: string;
   filter: string = '';
@@ -33,12 +33,12 @@ export class UsersDetailsComponent implements OnInit {
   constructor(private userService: UserService, private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.clearFilters();
     this.userService.getUsersList().subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    this.clearFilters();
   }
 
   applyFilter(filterValue: string) {
@@ -65,7 +65,7 @@ export class UsersDetailsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(UsersDetailsDialogEditComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(() => this.ngOnInit(), data => console.log("Dialog output:", null));
+    dialogRef.afterClosed().subscribe(() =>  setTimeout(() => { this.ngOnInit(); }, 0), data => console.log("Dialog output:", null));
   }
 
   openDialogDelete(id: number) {
@@ -80,7 +80,7 @@ export class UsersDetailsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(UsersDetailsDialogDeleteComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(() => this.ngOnInit(), data => console.log("Dialog output:", null));
+    dialogRef.afterClosed().subscribe(() =>  setTimeout(() => { this.ngOnInit(); }, 0), data => console.log("Dialog output:", null));
   }
 
 }

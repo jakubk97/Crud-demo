@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { User } from '../user';
 import { UserService } from '../user.service';
+import { AuthService } from '../auth/auth.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +17,29 @@ export class LoginComponent implements OnInit {
   logging = false;
   login:string;
   password:string;
+  isLoggedIn = false;
+  isLoginFailed = false;
+  roles: string[] = [];
   public Form: FormGroup;
   private dialogConfig;
+  info: any;
   
 
-  constructor(private userservice: UserService) { }
+  constructor(private userservice: UserService,private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
+    this.info = {
+      token: this.tokenStorage.getToken(),
+      username: this.tokenStorage.getUsername(),
+      authorities: this.tokenStorage.getAuthorities()
+    };
+
+
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getAuthorities();
+    }
+
     this.Form = new FormGroup({
       login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required])
@@ -35,12 +53,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
   public hasError = (controlName: string, errorName: string) => {
     return this.Form.controls[controlName].hasError(errorName);
-  }
-
-  public onCreate = () => {
   }
 
   public loggin = (ownerFormValue) => {
@@ -56,9 +70,34 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.logging = true;
-    this.userservice.loggin(this.user.login,this.user.password).subscribe(user => this.user = user);
+
+    console.log(this.user);
+    this.authService.attemptAuth(this.user).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUsername(data.login);
+        this.tokenStorage.saveAuthorities(data.authorities);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getAuthorities();
+        this.reloadPage();
+      },
+      error => {
+        console.log(error);
+        this.isLoginFailed = true;
+      }
+    );
+
+
+    //this.userservice.loggin(this.user.login,this.user.password).subscribe(user => this.user = user);
 
     
+  }
+
+  
+  reloadPage() {
+    window.location.reload();
   }
 
 

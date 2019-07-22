@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.javasampleapproach.springrest.postgresql.model.Manufacturer;
 import com.javasampleapproach.springrest.postgresql.model.Role;
 import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
@@ -33,7 +32,6 @@ public class UserController {
 		System.out.println("Get all Users...");
 		List<User> users = new ArrayList<>();
 		userrepository.findAll().forEach(users::add);
-
 		return users;
 	}
 
@@ -68,15 +66,8 @@ public class UserController {
 
 		Optional<User> userData = userrepository.findById(id);
 		if (userData.isPresent()) {
-			User _user = userData.get();
-			_user.setFirstname(user.getFirstname());
-			_user.setLastname(user.getLastname());
-			_user.setLogin(user.getLogin());
-			_user.setPassword(user.getPassword());
-			_user.setRole(user.getRole());
-			_user.setActive(user.isActive());
 			System.out.println("Updating");
-			return new ResponseEntity<>(userrepository.save(_user), HttpStatus.OK);
+			return new ResponseEntity<>(userrepository.save(user), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -104,24 +95,8 @@ public class UserController {
 		if (userData.isPresent()) {
 			return new ResponseEntity<>("Created", HttpStatus.CREATED);
 		} else {
-			return new ResponseEntity<>("Failed", HttpStatus.METHOD_FAILURE);
+			return new ResponseEntity<>("Failed", HttpStatus.BAD_REQUEST);
 		}
 	}
-
-//	@PostMapping("/login")
-//	public String loggin(@RequestParam(name = "id") String fooId, @RequestParam String name) {
-//		System.out.println("Searching for data to loggin");
-//
-//		List<User> userDatalogin = userrepository.findBylogin(user.getLogin());
-//		User _user = userDatalogin.get(0);
-//		if(_user.getPassword()==user.getPassword()) {
-//			System.out.println("Succes");
-//			return new ResponseEntity<>(userrepository.save(_user),HttpStatus.OK);
-//		}
-//		else {
-//			System.out.println("Failture");
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//		}
-//	}
 
 }

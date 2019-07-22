@@ -1,220 +1,232 @@
-<div class="createdfilter">
-    <div align="centre">
-        <div>
-            Choose element to filter cars
+<div *ngIf="info.token; else loggedOut">
+    <div class="createdfilter">
+        <div align="centre">
+            <div>
+                Choose element to filter cars
+            </div>
+            <br>
+            <div align="centre" fxLayout="row">
+                <button style="margin:0 20px;padding: 10px; color: rgb(255, 255, 255); background-color: rgb(30,144,255);" mat-raised-button (click)="onSearch()">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">search</mat-icon>
+                </button>
+                <button style="margin:0 20px;padding: 10px; color: rgb(255, 255, 255);" color="warn" mat-raised-button (click)="onClear()">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">clear</mat-icon>
+                </button>
+            </div>
         </div>
-        <br>
-        <div align="centre" fxLayout="row">
-            <button style="margin:0 20px;padding: 10px; color: rgb(255, 255, 255); background-color: rgb(30,144,255);" mat-raised-button (click)="onSearch()">
-        <mat-icon class="example-icon" aria-hidden="false" aaria-label="">search</mat-icon>
-      </button>
-            <button style="margin:0 20px;padding: 10px; color: rgb(255, 255, 255);" color="warn" mat-raised-button (click)="onClear()">
-        <mat-icon class="example-icon" aria-hidden="false" aaria-label="">clear</mat-icon>
-      </button>
+        <div class="createdfilter">
+            <form [formGroup]="form" autocomplete="off" novalidate>
+                <mat-form-field style="padding: 20px">
+                    <mat-label>manufacturer</mat-label>
+                    <mat-select formControlName="manufacturers" (ngModelChange)="onChange()">
+                        <mat-option value='%%'>None</mat-option>
+                        <mat-option *ngFor="let man of manufacturers" [value]="man"> {{man.name | titlecase}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field style="padding: 20px">
+                    <mat-label>capacity</mat-label>
+                    <mat-select formControlName="capacity">
+                        <mat-option value=''>None</mat-option>
+                        <mat-option *ngFor="let cap of capacity" [value]="cap"> {{cap | number:'1.1'}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="createdfilter">
+            <form [formGroup]="form">
+                <mat-form-field style="padding: 20px">
+                    <mat-label>model</mat-label>
+                    <mat-select formControlName="model" [disabled]="modelblock">
+                        <mat-option value='%%'>None</mat-option>
+                        <mat-option *ngFor="let mod of model" [value]="mod"> {{mod | titlecase}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field style="padding: 20px">
+                    <mat-label>body</mat-label>
+                    <mat-select formControlName="body">
+                        <mat-option value='%%'>None</mat-option>
+                        <mat-option *ngFor="let b of body" [value]="b"> {{b | titlecase}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+            </form>
+        </div>
+        <div class="createdfilter">
+            <form [formGroup]="form" autocomplete="off" novalidate>
+                <mat-form-field style="padding: 20px">
+                    <mat-label>color</mat-label>
+                    <mat-select formControlName="color">
+                        <mat-option value='%%'>None</mat-option>
+                        <mat-option *ngFor="let c of color" [value]="c"> {{c | titlecase}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field style="padding: 20px">
+                    <mat-label>status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option value='empty'>None</mat-option>
+                        <mat-option value="sold">Sold</mat-option>
+                        <mat-option value="for_sale">For sale</mat-option>
+                        <mat-option value="offer_to_buy">Offer to buy</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
+        </div>
+        <div class="createdfilter">
+            <form [formGroup]="form" autocomplete="off" novalidate>
+                <mat-form-field style="padding: 20px">
+                    <mat-label>price</mat-label>
+                    <mat-select formControlName="pricefrom">
+                        <mat-option value='%%'>from</mat-option>
+                        <mat-option value="2000">2000</mat-option>
+                        <mat-option value="3000">3000</mat-option>
+                        <mat-option value="4000">4000</mat-option>
+                        <mat-option value="5000">5000</mat-option>
+                        <mat-option value="8000">8000</mat-option>
+                        <mat-option value="10000">10000</mat-option>
+                        <mat-option value="15000">15000</mat-option>
+                        <mat-option value="20000">20000</mat-option>
+                        <mat-option value="25000">25000</mat-option>
+                        <mat-option value="30000">30000</mat-option>
+                        <mat-option value="35000">35000</mat-option>
+                        <mat-option value="40000">40000</mat-option>
+                        <mat-option value="50000">50000</mat-option>
+                        <mat-option value="60000">60000</mat-option>
+                        <mat-option value="80000">80000</mat-option>
+                        <mat-option value="100000">100000</mat-option>
+                        <mat-option value="200000">200000</mat-option>
+                        <mat-option value="500000">500000</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field style="padding: 20px">
+                    <mat-select formControlName="priceto">
+                        <mat-option value='%%'>to</mat-option>
+                        <mat-option value="2000">2000</mat-option>
+                        <mat-option value="3000">3000</mat-option>
+                        <mat-option value="4000">4000</mat-option>
+                        <mat-option value="5000">5000</mat-option>
+                        <mat-option value="8000">8000</mat-option>
+                        <mat-option value="10000">10000</mat-option>
+                        <mat-option value="15000">15000</mat-option>
+                        <mat-option value="20000">20000</mat-option>
+                        <mat-option value="25000">25000</mat-option>
+                        <mat-option value="30000">30000</mat-option>
+                        <mat-option value="35000">35000</mat-option>
+                        <mat-option value="40000">40000</mat-option>
+                        <mat-option value="50000">50000</mat-option>
+                        <mat-option value="60000">60000</mat-option>
+                        <mat-option value="80000">80000</mat-option>
+                        <mat-option value="100000">100000</mat-option>
+                        <mat-option value="200000">200000</mat-option>
+                        <mat-option value="500000">500000</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </form>
         </div>
     </div>
-    <div class="createdfilter">
-        <form [formGroup]="form" autocomplete="off" novalidate>
-            <mat-form-field style="padding: 20px">
-                <mat-label>manufacturer</mat-label>
-                <mat-select formControlName="manufacturers" (ngModelChange)="onChange()">
-                    <mat-option value='%%'>None</mat-option>
-                    <mat-option *ngFor="let man of manufacturers" [value]="man"> {{man.name | titlecase}} </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <br>
-            <mat-form-field style="padding: 20px">
-                <mat-label>capacity</mat-label>
-                <mat-select formControlName="capacity">
-                    <mat-option value=''>None</mat-option>
-                    <mat-option *ngFor="let cap of capacity" [value]="cap"> {{cap | number:'1.1'}} </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
-    </div>
-    <div class="createdfilter">
-        <form [formGroup]="form">
-            <mat-form-field style="padding: 20px">
-                <mat-label>model</mat-label>
-                <mat-select formControlName="model" [disabled]="modelblock">
-                    <mat-option value='%%'>None</mat-option>
-                    <mat-option *ngFor="let mod of model" [value]="mod"> {{mod | titlecase}} </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <br>
-            <mat-form-field style="padding: 20px">
-                <mat-label>body</mat-label>
-                <mat-select formControlName="body">
-                    <mat-option value='%%'>None</mat-option>
-                    <mat-option *ngFor="let b of body" [value]="b"> {{b | titlecase}} </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <br>
-        </form>
-    </div>
-    <div class="createdfilter">
-        <form [formGroup]="form" autocomplete="off" novalidate>
-            <mat-form-field style="padding: 20px">
-                <mat-label>color</mat-label>
-                <mat-select formControlName="color">
-                    <mat-option value='%%'>None</mat-option>
-                    <mat-option *ngFor="let c of color" [value]="c"> {{c | titlecase}} </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <br>
-            <mat-form-field style="padding: 20px">
-                <mat-label>status</mat-label>
-                <mat-select formControlName="status">
-                    <mat-option value='empty'>None</mat-option>
-                    <mat-option value="sold">Sold</mat-option>
-                    <mat-option value="for_sale">For sale</mat-option>
-                    <mat-option value="offer_to_buy">Offer to buy</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
-    </div>
-    <div class="createdfilter">
-        <form [formGroup]="form" autocomplete="off" novalidate>
-            <mat-form-field style="padding: 20px">
-                <mat-label>price</mat-label>
-                <mat-select formControlName="pricefrom">
-                    <mat-option value='%%'>from</mat-option>
-                    <mat-option value="2000">2000</mat-option>
-                    <mat-option value="3000">3000</mat-option>
-                    <mat-option value="4000">4000</mat-option>
-                    <mat-option value="5000">5000</mat-option>
-                    <mat-option value="8000">8000</mat-option>
-                    <mat-option value="10000">10000</mat-option>
-                    <mat-option value="15000">15000</mat-option>
-                    <mat-option value="20000">20000</mat-option>
-                    <mat-option value="25000">25000</mat-option>
-                    <mat-option value="30000">30000</mat-option>
-                    <mat-option value="35000">35000</mat-option>
-                    <mat-option value="40000">40000</mat-option>
-                    <mat-option value="50000">50000</mat-option>
-                    <mat-option value="60000">60000</mat-option>
-                    <mat-option value="80000">80000</mat-option>
-                    <mat-option value="100000">100000</mat-option>
-                    <mat-option value="200000">200000</mat-option>
-                    <mat-option value="500000">500000</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field style="padding: 20px">
-                <mat-select formControlName="priceto">
-                    <mat-option value='%%'>to</mat-option>
-                    <mat-option value="2000">2000</mat-option>
-                    <mat-option value="3000">3000</mat-option>
-                    <mat-option value="4000">4000</mat-option>
-                    <mat-option value="5000">5000</mat-option>
-                    <mat-option value="8000">8000</mat-option>
-                    <mat-option value="10000">10000</mat-option>
-                    <mat-option value="15000">15000</mat-option>
-                    <mat-option value="20000">20000</mat-option>
-                    <mat-option value="25000">25000</mat-option>
-                    <mat-option value="30000">30000</mat-option>
-                    <mat-option value="35000">35000</mat-option>
-                    <mat-option value="40000">40000</mat-option>
-                    <mat-option value="50000">50000</mat-option>
-                    <mat-option value="60000">60000</mat-option>
-                    <mat-option value="80000">80000</mat-option>
-                    <mat-option value="100000">100000</mat-option>
-                    <mat-option value="200000">200000</mat-option>
-                    <mat-option value="500000">500000</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
+
+    <div class="mat-elevation">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+            <ng-container matColumnDef="country">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                <td mat-cell *matCellDef="let row"> {{row.manufacturer.country}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer </th>
+                <td mat-cell *matCellDef="let row"> {{row.manufacturer.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="model">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
+                <td mat-cell *matCellDef="let row"> {{row.model}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="color">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+                <td mat-cell *matCellDef="let row"> {{row.color}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="body">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Body Type </th>
+                <td mat-cell *matCellDef="let row"> {{row.body}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="capacity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </th>
+                <td mat-cell *matCellDef="let row"> {{row.capacity | number:'1.1'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="mileage">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mileage </th>
+                <td mat-cell *matCellDef="let row"> {{row.mileage}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Year </th>
+                <td mat-cell *matCellDef="let row"> {{row.year}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row" class="cell-status">
+                    <button mat-stroked-button disabled="true" *ngIf="row.status === 'sold'" class="verified-button-sold">
+                        Sold
+                    </button>
+                    <button mat-stroked-button disabled="true" *ngIf="row.status === 'for_sale'" class="verified-button-for_sale">
+                        For sale
+                    </button>
+                    <button mat-stroked-button disabled="true" *ngIf="row.status === 'offer_to_buy'" class="verified-button-offer_to_buy">
+                        Offer to buy
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="buy">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button (click)="redirectToBuy(dataSource.data.indexOf(row))">
+                        <mat-icon>shopping_cart </mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="authority === 'admin'"> </div>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <button *ngIf="authority === 'admin'" mat-icon-button (click)="redirectToEdit(dataSource.data.indexOf(row))">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="authority === 'admin'"> </div>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <button *ngIf="authority === 'admin'" mat-icon-button (click)="redirectToDelete(dataSource.data.indexOf(row))">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator class="paginator" [pageSize]="10" [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
     </div>
 </div>
 
-<div class="mat-elevation">
-    <table mat-table [dataSource]="dataSource" matSort class="mat-table">
-        <ng-container matColumnDef="country">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-            <td mat-cell *matCellDef="let row"> {{row.manufacturer.country}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer </th>
-            <td mat-cell *matCellDef="let row"> {{row.manufacturer.name}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="model">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Model </th>
-            <td mat-cell *matCellDef="let row"> {{row.model}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="color">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
-            <td mat-cell *matCellDef="let row"> {{row.color}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="body">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Body Type </th>
-            <td mat-cell *matCellDef="let row"> {{row.body}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="capacity">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Capacity </th>
-            <td mat-cell *matCellDef="let row"> {{row.capacity | number:'1.1'}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-            <td mat-cell *matCellDef="let row"> {{row.price}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="mileage">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mileage </th>
-            <td mat-cell *matCellDef="let row"> {{row.mileage}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="year">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Year </th>
-            <td mat-cell *matCellDef="let row"> {{row.year}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let row" class="cell-status">
-                <button mat-stroked-button disabled="true" *ngIf="row.status === 'sold'" class="verified-button-sold">
-          Sold
-        </button>
-                <button mat-stroked-button disabled="true" *ngIf="row.status === 'for_sale'" class="verified-button-for_sale">
-          For sale
-        </button>
-                <button mat-stroked-button disabled="true" *ngIf="row.status === 'offer_to_buy'" class="verified-button-offer_to_buy">
-          Offer to buy
-        </button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="buy">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="redirectToBuy(dataSource.data.indexOf(row))">
-          <mat-icon>shopping_cart </mat-icon>
-        </button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="edit">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="redirectToEdit(dataSource.data.indexOf(row))">
-          <mat-icon>edit</mat-icon>
-        </button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="delete">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="redirectToDelete(dataSource.data.indexOf(row))">
-          <mat-icon>delete</mat-icon>
-        </button>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator class="paginator" [pageSize]="10" [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
-</div>
+<ng-template #loggedOut>
+    <h1 style="margin: 10vh; text-align: center"> Please login</h1>
+</ng-template>

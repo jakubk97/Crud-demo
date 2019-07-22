@@ -1,41 +1,40 @@
 <mat-toolbar style="background-color: rgb(30,144,255);color: white">
-  <mat-toolbar-row>
-    <span>
+    <mat-toolbar-row>
+        <span>
       <mat-icon class="example-icon" aria-hidden="false" aaria-label="">local_offer</mat-icon>{{title}}
     </span>
-    <span class="example-spacer"></span>
-    <div class="div-ico">
-      <button mat-icon-button routerLink="/card" routerLinkActive="active">
+        <span class="example-spacer"></span>
+        <div class="div-ico">
+            <button mat-icon-button routerLink="/card" routerLinkActive="active">
         <mat-icon class="example-icon" aria-hidden="false" aaria-label="">shopping_basket</mat-icon>
       </button>
-    </div>
-  </mat-toolbar-row>
+        </div>
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-toolbar color="warn">
-  <mat-toolbar-row>
-    <div style="padding: 10px;">
-      <nav style="padding: 10px;">
-        <a mat-button routerLink="login" class="btn btn-primary active" role="button" routerLinkActive="active"
-          style="padding: 20px">
-          <mat-icon class="example-icon" aria-hidden="false" aaria-label="">person</mat-icon>Login
-        </a>
-        <a mat-button routerLink="users" class="btn btn-primary active" role="button" routerLinkActive="active"
-          style="padding: 10px">
-          <mat-icon class="example-icon" aria-hidden="false" aaria-label="">people_outline</mat-icon>Users
-        </a>
-        <a mat-button routerLink="car" class="btn btn-primary active" role="button" routerLinkActive="active"
-          style="padding: 10px">
-          <mat-icon class="example-icon" aria-hidden="false" aaria-label="">directions_car</mat-icon> Cars
-        </a>
-        <button mat-button routerLink="addcars" class="btn btn-primary active" role="button" routerLinkActive="active"
-          style="padding: 10px">
-          <mat-icon class="example-icon" aria-hidden="false" aaria-label="">plus_one</mat-icon>
-          Add cars
-        </button>
-      </nav>
-    </div>
-  </mat-toolbar-row>
+    <mat-toolbar-row>
+        <div style="padding: 10px;">
+            <nav style="padding: 10px;">
+                <a mat-button routerLink="login" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 20px">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">person</mat-icon>Login
+                </a>
+                <a mat-button (click)="logout()" class="btn btn-primary active" role="button" style="padding: 20px">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">person</mat-icon>Logout
+                </a>
+                <a *ngIf="authority === 'admin'" mat-button routerLink="users" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">people_outline</mat-icon>Users
+                </a>
+                <a mat-button routerLink="car" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">directions_car</mat-icon> Cars
+                </a>
+                <a *ngIf="authority === 'admin'" mat-button routerLink="addcars" class="btn btn-primary active" role="button" routerLinkActive="active" style="padding: 10px">
+                    <mat-icon class="example-icon" aria-hidden="false" aaria-label="">plus_one</mat-icon>
+                    Add cars
+                </a>
+            </nav>
+        </div>
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <router-outlet></router-outlet>

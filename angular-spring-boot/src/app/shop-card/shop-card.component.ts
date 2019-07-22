@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ShopcardService } from '../shopcard.service';
 import { CarService } from '../car.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-shop-card',
@@ -16,13 +17,21 @@ export class ShopCardComponent implements OnInit {
   displayedColumns: string[] = ['country', 'name', 'model', 'color', 'Body Type', 'Capacity', 'Price', 'Mileage', 'Year', 'Status', 'Delete'];
   dataSource: MatTableDataSource<Car>;
   flag = true;
+  info: any;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
-  constructor(private card: ShopcardService,private carService: CarService) { }
+  constructor(private card: ShopcardService,private carService: CarService,private token: TokenStorageService) { }
 
   ngOnInit() {
+
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
+
     this.dataSource = new MatTableDataSource(this.card.shopcard); // get all cars from array in shopcard.service
     this.dataSource.sort = this.sort;
     if (this.dataSource.data.length > 0) {

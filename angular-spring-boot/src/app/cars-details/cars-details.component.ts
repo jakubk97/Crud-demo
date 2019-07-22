@@ -11,9 +11,9 @@ import { CarsDetailsDialogEditComponent } from '../cars-details-dialog-edit/cars
 import { Router } from '@angular/router';
 import { ShopcardService } from '../shopcard.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Manufacturer } from '../manufacturer';
-import { stringify } from '@angular/compiler/src/util';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 
 @Component({
@@ -34,13 +34,14 @@ export class CarsDetailsComponent implements OnInit {
   car = new Car;
   public form: FormGroup;
   modelblock = true;
+  info: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
   constructor(private carService: CarService, private card: ShopcardService, private dialog: MatDialog,
-    private router: Router, public snackBar: MatSnackBar, private fb: FormBuilder) {
+    private router: Router, public snackBar: MatSnackBar, private token: TokenStorageService) {
     this.car.manufacturer = new Manufacturer();
 
     this.carService.getManufacturersList().subscribe(ref => this.manufacturers = ref);
@@ -72,6 +73,11 @@ export class CarsDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
 
     this.carService.getCarsList().subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref); // get all cars from database

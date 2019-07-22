@@ -1,28 +1,40 @@
-<div class="div-login">
-<section fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card fxLayoutAlign="center center" style="width: 25vw;">
-    <mat-card-title align="center">Sign in</mat-card-title>
-    <form [formGroup]="Form" autocomplete="off" novalidate (ngSubmit)="loggin(Form.value)" fxLayout="column wrap"
-      fxLayoutAlign="center center" fxLayoutGap="20px">
-      <mat-card-content align="center">
+<div *ngIf="info.token; else loggedOut">
+    <div *ngIf="isLoggedIn; else loggedOut">
+        Logged in as {{roles}}.
+    </div>
+    <ng-template #loggedOut>
+        <div class="div-login">
+            <section fxLayout="row wrap" fxLayoutAlign="center center">
+                <mat-card fxLayoutAlign="center center" style="width: 25vw;">
+                    <mat-card-title align="center">Sign in</mat-card-title>
+                    <form [formGroup]="Form" autocomplete="off" novalidate (ngSubmit)="loggin(Form.value)" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
+                        <mat-card-content align="center">
 
-        <mat-form-field>
-          <input matInput type="text" placeholder="login" formControlName="login" id="login">
-          <mat-error *ngIf="hasError('login', 'required')">Login is required</mat-error>
-          <mat-error *ngIf="hasError('login', 'maxlength')">You have more than 30 characters</mat-error>
-        </mat-form-field>
-        <br>
-        <mat-form-field >
-          <input matInput type="password" placeholder="password" formControlName="password">
-          <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-        </mat-form-field>
+                            <mat-form-field>
+                                <input matInput type="text" placeholder="login" formControlName="login" id="login" [(ngModel)]="user.login">
+                                <mat-error *ngIf="hasError('login', 'required')">Login is required</mat-error>
+                                <mat-error *ngIf="hasError('login', 'maxlength')">You have more than 30 characters</mat-error>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field>
+                                <input matInput type="password" placeholder="password" formControlName="password" [(ngModel)]="user.password">
+                                <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+                            </mat-form-field>
 
-      </mat-card-content>
-      <mat-card-actions align="center">
-        <button mat-raised-button color="primary" [disabled]="!Form.valid">Sign in</button>
-        <button type="button" mat-raised-button color="warn" routerLink="/register" routerLinkActive="active">Create account</button>
-      </mat-card-actions>
-    </form>
-  </mat-card>
-</section>
+                        </mat-card-content>
+                        <mat-card-actions align="center">
+                            <button mat-raised-button color="primary" [disabled]="!Form.valid">Sign in</button>
+                            <button type="button" mat-raised-button color="warn" routerLink="/register" routerLinkActive="active">Create account</button>
+                        </mat-card-actions>
+                    </form>
+                </mat-card>
+            </section>
+        </div>
+    </ng-template>
+
 </div>
+
+
+<ng-template #loggedOut>
+    <h1 style="margin: 10vh; text-align: center"> You are already logged in</h1>
+</ng-template>

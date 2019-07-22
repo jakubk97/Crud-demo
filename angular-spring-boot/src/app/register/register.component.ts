@@ -5,6 +5,8 @@ import { User } from '../user';
 import { MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -18,11 +20,22 @@ export class RegisterComponent implements OnInit {
   data: Object;
   button: string;
   public Form: FormGroup;
+  info: any;
 
-  constructor(private userService: UserService, public snackBar: MatSnackBar, private router: Router) { }
+  isSignedUp = false;
+  isSignUpFailed = false;
+
+  constructor(private userService: UserService, public snackBar: MatSnackBar, private router: Router,
+     private authService: AuthService,private token: TokenStorageService) { }
 
   ngOnInit() {
-    this.Form = new FormGroup({ 
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
+
+    this.Form = new FormGroup({
       firstname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       lastname: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
@@ -39,7 +52,9 @@ export class RegisterComponent implements OnInit {
   //create new manufacturer in database after click create
   public onCreate() {
     this.submitted = true;
-    this.userService.getUsersByLogin(this.user.login).subscribe(() => this.createUser(), () => this.reload());
+    
+    this.createUser();
+    //this.userService.getUsersByLogin(this.user.login).subscribe(() => this.createUser(), () => this.reload());
   }
 
   reload() {
@@ -48,7 +63,23 @@ export class RegisterComponent implements OnInit {
   }
 
   createUser() {
-    this.userService.createUser(this.user).subscribe(() => this.redirectToLogin(), () => this.openSnackBar("Failed, please try again"));
+    console.log("user create start");
+    console.log(this.user);
+    this.authService.signUp(this.user).subscribe(
+      data => {
+        console.log(data);
+        this.isSignedUp = true;
+        this.isSignUpFailed = false;
+      },
+      error => {
+        console.log(error);
+        this.isSignUpFailed = true;
+      }
+    );
+
+
+
+    //this.userService.createUser(this.user).subscribe(() => this.redirectToLogin(), () => this.openSnackBar("Failed, please try again"));
   }
 
   redirectToLogin() {

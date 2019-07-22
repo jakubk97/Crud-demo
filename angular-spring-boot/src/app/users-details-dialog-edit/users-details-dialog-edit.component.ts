@@ -16,7 +16,7 @@ export class UsersDetailsDialogEditComponent implements OnInit {
   dataSource: User;
 
   constructor(private userService: UserService,
-    private fb: FormBuilder, public snackBar: MatSnackBar,
+    public snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<UsersDetailsDialogEditComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
     this.dataSource = data.data;
@@ -27,7 +27,6 @@ export class UsersDetailsDialogEditComponent implements OnInit {
       firstname: new FormControl(this.dataSource.firstname, [Validators.required, Validators.maxLength(30)]),
       lastname: new FormControl(this.dataSource.lastname, [Validators.required, Validators.maxLength(30)]),
       login: new FormControl(this.dataSource.login, [Validators.required, Validators.maxLength(30)]),
-      password: new FormControl(this.dataSource.password, [Validators.required, Validators.maxLength(30)]),
       selectedrole: new FormControl(this.dataSource.role, [Validators.required]),
       selectedactive: new FormControl(this.dataSource.active, [Validators.required])
     });
