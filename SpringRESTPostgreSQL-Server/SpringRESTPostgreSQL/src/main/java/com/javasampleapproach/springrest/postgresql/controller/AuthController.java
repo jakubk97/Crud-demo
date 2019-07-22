@@ -1,7 +1,5 @@
 package com.javasampleapproach.springrest.postgresql.controller;
 
-import java.io.Console;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +43,6 @@ public class AuthController {
 	@PostMapping("/auth/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody User user) {
 		System.out.println("signin");
-		
-		System.out.println(user.getLogin()+ "         "+ user.getPassword());
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -59,7 +55,7 @@ public class AuthController {
 	public ResponseEntity<?> registerUser(@Valid @RequestBody User signUpRequest) {
 		System.out.println("signup");
 		if (userRepository.existsByLogin(signUpRequest.getLogin())) {
-			return new ResponseEntity<>(new ResponseMessage("Fail -> Login is already taken!"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ResponseMessage("Fail!Login is already taken!"), HttpStatus.BAD_REQUEST);
 		}
 		// Creating user's account
 		User user = new User(signUpRequest.getFirstname(), signUpRequest.getLastname(),

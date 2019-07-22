@@ -5,6 +5,7 @@ import { User } from '../user';
 import { UserService } from '../user.service';
 import { AuthService } from '../auth/auth.service';
 import { TokenStorageService } from '../auth/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,7 @@ export class LoginComponent implements OnInit {
   info: any;
   
 
-  constructor(private userservice: UserService,private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(private userservice: UserService,private router: Router,private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.info = {
@@ -70,8 +71,6 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.logging = true;
-
-    console.log(this.user);
     this.authService.attemptAuth(this.user).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
@@ -82,6 +81,9 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
         this.reloadPage();
+        setTimeout(() => {
+          this.router.navigate(['car']);
+        }, 3000);
       },
       error => {
         console.log(error);

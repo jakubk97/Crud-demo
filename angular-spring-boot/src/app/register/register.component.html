@@ -1,9 +1,5 @@
-<div *ngIf="info.token; else loggedOut">
-    <div *ngIf="isSignedUp; else signupForm">
-        Your registration is successful. Please login!
-    </div>
+<div *ngIf="!info.token; else loggedOut">
 
-    <ng-template #signupForm>
         <div class="div-register">
             <section fxLayout="row wrap" fxLayoutAlign="center center" [hidden]="submitted">
                 <mat-card fxLayoutAlign="center center" style="width: 25vw;">
@@ -46,8 +42,8 @@
             </section>
             <div [hidden]="!submitted">
                 <div class="div-mansucces">
-                    <mat-card fxLayoutAlign="center center" style="width: 25vw;">
-                        <mat-card-title align="center">{{data}}</mat-card-title>
+                    <mat-card fxLayoutAlign="center center" style="width: 25vw; text-align: center">
+                        <mat-card-title style="text-align: center" align="center">{{data}}</mat-card-title>
                         <form [formGroup]="Form" autocomplete="off" novalidate fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="20px">
                             <br>redirecting<br>
                         </form>
@@ -55,7 +51,6 @@
                 </div>
             </div>
         </div>
-    </ng-template>
 
 </div>
 

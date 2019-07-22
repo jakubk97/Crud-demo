@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Car } from '../car';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { MatSnackBar } from '@angular/material';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
   selector: 'app-cars-create',
@@ -22,10 +23,18 @@ export class CarsCreateComponent implements OnInit {
   public Form: FormGroup;
   public FormManufacturer: FormGroup;
   ans: string;
+  info: any;
 
-  constructor(private carService: CarService,public snackBar: MatSnackBar) { }
+  constructor(private carService: CarService,public snackBar: MatSnackBar,private token: TokenStorageService) { }
 
   ngOnInit() {
+
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
+
     //download manufacturers from databases to prevent errors
     this.carService.getManufacturersList().subscribe(ref => { this.manufacturers = ref; });
 

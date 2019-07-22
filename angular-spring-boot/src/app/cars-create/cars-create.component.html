@@ -1,3 +1,4 @@
+<div *ngIf="info.token; else loggedOut">
 <div class="div-over">
     <div class="div-car">
         <section [hidden]="submittedcar" fxLayout="row wrap" fxLayoutAlign="center center">
@@ -121,3 +122,7 @@
         </div>
     </div>
 </div>
+</div>
+<ng-template #loggedOut>
+    <h1 style="margin: 10vh; text-align: center"> Please login</h1>
+</ng-template>

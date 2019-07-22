@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'Cars shop';
   private roles: string[];
   private authority: string;
+  private token: string;
 
   constructor(private tokenStorage: TokenStorageService) { }
 
@@ -19,9 +20,11 @@ export class AppComponent {
       this.roles.every(role => {
         if (role === 'admin') {
           this.authority = 'admin';
+          this.token = this.tokenStorage.getToken();
           return false;
         }
         this.authority = 'user';
+        this.token = this.tokenStorage.getToken();
         return true;
       });
     }
@@ -29,6 +32,7 @@ export class AppComponent {
 
   logout() {
     this.tokenStorage.signOut();
+    this.token = '';
     window.location.reload();
   }
 }

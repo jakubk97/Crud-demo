@@ -211,4 +211,8 @@ export class CarsDetailsComponent implements OnInit {
     });
   }
 
+  reloadPage() {
+    window.location.reload();
+  }
+
 }

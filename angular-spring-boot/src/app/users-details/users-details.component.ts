@@ -8,6 +8,7 @@ import { UserService } from '../user.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { UsersDetailsDialogEditComponent } from '../users-details-dialog-edit/users-details-dialog-edit.component';
 import { UsersDetailsDialogDeleteComponent } from '../users-details-dialog-delete/users-details-dialog-delete.component';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 
 export interface DialogData {
@@ -25,14 +26,22 @@ export class UsersDetailsComponent implements OnInit {
   dataSource: MatTableDataSource<User>;
   ans: string;
   filter: string = '';
+  info: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
-  constructor(private userService: UserService, private dialog: MatDialog) { }
+  constructor(private userService: UserService, private dialog: MatDialog,private token: TokenStorageService) { }
 
   ngOnInit() {
+
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
+
     this.clearFilters();
     this.userService.getUsersList().subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);

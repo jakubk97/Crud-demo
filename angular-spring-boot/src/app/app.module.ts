@@ -17,7 +17,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
-import { UsersSearchComponent } from './users-search/users-search.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UsersDetailsDialogDeleteComponent } from './users-details-dialog-delete/users-details-dialog-delete.component';
 import { UsersDetailsDialogEditComponent } from './users-details-dialog-edit/users-details-dialog-edit.component';
@@ -37,7 +36,6 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material';
     LoginComponent,
     CarsDetailsComponent,
     CarsCreateComponent,
-    UsersSearchComponent,
     UsersDetailsComponent,
     UsersDetailsDialogDeleteComponent,
     UsersDetailsDialogEditComponent,
