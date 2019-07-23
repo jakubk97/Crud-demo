@@ -11,6 +11,7 @@ export class AppComponent {
   private roles: string[];
   private authority: string;
   private token: string;
+  
 
   constructor(private tokenStorage: TokenStorageService) { }
 

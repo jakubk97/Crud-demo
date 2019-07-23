@@ -3,8 +3,8 @@ import { Car } from '../car';
 import { ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ShopcardService } from '../shopcard.service';
-import { CarService } from '../car.service';
+import { ShopcardService } from '../services/shopcard.service';
+import { CarService } from '../services/car.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class ShopCardComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
 
-  constructor(private card: ShopcardService,private carService: CarService,private token: TokenStorageService) { }
+  constructor(private card: ShopcardService, private carService: CarService, private token: TokenStorageService) { }
 
   ngOnInit() {
 
@@ -44,9 +44,11 @@ export class ShopCardComponent implements OnInit {
     this.ngOnInit();
   }
 
-  buy(){
-    for (var i=0; i<this.dataSource.data.length; i++) {
-      this.carService.buyCar(this.dataSource.data[i].id, this.dataSource.data[i]).subscribe(null,null);
+  buy() {
+    for (var i = 0; i < this.dataSource.data.length; i++) {
+      this.dataSource.data[i].offerer = this.card.getUser();
+      console.log(this.dataSource.data[i]);
+      this.carService.buyCar(this.dataSource.data[i]).subscribe(null, null);
     }
     this.card.shopcard = [];
     this.ngOnInit();

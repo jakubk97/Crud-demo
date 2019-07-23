@@ -35,14 +35,14 @@ public class UserController {
 		return users;
 	}
 
-	// downloading all users with given lastname
-	@GetMapping(value = "users/lastname/{lastname}")
-	public List<User> findBylastname(@PathVariable String lastname) {
-
-		List<User> users = userrepository.findBylastname(lastname);
-		System.out.println("Searching aaaaaaaa");
-		return users;
-	}
+//	// downloading all users with given lastname
+//	@GetMapping(value = "users/lastname/{lastname}")
+//	public List<User> findBylastname(@PathVariable String lastname) {
+//
+//		List<User> users = userrepository.findBylastname(lastname);
+//		System.out.println("Searching aaaaaaaa");
+//		return users;
+//	}
 
 	// delete user with given id
 	@DeleteMapping("/users/{id}")

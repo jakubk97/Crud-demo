@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.javasampleapproach.springrest.postgresql.security.services.UserDetailsServiceImp;
 
-public class JwtAuthTokenFilter extends OncePerRequestFilter{
+public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private JwtProvider tokenProvider;
@@ -28,7 +28,7 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter{
 
 	private static final Logger logger = LoggerFactory.getLogger(JwtAuthTokenFilter.class);
 
-    @Override
+	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {

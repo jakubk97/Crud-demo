@@ -1,5 +1,7 @@
 package com.javasampleapproach.springrest.postgresql.controller;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +45,24 @@ public class AuthController {
 	@PostMapping("/auth/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody User user) {
 		System.out.println("signin");
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtProvider.generateJwtToken(authentication);
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+		if (userRepository.existsByLogin(user.getLogin())) {
+			User userData = userRepository.findByLogin(user.getLogin());
+			if(userData.isActive()) {
+				Authentication authentication = authenticationManager
+						.authenticate(new UsernamePasswordAuthenticationToken(user.getLogin(), user.getPassword()));
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+				String jwt = jwtProvider.generateJwtToken(authentication);
+				UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+				
+				return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+			}
+			else {
+				return new ResponseEntity<>(new ResponseMessage("Fail.Login is inactive."), HttpStatus.BAD_REQUEST);
+			}
+		}
+		else {
+			return new ResponseEntity<>(new ResponseMessage("Fail!Login doesnt exist!"), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@PostMapping("/auth/signup")

@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { UsersDetailsDialogEditComponent } from '../users-details-dialog-edit/users-details-dialog-edit.component';
 import { UsersDetailsDialogDeleteComponent } from '../users-details-dialog-delete/users-details-dialog-delete.component';

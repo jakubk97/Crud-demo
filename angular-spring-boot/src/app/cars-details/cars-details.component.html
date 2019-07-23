@@ -1,6 +1,6 @@
 <div *ngIf="info.token; else loggedOut">
     <div class="createdfilter">
-        <div align="centre">
+        <div align="centre" style="text-align: center; align-items: center">
             <div>
                 Choose element to filter cars
             </div>
@@ -175,6 +175,17 @@
                 <td mat-cell *matCellDef="let row"> {{row.year}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="offerer">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div *ngIf="info.authorities == 'admin'"> </div>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <div *ngIf="info.authorities == 'admin'">
+                        Offerer - {{row.offerer}}
+                    </div>
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                 <td mat-cell *matCellDef="let row" class="cell-status">
@@ -191,30 +202,30 @@
             </ng-container>
             <ng-container matColumnDef="buy">
                 <th mat-header-cell *matHeaderCellDef>
-                    <div *ngIf="authority === 'admin'"> </div>
+                    <div *ngIf="info.authorities != 'admin'"> </div>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <button *ngIf="authority === 'admin'" mat-icon-button (click)="redirectToBuy(dataSource.data.indexOf(row))">
+                    <button *ngIf="info.authorities != 'admin'" mat-icon-button (click)="redirectToBuy(dataSource.data.indexOf(row))">
                         <mat-icon>shopping_cart </mat-icon>
                     </button>
                 </td>
             </ng-container>
             <ng-container matColumnDef="edit">
                 <th mat-header-cell *matHeaderCellDef>
-                    <div *ngIf="authority !== 'admin'"> </div>
+                    <div *ngIf="info.authorities == 'admin'"> </div>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <button *ngIf="authority !== 'admin'" mat-icon-button (click)="redirectToEdit(dataSource.data.indexOf(row))">
+                    <button *ngIf="info.authorities == 'admin'" mat-icon-button (click)="redirectToEdit(dataSource.data.indexOf(row))">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </td>
             </ng-container>
             <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef>
-                    <div *ngIf="authority !== 'admin'"> </div>
+                    <div *ngIf="info.authorities == 'admin'"> </div>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <button *ngIf="authority !== 'admin'" mat-icon-button (click)="redirectToDelete(dataSource.data.indexOf(row))">
+                    <button *ngIf="info.authorities == 'admin'" mat-icon-button (click)="redirectToDelete(dataSource.data.indexOf(row))">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

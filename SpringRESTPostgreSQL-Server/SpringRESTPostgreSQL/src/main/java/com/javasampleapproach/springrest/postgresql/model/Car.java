@@ -47,6 +47,9 @@ public class Car {
 
 	@Column(name = "price")
 	private double price;
+	
+	@Column(name = "offerer")
+	private String offerer;
 
 	// definition of enum type (projection of enum type from database)
 	@Enumerated(EnumType.STRING)
@@ -57,7 +60,7 @@ public class Car {
 	public Car() {
 	}
 
-	public Car(String model, double capacity, String color, String body, double price, int year, double mileage,
+	public Car(String model, double capacity, String color, String body, double price, int year, double mileage, String offerer,
 			Manufacturer manufacturer) {
 		this.model = model;
 		this.capacity = capacity;
@@ -67,6 +70,7 @@ public class Car {
 		this.year = year;
 		this.mileage = mileage;
 		this.manufacturer = manufacturer;
+		this.offerer = offerer;
 		this.status = Status.for_sale;
 	}
 
@@ -148,5 +152,13 @@ public class Car {
 
 	public void setMileage(double mileage) {
 		this.mileage = mileage;
+	}
+	
+	public String getOfferer() {
+		return offerer;
+	}
+
+	public void setOfferer(String offerer) {
+		this.offerer = offerer;
 	}
 }

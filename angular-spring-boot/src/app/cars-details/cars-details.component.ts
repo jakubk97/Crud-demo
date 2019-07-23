@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarService } from '../car.service';
+import { CarService } from '../services/car.service';
 import { Car } from '../car';
 import { ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,7 +9,7 @@ import { MatDialogConfig, MatDialog, MatSnackBar } from '@angular/material';
 import { CarsDetailsDialogDeleteComponent } from '../cars-details-dialog-delete/cars-details-dialog-delete.component';
 import { CarsDetailsDialogEditComponent } from '../cars-details-dialog-edit/cars-details-dialog-edit.component';
 import { Router } from '@angular/router';
-import { ShopcardService } from '../shopcard.service';
+import { ShopcardService } from '../services/shopcard.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Manufacturer } from '../manufacturer';
@@ -22,11 +22,11 @@ import { TokenStorageService } from '../auth/token-storage.service';
   styleUrls: ['./cars-details.component.css']
 })
 export class CarsDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['country', 'name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'status', 'buy', 'edit', 'delete'];
+  displayedColumns: string[] = ['country', 'name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'offerer', 'status', 'buy', 'edit', 'delete'];
   dataSource: MatTableDataSource<Car>;
+  filter: string;
   manufacturers: string;
   model: string;
-  filter: string;
   status: string;
   body: string;
   color: string;
@@ -142,16 +142,16 @@ export class CarsDetailsComponent implements OnInit {
     if (this.form.get('pricefrom').value === '%%') {
       pricefrom = '0';
     }
-    else{
-      pricefrom=this.form.get('pricefrom').value;
+    else {
+      pricefrom = this.form.get('pricefrom').value;
     }
     if (this.form.get('priceto').value === '%%') {
       priceto = '200000000';
     }
-    else{
-      priceto=this.form.get('priceto').value;
+    else {
+      priceto = this.form.get('priceto').value;
     }
-    this.carService.search(this.car,pricefrom,priceto).subscribe(ref => {
+    this.carService.search(this.car, pricefrom, priceto).subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

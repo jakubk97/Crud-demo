@@ -13,7 +13,8 @@
                             <mat-form-field>
                                 <input matInput type="text" placeholder="login" formControlName="login" id="login" [(ngModel)]="user.login">
                                 <mat-error *ngIf="hasError('login', 'required')">Login is required</mat-error>
-                                <mat-error *ngIf="hasError('login', 'maxlength')">You have more than 30 characters</mat-error>
+                                <mat-error *ngIf="hasError('login', 'maxlength')">You have more than 30 characters
+                                </mat-error>
                             </mat-form-field>
                             <br>
                             <mat-form-field>
@@ -23,7 +24,8 @@
 
                         </mat-card-content>
                         <mat-card-actions align="center">
-                            <button mat-raised-button color="primary" [disabled]="!Form.valid">Sign in</button>
+                            <div *ngIf="isLoginFailed" class="alert alert-danger">Login failed: {{errorMessage}}</div>
+                            <button mat-raised-button color="primary" [disabled]="!Form.valid">Login</button>
                             <button type="button" mat-raised-button color="warn" routerLink="/register" routerLinkActive="active">Create account</button>
                         </mat-card-actions>
                     </form>

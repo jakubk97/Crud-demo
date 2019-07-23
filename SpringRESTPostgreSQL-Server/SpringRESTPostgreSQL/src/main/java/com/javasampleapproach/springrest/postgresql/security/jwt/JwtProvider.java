@@ -12,45 +12,39 @@ import java.util.Date;
 
 @Component
 public class JwtProvider {
-	
-	 private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-	    public String generateJwtToken(Authentication authentication) {
+	private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
-	        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+	public String generateJwtToken(Authentication authentication) {
 
-	        return Jwts.builder()
-			                .setSubject((userPrincipal.getUsername()))
-			                .setIssuedAt(new Date())
-			                .setExpiration(new Date((new Date()).getTime() + 864000*1000))
-			                .signWith(SignatureAlgorithm.HS512, "SecretKarmForm")
-			                .compact();
-	    }
-	    
-	    public boolean validateJwtToken(String authToken) {
-	        try {
-	            Jwts.parser().setSigningKey("SecretKarmForm").parseClaimsJws(authToken);
-	            return true;
-	        } catch (SignatureException e) {
-	            logger.error("Invalid JWT signature -> Message: {} ", e);
-	        } catch (MalformedJwtException e) {
-	            logger.error("Invalid JWT token -> Message: {}", e);
-	        } catch (ExpiredJwtException e) {
-	            logger.error("Expired JWT token -> Message: {}", e);
-	        } catch (UnsupportedJwtException e) {
-	            logger.error("Unsupported JWT token -> Message: {}", e);
-	        } catch (IllegalArgumentException e) {
-	            logger.error("JWT claims string is empty -> Message: {}", e);
-	        }
-	        
-	        return false;
-	    }
-	    
-	    public String getUserNameFromJwtToken(String token) {
-	        return Jwts.parser()
-				                .setSigningKey("SecretKarmForm")
-				                .parseClaimsJws(token)
-				                .getBody().getSubject();
-	    }
+		UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+
+		return Jwts.builder().setSubject((userPrincipal.getUsername())).setIssuedAt(new Date())
+				.setExpiration(new Date((new Date()).getTime() + 864000 * 1000))
+				.signWith(SignatureAlgorithm.HS512, "SecretKarmForm").compact();
+	}
+
+	public boolean validateJwtToken(String authToken) {
+		try {
+			Jwts.parser().setSigningKey("SecretKarmForm").parseClaimsJws(authToken);
+			return true;
+		} catch (SignatureException e) {
+			logger.error("Invalid JWT signature -> Message: {} ", e);
+		} catch (MalformedJwtException e) {
+			logger.error("Invalid JWT token -> Message: {}", e);
+		} catch (ExpiredJwtException e) {
+			logger.error("Expired JWT token -> Message: {}", e);
+		} catch (UnsupportedJwtException e) {
+			logger.error("Unsupported JWT token -> Message: {}", e);
+		} catch (IllegalArgumentException e) {
+			logger.error("JWT claims string is empty -> Message: {}", e);
+		}
+
+		return false;
+	}
+
+	public String getUserNameFromJwtToken(String token) {
+		return Jwts.parser().setSigningKey("SecretKarmForm").parseClaimsJws(token).getBody().getSubject();
+	}
 
 }

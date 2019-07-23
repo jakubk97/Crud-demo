@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { User } from '../user';
-import { UserService } from '../user.service';
 import { AuthService } from '../auth/auth.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { Router } from '@angular/router';
+import { ShopcardService } from '../services/shopcard.service';
 
 @Component({
   selector: 'app-login',
@@ -16,17 +16,18 @@ export class LoginComponent implements OnInit {
 
   user: User = new User();
   logging = false;
-  login:string;
-  password:string;
+  login: string;
+  password: string;
   isLoggedIn = false;
   isLoginFailed = false;
   roles: string[] = [];
+  errorMessage = '';
   public Form: FormGroup;
   private dialogConfig;
   info: any;
-  
 
-  constructor(private userservice: UserService,private router: Router,private authService: AuthService, private tokenStorage: TokenStorageService) { }
+
+  constructor(private card: ShopcardService, private router: Router, private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
     this.info = {
@@ -35,6 +36,12 @@ export class LoginComponent implements OnInit {
       authorities: this.tokenStorage.getAuthorities()
     };
 
+    if (this.info.token) {
+      setTimeout(() => {
+        this.router.navigate(['car']);
+      }, 1000);
+    }
+
 
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -42,7 +49,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.Form = new FormGroup({
-      login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+      login: new FormControl(this.user.login, [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required])
     });
 
@@ -76,28 +83,21 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.login);
         this.tokenStorage.saveAuthorities(data.authorities);
-
+        this.card.saveUser(this.user.login);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
         this.reloadPage();
-        setTimeout(() => {
-          this.router.navigate(['car']);
-        }, 3000);
       },
       error => {
         console.log(error);
+        this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
     );
-
-
-    //this.userservice.loggin(this.user.login,this.user.password).subscribe(user => this.user = user);
-
-    
   }
 
-  
+
   reloadPage() {
     window.location.reload();
   }

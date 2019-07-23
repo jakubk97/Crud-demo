@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { User } from '../user';
 import { MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
@@ -16,14 +16,14 @@ import { TokenStorageService } from '../auth/token-storage.service';
 export class RegisterComponent implements OnInit {
 
   user: User = new User();
-  submitted = false;
   data: string;
   button: string;
+  isSingupFailed = false;
   public Form: FormGroup;
   info: any;
 
   constructor(private userService: UserService, public snackBar: MatSnackBar, private router: Router,
-     private authService: AuthService,private token: TokenStorageService) { }
+    private authService: AuthService, private token: TokenStorageService) { }
 
   ngOnInit() {
     this.info = {
@@ -38,8 +38,6 @@ export class RegisterComponent implements OnInit {
       login: new FormControl('', [Validators.required, Validators.maxLength(30)]),
       password: new FormControl('', [Validators.required, Validators.maxLength(30), Validators.pattern('^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$')]),
     });
-
-    this.submitted = false;
   }
   //create car errors  
   public hasError = (controlName: string, errorName: string) => {
@@ -48,24 +46,19 @@ export class RegisterComponent implements OnInit {
 
   //create new manufacturer in database after click create
   public onCreate() {
-    this.submitted = true;
-    this.createUser();
-  }
-
-  reload() {
-    this.openSnackBar(("Login exist"));
-    setTimeout(() => { this.ngOnInit() }, 3000);
-  }
-
-  createUser() {
+    this.user.login = this.user.login.toLowerCase();
+    this.user.firstname = this.user.firstname.charAt(0).toUpperCase() + this.user.firstname.slice(1);
+    this.user.lastname = this.user.lastname.charAt(0).toUpperCase() + this.user.lastname.slice(1);
     this.authService.signUp(this.user).subscribe(
       () => {
         this.data = 'User created successfully';
         this.redirectToLogin();
+        this.isSingupFailed = false;
       },
       error => {
-        this.reload();
+        this.openSnackBar(("Login already exist!"));
         this.data = error.error.message;
+        this.isSingupFailed = true;
       }
     );
   }

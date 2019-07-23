@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javasampleapproach.springrest.postgresql.model.Car;
 import com.javasampleapproach.springrest.postgresql.repo.CarRepository;
 import com.javasampleapproach.springrest.postgresql.model.Manufacturer;
-import com.javasampleapproach.springrest.postgresql.model.Role;
 import com.javasampleapproach.springrest.postgresql.model.Status;
-import com.javasampleapproach.springrest.postgresql.model.User;
 import com.javasampleapproach.springrest.postgresql.repo.ManufacturerRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -93,44 +89,11 @@ public class CarController {
 		return capacity;
 	}
 
-	// search cars
-	@RequestMapping(value = "/car/search", method = RequestMethod.GET)
-	public List<Car> findWithParam(@RequestParam("model") String model, @RequestParam("body") String body,
-			@RequestParam("color") String color, @RequestParam("status") Status status,
-			@RequestParam("capacity") String capacity, @RequestParam("name") String name, @RequestParam("pricefrom") String pricefrom
-			, @RequestParam("priceto") String priceto) {
-		System.out.println("Search cars...");
-		List<Car> cars = new ArrayList<>();
-		if (capacity.equals("")) {
-			if (status.equals(Status.empty)) {
-				carrepository.findWithParam(body, model, color, name,Double.parseDouble(pricefrom),Double.parseDouble(priceto)).forEach(cars::add);
-			} else {
-				carrepository.findWithParam(body, model, color, status, name,Double.parseDouble(pricefrom),Double.parseDouble(priceto)).forEach(cars::add);
-			}
-		} else {
-			if (status.equals(Status.empty)) {
-				carrepository.findWithParam(body, model, color, Double.parseDouble(capacity), name,Double.parseDouble(pricefrom),Double.parseDouble(priceto)).forEach(cars::add);
-			} else {
-				carrepository.findWithParam(body, model, color, status, Double.parseDouble(capacity), name,Double.parseDouble(pricefrom),Double.parseDouble(priceto))
-						.forEach(cars::add);
-			}
-		}
-		return cars;
-	}
-
-	// downloading all cars models with given manufacturer
+	// downloading all cars models with given manufacturer id
 	@GetMapping(value = "car/{id}")
 	public List<String> findCarsModelsByManufacturer(@PathVariable("id") long id) {
 		System.out.println("Getting models with manufacturer id = " + id + "...");
 		List<String> cars = carrepository.findCarsModelsByManufacturer(id);
-		return cars;
-	}
-
-	// downloading all cars with given capacity
-	@GetMapping(value = "car/capacity/{capacity}")
-	public List<Car> findByCapacity(@PathVariable double capacity) {
-
-		List<Car> cars = carrepository.findByCapacity(capacity);
 		return cars;
 	}
 
@@ -140,7 +103,35 @@ public class CarController {
 		Optional<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
 		return carmanufacturer;
 	}
-	
+
+	// search cars
+	@RequestMapping(value = "/car/search", method = RequestMethod.GET)
+	public List<Car> findWithParam(@RequestParam("model") String model, @RequestParam("body") String body,
+			@RequestParam("color") String color, @RequestParam("status") Status status,
+			@RequestParam("capacity") String capacity, @RequestParam("name") String name,
+			@RequestParam("pricefrom") String pricefrom, @RequestParam("priceto") String priceto) {
+		System.out.println("Search cars...");
+		List<Car> cars = new ArrayList<>();
+		if (capacity.equals("")) {
+			if (status.equals(Status.empty)) {
+				carrepository.findWithParam(body, model, color, name, Double.parseDouble(pricefrom),
+						Double.parseDouble(priceto)).forEach(cars::add);
+			} else {
+				carrepository.findWithParam(body, model, color, status, name, Double.parseDouble(pricefrom),
+						Double.parseDouble(priceto)).forEach(cars::add);
+			}
+		} else {
+			if (status.equals(Status.empty)) {
+				carrepository.findWithParam(body, model, color, Double.parseDouble(capacity), name,
+						Double.parseDouble(pricefrom), Double.parseDouble(priceto)).forEach(cars::add);
+			} else {
+				carrepository.findWithParam(body, model, color, status, Double.parseDouble(capacity), name,
+						Double.parseDouble(pricefrom), Double.parseDouble(priceto)).forEach(cars::add);
+			}
+		}
+		return cars;
+	}
+
 	// delete car with given id
 	@DeleteMapping("/car/{id}")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
@@ -171,11 +162,10 @@ public class CarController {
 	}
 
 	// update to buy car with given id
-	@PutMapping("/car/buy/{id}")
-	public ResponseEntity<Car> buyCar(@PathVariable("id") long id, @RequestBody Car car) {
-		System.out.println("Buy Car with ID = " + id + "...");
-
-		Optional<Car> carData = carrepository.findById(id);
+	@PutMapping("/car/buy")
+	public ResponseEntity<Car> buyCar(@RequestBody Car car) {
+		System.out.println("Buy Car with ID = " + car.getId() + "by" +  car.getOfferer());
+		Optional<Car> carData = carrepository.findById(car.getId());
 		if (carData.isPresent()) {
 			System.out.println("Buying");
 			car.setStatus(Status.offer_to_buy);
@@ -198,7 +188,7 @@ public class CarController {
 			return new ResponseEntity<>("Error while creating car", HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	// create new manufacturer
 	@PostMapping(value = "car/manufacturer/create")
 	public ResponseEntity<String> postManufacturer(@RequestBody Manufacturer manufacturer) {
@@ -208,7 +198,8 @@ public class CarController {
 			return new ResponseEntity<>("Manufacturer is already created!", HttpStatus.OK);
 		} else {
 			System.out.println("Posting Manufacturers...");
-			Manufacturer _manufacturer = manufacturerrepository.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
+			Manufacturer _manufacturer = manufacturerrepository
+					.save(new Manufacturer(manufacturer.getName(), manufacturer.getCountry()));
 			Optional<Manufacturer> manDat = manufacturerrepository.findById(_manufacturer.getId());
 			if (manDat.isPresent()) {
 				return new ResponseEntity<>("Manufacturer created", HttpStatus.OK);
@@ -217,6 +208,5 @@ public class CarController {
 			}
 		}
 	}
-
 
 }

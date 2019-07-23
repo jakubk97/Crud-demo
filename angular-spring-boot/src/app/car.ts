@@ -11,6 +11,7 @@ export class Car {
     mileage: number;
     year: number;
     status: string;
+    offerer: string;
 }
 
 export enum Status{
