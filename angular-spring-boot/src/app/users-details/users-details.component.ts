@@ -28,8 +28,8 @@ export class UsersDetailsComponent implements OnInit {
   filter: string = '';
   info: any;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
 
   constructor(private userService: UserService, private dialog: MatDialog,private token: TokenStorageService) { }

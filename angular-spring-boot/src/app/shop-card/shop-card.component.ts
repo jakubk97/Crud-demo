@@ -37,6 +37,9 @@ export class ShopCardComponent implements OnInit {
     if (this.dataSource.data.length > 0) {
       this.flag = false;
     }
+    else{
+      this.flag = true;
+    }
   }
 
   public DeleteFromCard(id: number) {
@@ -48,10 +51,12 @@ export class ShopCardComponent implements OnInit {
     for (var i = 0; i < this.dataSource.data.length; i++) {
       this.dataSource.data[i].offerer = this.card.getUser();
       console.log(this.dataSource.data[i]);
-      this.carService.buyCar(this.dataSource.data[i]).subscribe(null, null);
+      this.carService.buyCar(this.dataSource.data[i]).subscribe(
+        ()=>{ 
+          this.card.shopcard = [];
+          this.ngOnInit();}, null);
     }
-    this.card.shopcard = [];
-    this.ngOnInit();
+   
   }
 
 }

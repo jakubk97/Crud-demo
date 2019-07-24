@@ -36,8 +36,8 @@ export class CarsDetailsComponent implements OnInit {
   modelblock = true;
   info: any;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
 
   constructor(private carService: CarService, private card: ShopcardService, private dialog: MatDialog,
@@ -84,19 +84,6 @@ export class CarsDetailsComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    this.clearFilters();
-  }
-
-  //filer on control table
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-  clearFilters() {
-    this.filter = '';
   }
 
   onChange() {
@@ -154,8 +141,7 @@ export class CarsDetailsComponent implements OnInit {
     this.carService.search(this.car, pricefrom, priceto).subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      console.log(ref)
+      this.dataSource.sort = this.sort; 
     }, error => console.log(error));
   }
 
@@ -175,7 +161,7 @@ export class CarsDetailsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(CarsDetailsDialogEditComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(() => this.ngOnInit(), data => console.log("Dialog output:", null)
+    dialogRef.afterClosed().subscribe(() => this.ngOnInit(), data => console.log("Dialog output:", data)
     );
   }
 

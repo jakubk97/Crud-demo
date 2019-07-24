@@ -2,3 +2,15 @@
     display: inline-flex;
     vertical-align: middle;
 }
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.panel {
+    width: 100%;
+}

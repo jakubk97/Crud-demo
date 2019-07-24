@@ -161,12 +161,12 @@
             </ng-container>
 
             <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Price (zł) </th>
                 <td mat-cell *matCellDef="let row"> {{row.price}} </td>
             </ng-container>
 
             <ng-container matColumnDef="mileage">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mileage </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mileage (km) </th>
                 <td mat-cell *matCellDef="let row"> {{row.mileage}} </td>
             </ng-container>
 
@@ -181,7 +181,13 @@
                 </th>
                 <td mat-cell *matCellDef="let row">
                     <div *ngIf="info.authorities == 'admin'">
-                        Offerer - {{row.offerer}}
+                        <div *ngIf="row.offerer">
+                            Offerrer - {{row.offerer}}
+                        </div>
+                    </div>
+                    <div *ngIf="info.authorities == 'admin'">
+                        <div *ngIf="!row.offerer">
+                        </div>
                     </div>
                 </td>
             </ng-container>

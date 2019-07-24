@@ -10,10 +10,6 @@ export class Car {
     price: number;
     mileage: number;
     year: number;
-    status: string;
     offerer: string;
-}
-
-export enum Status{
-
+    status: string;
 }
