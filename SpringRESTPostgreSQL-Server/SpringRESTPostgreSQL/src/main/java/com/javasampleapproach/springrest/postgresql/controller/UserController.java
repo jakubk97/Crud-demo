@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,30 +57,32 @@ public class UserController {
 
 	// update user with given id
 	@PutMapping("/users/update/{id}")
-	public ResponseEntity<User> updateCustomer(@PathVariable("id") long id, @RequestBody User user) {
+	public ResponseEntity<String> updateCustomer(@PathVariable("id") long id, @RequestBody User user) {
 		System.out.println("Update Customer with ID = " + id + "...");
 
 		Optional<User> userData = userrepository.findById(id);
 		if (userData.isPresent()) {
 			System.out.println("Updating");
-			return new ResponseEntity<>(userrepository.save(user), HttpStatus.OK);
+			userrepository.save(user);
+			return new ResponseEntity<>("User updated", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Update failture",HttpStatus.NOT_FOUND);
 		}
 	}
 	
-	// update user with given id
+	// update user pass with given id
 	@PutMapping("/users/updatepass/{id}")
-	public ResponseEntity<User> updateCustomerPass(@PathVariable("id") long id, @RequestBody User user) {
+	public ResponseEntity<String> updateCustomerPass(@PathVariable("id") long id, @RequestBody User user) {
 		System.out.println("Update Customer Pass with ID = " + id + "...");
 
 		Optional<User> userData = userrepository.findById(id);
 		if (userData.isPresent()) {
 			System.out.println("Updating");
 			user.setPassword(encoder.encode(user.getPassword()));
-			return new ResponseEntity<>(userrepository.save(user), HttpStatus.OK);
+			userrepository.save(user);
+			return new ResponseEntity<>("User pass updated", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Update failture",HttpStatus.NOT_FOUND);
 		}
 	}
 

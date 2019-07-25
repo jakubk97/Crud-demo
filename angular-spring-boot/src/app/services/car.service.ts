@@ -18,19 +18,19 @@ export class CarService {
   }
 
   createCar(car: Car): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/create`, car, { responseType: 'text' });
+    return this.http.post(`${this.baseUrl}/admin/create`, car, { responseType: 'text' });
   }
 
   deleteCar(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/admin/${id}`, { responseType: 'text' });
   }
 
   updateCar(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/update/${id}`, value);
+    return this.http.put(`${this.baseUrl}/admin/update/${id}`, value, { responseType: 'text' });
   }
 
   buyCar(value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/buy`, value);
+    return this.http.put(`${this.baseUrl}/buy`, value, { responseType: 'text' });
   }
 
   search(car: Car, pricefrom: string, priceto: string): Observable<any> {
@@ -66,6 +66,6 @@ export class CarService {
   }
 
   createManufacturer(manufacturer: Manufacturer): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/manufacturer/create`, manufacturer, { responseType: 'text' });
+    return this.http.post(`${this.baseUrl}/admin/manufacturer/create`, manufacturer, { responseType: 'text' });
   }
 }

@@ -133,7 +133,7 @@ public class CarController {
 	}
 
 	// delete car with given id
-	@DeleteMapping("/car/{id}")
+	@DeleteMapping("/car/admin/{id}")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
 		System.out.println("Delete Car with ID = " + id + "...");
 		carrepository.deleteById(id);
@@ -148,35 +148,37 @@ public class CarController {
 	}
 
 	// update car with given id
-	@PutMapping("/car/update/{id}")
-	public ResponseEntity<Car> updateCar(@PathVariable("id") long id, @RequestBody Car car) {
+	@PutMapping("/car/admin/update/{id}")
+	public ResponseEntity<String> updateCar(@PathVariable("id") long id, @RequestBody Car car) {
 		System.out.println("Update Car with ID = " + id + "...");
 
 		Optional<Car> carData = carrepository.findById(id);
 		if (carData.isPresent()) {
 			System.out.println("Updating");
-			return new ResponseEntity<>(carrepository.save(car), HttpStatus.OK);
+			carrepository.save(car);
+			return new ResponseEntity<>("Car updated", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Update failture",HttpStatus.NOT_FOUND);
 		}
 	}
 
 	// update to buy car with given id
 	@PutMapping("/car/buy")
-	public ResponseEntity<Car> buyCar(@RequestBody Car car) {
+	public ResponseEntity<String> buyCar(@RequestBody Car car) {
 		System.out.println("Buy Car with ID = " + car.getId() + "by" +  car.getOfferer());
 		Optional<Car> carData = carrepository.findById(car.getId());
 		if (carData.isPresent()) {
 			System.out.println("Buying");
 			car.setStatus(Status.offer_to_buy);
-			return new ResponseEntity<>(carrepository.save(car), HttpStatus.OK);
+			carrepository.save(car);
+			return new ResponseEntity<>("Car bought", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Car bought failture",HttpStatus.NOT_FOUND);
 		}
 	}
 
 	// create new car
-	@PostMapping(value = "/car/create")
+	@PostMapping(value = "/car/admin/create")
 	public ResponseEntity<String> postCar(@RequestBody Car car) {
 		System.out.println("Posting Car...");
 		car.setStatus(Status.for_sale);
@@ -190,7 +192,7 @@ public class CarController {
 	}
 
 	// create new manufacturer
-	@PostMapping(value = "car/manufacturer/create")
+	@PostMapping(value = "car/admin/manufacturer/create")
 	public ResponseEntity<String> postManufacturer(@RequestBody Manufacturer manufacturer) {
 		System.out.println("Searching for existing manufacturers...");
 		Optional<Manufacturer> manData = manufacturerrepository.findByName(manufacturer.getName());

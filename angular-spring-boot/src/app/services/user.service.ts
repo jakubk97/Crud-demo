@@ -22,10 +22,10 @@ export class UserService {
   }
 
   updateUser(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/update/${id}`, value);
+    return this.http.put(`${this.baseUrl}/update/${id}`, value, { responseType: 'text' });
   }
 
   updateUserPass(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/updatepass/${id}`, value);
+    return this.http.put(`${this.baseUrl}/updatepass/${id}`, value, { responseType: 'text' });
   }
 }
