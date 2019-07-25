@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,9 @@ import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
 public class UserController {
 	@Autowired
 	UserRepository userrepository;
+	
+	@Autowired
+	PasswordEncoder encoder;
 
 	// downloading all users
 	@GetMapping("/users")
@@ -58,6 +62,21 @@ public class UserController {
 		Optional<User> userData = userrepository.findById(id);
 		if (userData.isPresent()) {
 			System.out.println("Updating");
+			return new ResponseEntity<>(userrepository.save(user), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	// update user with given id
+	@PutMapping("/users/updatepass/{id}")
+	public ResponseEntity<User> updateCustomerPass(@PathVariable("id") long id, @RequestBody User user) {
+		System.out.println("Update Customer Pass with ID = " + id + "...");
+
+		Optional<User> userData = userrepository.findById(id);
+		if (userData.isPresent()) {
+			System.out.println("Updating");
+			user.setPassword(encoder.encode(user.getPassword()));
 			return new ResponseEntity<>(userrepository.save(user), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

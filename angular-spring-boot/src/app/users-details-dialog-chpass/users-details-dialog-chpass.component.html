@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Edit user</h2>
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field>
+        <input matInput [(ngModel)]="dataSource.password" placeholder="password" formControlName="password" value="">
+        <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+        <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 30 characters</mat-error>
+        <mat-error *ngIf="hasError('password', 'pattern')">Letter and number required (6 characters)</mat-error>
+    </mat-form-field>
+    <br>
+</mat-dialog-content>
+<div class="div-edit">
+    <mat-dialog-actions>
+        <button class="mat-raised-button" (click)="close()">Cancel</button>
+        <button class="mat-raised-button mat-primary" (click)="save()" [disabled]="!form.valid">Save</button>
+    </mat-dialog-actions>
+</div>

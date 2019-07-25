@@ -31,10 +31,8 @@
                         <mat-form-field>
                             <input matInput type="password" placeholder="password" formControlName="password" [(ngModel)]="user.password" id="password">
                             <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
-                            <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 30 characters
-                            </mat-error>
-                            <mat-error *ngIf="hasError('password', 'pattern')">Letter and number required (6 characters)
-                            </mat-error>
+                            <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 30 characters</mat-error>
+                            <mat-error *ngIf="hasError('password', 'pattern')">Letter and number required (6 characters)</mat-error>
                         </mat-form-field>
                         <br>
 

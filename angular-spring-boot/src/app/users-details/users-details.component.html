@@ -1,60 +1,67 @@
 <div *ngIf="info.token; else loggedOut">
-<h1>Users</h1>
-<mat-form-field style="padding: 30px">
-    <mat-icon matSuffix>search</mat-icon>
-    <input matInput [(ngModel)]="filter" #ctrl="ngModel" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-</mat-form-field>
+    <h1>Users</h1>
+    <mat-form-field style="padding: 30px">
+        <mat-icon matSuffix>search</mat-icon>
+        <input matInput [(ngModel)]="filter" #ctrl="ngModel" (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
 
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="firstname">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
-            <td mat-cell *matCellDef="let row"> {{row.firstname | titlecase}} </td>
-        </ng-container>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="firstname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Firstname </th>
+                <td mat-cell *matCellDef="let row"> {{row.firstname | titlecase}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="lastname">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
-            <td mat-cell *matCellDef="let row"> {{row.lastname | titlecase}} </td>
-        </ng-container>
+            <ng-container matColumnDef="lastname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
+                <td mat-cell *matCellDef="let row"> {{row.lastname | titlecase}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="login">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Login </th>
-            <td mat-cell *matCellDef="let row"> {{row.login}} </td>
-        </ng-container>
+            <ng-container matColumnDef="login">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Login </th>
+                <td mat-cell *matCellDef="let row"> {{row.login}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="role">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-            <td mat-cell *matCellDef="let row"> {{row.role}} </td>
-        </ng-container>
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
+                <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+            </ng-container>
 
-        <ng-container matColumnDef="active">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
-            <td mat-cell *matCellDef="let row"> {{row.active}} </td>
-        </ng-container>
+            <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Active </th>
+                <td mat-cell *matCellDef="let row"> {{row.active}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Changepassword">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button matTooltip="Change users password" (click)="openDialogChangePass(dataSource.data.indexOf(row))">
+                        <mat-icon>vpn_key</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Edit">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button matTooltip="Edit users data" (click)="openDialogEdit(dataSource.data.indexOf(row))">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="Delete">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button matTooltip="Delete user" (click)="openDialogDelete(dataSource.data.indexOf(row))">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
 
-        <ng-container matColumnDef="Edit">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="openDialogEdit(dataSource.data.indexOf(row))">
-          <mat-icon>edit</mat-icon>
-        </button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="Delete">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row">
-                <button mat-icon-button (click)="openDialogDelete(dataSource.data.indexOf(row))">
-          <mat-icon>delete</mat-icon>
-        </button>
-            </td>
-        </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
-</div>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 40, 100]"></mat-paginator>
+    </div>
 </div>
 <ng-template #loggedOut>
     <h1 style="margin: 10vh; text-align: center"> Please login</h1>

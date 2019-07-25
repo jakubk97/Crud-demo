@@ -211,7 +211,7 @@
                     <div *ngIf="info.authorities != 'admin'"> </div>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <button *ngIf="info.authorities != 'admin'" mat-icon-button (click)="redirectToBuy(dataSource.data.indexOf(row))">
+                    <button *ngIf="info.authorities != 'admin'" mat-icon-button matTooltip="Add car to yours card" (click)="redirectToBuy(dataSource.data.indexOf(row))">
                         <mat-icon>shopping_cart </mat-icon>
                     </button>
                 </td>
@@ -221,7 +221,7 @@
                     <div *ngIf="info.authorities == 'admin'"> </div>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <button *ngIf="info.authorities == 'admin'" mat-icon-button (click)="redirectToEdit(dataSource.data.indexOf(row))">
+                    <button *ngIf="info.authorities == 'admin'" mat-icon-button matTooltip="Edit cars data" (click)="redirectToEdit(dataSource.data.indexOf(row))">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </td>
@@ -231,7 +231,7 @@
                     <div *ngIf="info.authorities == 'admin'"> </div>
                 </th>
                 <td mat-cell *matCellDef="let row">
-                    <button *ngIf="info.authorities == 'admin'" mat-icon-button (click)="redirectToDelete(dataSource.data.indexOf(row))">
+                    <button *ngIf="info.authorities == 'admin'" mat-icon-button matTooltip="Delete car" (click)="redirectToDelete(dataSource.data.indexOf(row))">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

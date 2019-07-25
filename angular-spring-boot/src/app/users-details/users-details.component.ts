@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from "@angular/material";
 import { UsersDetailsDialogEditComponent } from '../users-details-dialog-edit/users-details-dialog-edit.component';
 import { UsersDetailsDialogDeleteComponent } from '../users-details-dialog-delete/users-details-dialog-delete.component';
+import { UsersDetailsDialogChpassComponent } from '../users-details-dialog-chpass/users-details-dialog-chpass.component';
 import { TokenStorageService } from '../auth/token-storage.service';
 
 
@@ -22,7 +23,7 @@ export interface DialogData {
 })
 export class UsersDetailsComponent implements OnInit {
 
-  displayedColumns: string[] = ['firstname', 'lastname', 'login', 'role', 'active', 'Edit', 'Delete'];
+  displayedColumns: string[] = ['firstname', 'lastname', 'login', 'role', 'active','Changepassword', 'Edit', 'Delete'];
   dataSource: MatTableDataSource<User>;
   ans: string;
   filter: string = '';
@@ -61,6 +62,20 @@ export class UsersDetailsComponent implements OnInit {
     this.filter = '';
   }
 
+  openDialogChangePass(id: number) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      data: this.dataSource.data[id]
+    };
+
+    const dialogRef = this.dialog.open(UsersDetailsDialogChpassComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(() =>  setTimeout(() => { this.ngOnInit(); }, 0), data => console.log("Dialog output:", null));
+  }
 
   openDialogEdit(id: number) {
     const dialogConfig = new MatDialogConfig();
