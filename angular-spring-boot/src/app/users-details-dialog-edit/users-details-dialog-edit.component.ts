@@ -14,6 +14,9 @@ export class UsersDetailsDialogEditComponent implements OnInit {
 
   form: FormGroup;
   dataSource: User;
+  selectedrole: string;
+  selectedactive: string;
+  
 
   constructor(private userService: UserService,
     public snackBar: MatSnackBar,

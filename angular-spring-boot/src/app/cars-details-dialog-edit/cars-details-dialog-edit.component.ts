@@ -16,6 +16,7 @@ export class CarsDetailsDialogEditComponent implements OnInit {
   form: FormGroup;
   dataSource: Car;
   manufacturers: Manufacturer[];
+  status: string;
 
   constructor(private carService: CarService,
     private fb: FormBuilder, public snackBar: MatSnackBar,

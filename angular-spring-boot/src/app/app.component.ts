@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,HostListener } from '@angular/core';
 import { TokenStorageService } from './auth/token-storage.service';
 
 @Component({
@@ -7,10 +7,11 @@ import { TokenStorageService } from './auth/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   title = 'Cars shop';
-  private roles: string[];
-  private authority: string;
-  private token: string;
+  roles: string[];
+  authority: string;
+  token: string;
   
 
   constructor(private tokenStorage: TokenStorageService) { }
@@ -37,3 +38,5 @@ export class AppComponent {
     window.location.reload();
   }
 }
+
+

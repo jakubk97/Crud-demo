@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from "@angular/material";
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { User } from '../user';
 import { CarService } from '../services/car.service';
 import { SnackbarComponent } from '../snackbar/snackbar.component';
+import { Car } from '../car';
 
 @Component({
   selector: 'app-cars-details-dialog-delete',
@@ -13,7 +13,7 @@ import { SnackbarComponent } from '../snackbar/snackbar.component';
 export class CarsDetailsDialogDeleteComponent implements OnInit {
 
   form: FormGroup;
-  dataSource: User;
+  dataSource: Car;
 
   constructor(private carService: CarService,
     private fb: FormBuilder, public snackBar: MatSnackBar,
