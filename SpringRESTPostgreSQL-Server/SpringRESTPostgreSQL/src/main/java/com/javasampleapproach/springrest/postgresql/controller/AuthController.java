@@ -74,7 +74,7 @@ public class AuthController {
 		// Creating user's account
 		User user = new User(signUpRequest.getFirstname(), signUpRequest.getLastname(),
 				encoder.encode(signUpRequest.getPassword()), signUpRequest.getLogin());
-		user.setRole(Role.user);
+		user.setRole(Role.ROLE_user);
 		user.setActive(true);
 		userRepository.save(user);
 		return new ResponseEntity<>(new ResponseMessage("User registered successfully!"), HttpStatus.OK);

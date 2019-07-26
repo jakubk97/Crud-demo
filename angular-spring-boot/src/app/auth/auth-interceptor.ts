@@ -6,7 +6,7 @@ import { TokenStorageService } from './token-storage.service';
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor { //needed to create header on request (without role is useless)
 
     constructor(private token: TokenStorageService) { }
 
@@ -20,6 +20,3 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 }
 
-export const httpInterceptorProviders = [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-];

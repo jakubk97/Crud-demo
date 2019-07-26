@@ -29,10 +29,11 @@ public class UserController {
 	UserRepository userrepository;
 	
 	@Autowired
-	PasswordEncoder encoder;
+	PasswordEncoder encoder;   //@PreAuthorize("hasRole('user') or hasRole('admin')")
 
 	// downloading all users
 	@GetMapping("/users")
+	@PreAuthorize("hasRole('admin')")
 	public List<User> getAllUsers() {
 		System.out.println("Get all Users...");
 		List<User> users = new ArrayList<>();
@@ -42,6 +43,7 @@ public class UserController {
 
 	// delete user with given id
 	@DeleteMapping("/users/{id}")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> deleteUser(@PathVariable("id") long id) {
 		System.out.println("Delete User with ID = " + id + "...");
 		userrepository.deleteById(id);
@@ -57,6 +59,7 @@ public class UserController {
 
 	// update user with given id
 	@PutMapping("/users/update/{id}")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> updateCustomer(@PathVariable("id") long id, @RequestBody User user) {
 		System.out.println("Update Customer with ID = " + id + "...");
 
@@ -72,6 +75,7 @@ public class UserController {
 	
 	// update user pass with given id
 	@PutMapping("/users/updatepass/{id}")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> updateCustomerPass(@PathVariable("id") long id, @RequestBody User user) {
 		System.out.println("Update Customer Pass with ID = " + id + "...");
 
@@ -88,6 +92,7 @@ public class UserController {
 
 	// search user by login
 	@GetMapping(value = "users/{login}")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> searchUser(@PathVariable("login") String login) {
 		System.out.println("Searching for user with login =" + login + "...");
 		Optional<User> userData = userrepository.findBylogin(login);
@@ -102,7 +107,7 @@ public class UserController {
 	@PostMapping(value = "users/create")
 	public ResponseEntity<String> postUser(@RequestBody User user) {
 		System.out.println("Creating user with login =" + user.getLogin() + "...");
-		user.setRole(Role.user);
+		user.setRole(Role.ROLE_user);
 		userrepository.save(user);
 		Optional<User> userData = userrepository.findBylogin(user.getLogin());
 		if (userData.isPresent()) {

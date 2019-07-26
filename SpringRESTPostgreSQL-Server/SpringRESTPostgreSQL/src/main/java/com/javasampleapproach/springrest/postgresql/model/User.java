@@ -50,7 +50,7 @@ public class User {
 		this.lastname = lastname;
 		this.password = password;
 		this.login = login;
-		this.role = role.user;
+		this.role = role.ROLE_user;
 		this.active = true;
 	}
 

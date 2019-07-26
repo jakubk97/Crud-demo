@@ -20,7 +20,7 @@ export class AppComponent {
     if (this.tokenStorage.getToken()) {
       this.roles = this.tokenStorage.getAuthorities();
       this.roles.every(role => {
-        if (role === 'admin') {
+        if (role === 'ROLE_admin') {
           this.authority = 'admin';
           this.token = this.tokenStorage.getToken();
           return false;

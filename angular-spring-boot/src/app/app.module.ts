@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { CarsCreateComponent } from './cars-create/cars-create.component';
 import { CarsDetailsComponent } from './cars-details/cars-details.component';
@@ -27,6 +27,7 @@ import { CarsDetailsDialogDeleteComponent } from './cars-details-dialog-delete/c
 import { ShopCardComponent } from './shop-card/shop-card.component';
 import { SnackbarComponent } from './snackbar/snackbar.component';
 import { MAT_SNACK_BAR_DATA } from '@angular/material';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 
 
@@ -75,7 +76,7 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material';
     MatTooltipModule
   ],
   entryComponents: [UsersDetailsDialogChpassComponent,UsersDetailsDialogDeleteComponent, UsersDetailsDialogEditComponent, CarsDetailsDialogDeleteComponent, CarsDetailsDialogEditComponent, SnackbarComponent],
-  providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+  providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: {} },{provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi: true}],
   bootstrap: [AppComponent],
 
 })

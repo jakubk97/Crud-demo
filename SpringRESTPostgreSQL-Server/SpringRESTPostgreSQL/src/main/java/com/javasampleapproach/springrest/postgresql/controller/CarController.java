@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class CarController {
 
 	// downloading all cars
 	@GetMapping("/car")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<Car> getAllCars() {
 		System.out.println("Get all Cars...");
 
@@ -134,6 +136,7 @@ public class CarController {
 
 	// delete car with given id
 	@DeleteMapping("/car/admin/{id}")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
 		System.out.println("Delete Car with ID = " + id + "...");
 		carrepository.deleteById(id);
@@ -149,6 +152,7 @@ public class CarController {
 
 	// update car with given id
 	@PutMapping("/car/admin/update/{id}")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> updateCar(@PathVariable("id") long id, @RequestBody Car car) {
 		System.out.println("Update Car with ID = " + id + "...");
 
@@ -164,6 +168,7 @@ public class CarController {
 
 	// update to buy car with given id
 	@PutMapping("/car/buy")
+	@PreAuthorize("hasRole('user')")
 	public ResponseEntity<String> buyCar(@RequestBody Car car) {
 		System.out.println("Buy Car with ID = " + car.getId() + "by" +  car.getOfferer());
 		Optional<Car> carData = carrepository.findById(car.getId());
@@ -179,6 +184,7 @@ public class CarController {
 
 	// create new car
 	@PostMapping(value = "/car/admin/create")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> postCar(@RequestBody Car car) {
 		System.out.println("Posting Car...");
 		car.setStatus(Status.for_sale);
@@ -193,6 +199,7 @@ public class CarController {
 
 	// create new manufacturer
 	@PostMapping(value = "car/admin/manufacturer/create")
+	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> postManufacturer(@RequestBody Manufacturer manufacturer) {
 		System.out.println("Searching for existing manufacturers...");
 		Optional<Manufacturer> manData = manufacturerrepository.findByName(manufacturer.getName());
