@@ -48,6 +48,7 @@ public class CarController {
 
 	// downloading all manufacturers
 	@GetMapping("/car/manufacturers")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<Manufacturer> getAllManufacturers() {
 		System.out.println("Get getAllManufacturers...");
 		List<Manufacturer> carmanufacturer = new ArrayList<>();
@@ -57,6 +58,7 @@ public class CarController {
 
 	// downloading all cars models
 	@GetMapping("/car/models")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<String> findCarsModel() {
 		System.out.println("Get all cars models...");
 		List<String> model = new ArrayList<>();
@@ -66,6 +68,7 @@ public class CarController {
 
 	// downloading all cars body
 	@GetMapping("/car/body")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<String> findCarsBody() {
 		System.out.println("Get all cars body...");
 		List<String> body = new ArrayList<>();
@@ -75,6 +78,7 @@ public class CarController {
 
 	// downloading all cars color
 	@GetMapping("/car/color")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<String> findCarsColor() {
 		System.out.println("Get all cars color...");
 		List<String> color = new ArrayList<>();
@@ -84,6 +88,7 @@ public class CarController {
 
 	// downloading all cars capacity
 	@GetMapping("/car/capacity")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<Double> findCarsCapacity() {
 		System.out.println("Get all cars capacity...");
 		List<Double> capacity = new ArrayList<>();
@@ -93,6 +98,7 @@ public class CarController {
 
 	// downloading all cars models with given manufacturer id
 	@GetMapping(value = "car/{id}")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<String> findCarsModelsByManufacturer(@PathVariable("id") long id) {
 		System.out.println("Getting models with manufacturer id = " + id + "...");
 		List<String> cars = carrepository.findCarsModelsByManufacturer(id);
@@ -101,6 +107,7 @@ public class CarController {
 
 	// downloading all manufacturers with given id
 	@GetMapping(value = "car/manufacturer/{id_manufacturer}")
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public Optional<Manufacturer> findById(@PathVariable long id_manufacturer) {
 		Optional<Manufacturer> carmanufacturer = manufacturerrepository.findById(id_manufacturer);
 		return carmanufacturer;
@@ -108,6 +115,7 @@ public class CarController {
 
 	// search cars
 	@RequestMapping(value = "/car/search", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('user') or hasRole('admin')")
 	public List<Car> findWithParam(@RequestParam("model") String model, @RequestParam("body") String body,
 			@RequestParam("color") String color, @RequestParam("status") Status status,
 			@RequestParam("capacity") String capacity, @RequestParam("name") String name,

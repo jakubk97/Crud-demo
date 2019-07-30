@@ -1,0 +1,42 @@
+
+ 
+ 
+ Table USERS {
+  id int [pk]
+  login varchar [not null]
+  firstname varchar [not null]
+  lastname varchar [not null]
+  password varchar [not null]
+  active boolean [not null]
+  role enum [not null]
+}
+
+
+
+Table CARS {
+  id int [pk]
+  id_manufacturer int [ref: > MANUFACTURERS.id]
+  model varchar [not null]
+  capacity double [not null]
+  color varchar [not null]
+  body varchar [not null]
+  price double [not null]
+  year int [not null]
+  mileage double [not null]
+  offerer varchar [not null]
+  status enum [not null]
+}
+
+  
+  Table MANUFACTURERS {
+  id int [pk]
+  name varchar [not null]
+  country double [not null]
+  }
+  
+  
+  
+  
+  
+  
+ 
