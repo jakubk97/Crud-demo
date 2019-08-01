@@ -130,12 +130,12 @@
 
     <div class="mat-elevation">
         <table mat-table [dataSource]="dataSource" matSort class="mat-table">
-            <ng-container matColumnDef="country">
+            <ng-container matColumnDef="manufacturer.country">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
                 <td mat-cell *matCellDef="let row"> {{row.manufacturer.country}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="name">
+            <ng-container matColumnDef="manufacturer.name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer </th>
                 <td mat-cell *matCellDef="let row"> {{row.manufacturer.name}} </td>
             </ng-container>

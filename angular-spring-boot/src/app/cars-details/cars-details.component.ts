@@ -22,7 +22,7 @@ import { TokenStorageService } from '../auth/token-storage.service';
   styleUrls: ['./cars-details.component.css']
 })
 export class CarsDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['country', 'name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'offerer', 'status', 'buy', 'edit', 'delete'];
+  displayedColumns: string[] = ['manufacturer.country', 'manufacturer.name', 'model', 'color', 'body', 'capacity', 'price', 'mileage', 'year', 'offerer', 'status', 'buy', 'edit', 'delete'];
   dataSource: MatTableDataSource<Car>;
   filter: string;
   manufacturers: string;
@@ -82,6 +82,13 @@ export class CarsDetailsComponent implements OnInit {
     this.carService.getCarsList().subscribe(ref => {
       this.dataSource = new MatTableDataSource(ref); // get all cars from database
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch(property) {
+          case 'manufacturer.country': return item.manufacturer.country;
+          case 'manufacturer.name': return item.manufacturer.name;
+          default: return item[property];
+        }
+      };
       this.dataSource.sort = this.sort;
     });
   }
