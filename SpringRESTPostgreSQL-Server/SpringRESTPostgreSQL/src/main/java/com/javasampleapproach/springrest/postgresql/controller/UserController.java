@@ -25,6 +25,7 @@ import com.javasampleapproach.springrest.postgresql.repo.UserRepository;
 @RestController
 
 public class UserController {
+	//TODO: MG: raczej używaj nazw camelCase lepiej je się czyta
 	@Autowired
 	UserRepository userrepository;
 	

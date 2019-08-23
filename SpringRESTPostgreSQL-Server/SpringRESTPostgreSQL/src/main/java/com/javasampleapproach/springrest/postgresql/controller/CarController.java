@@ -29,6 +29,7 @@ import com.javasampleapproach.springrest.postgresql.repo.ManufacturerRepository;
 @RestController
 
 public class CarController {
+	//TODO: MG: raczej używaj nazw camelCase lepiej je się czyta
 	@Autowired
 	CarRepository carrepository;
 
@@ -146,6 +147,7 @@ public class CarController {
 	@DeleteMapping("/car/admin/{id}")
 	@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<String> deleteCar(@PathVariable("id") long id) {
+		//TODO: MG: tak szczegółowe logowanie to raczej logować do loggera w trbie debug (np log4J)
 		System.out.println("Delete Car with ID = " + id + "...");
 		carrepository.deleteById(id);
 		Optional<Car> carData = carrepository.findById(id);
